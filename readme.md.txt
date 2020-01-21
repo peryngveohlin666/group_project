@@ -1,0 +1,1 @@
+Please put the uml files in the uml folder. We have to decide the programming options and we will section them accordingly in the future. Thanks. Also make sure that you don't push any unnecessary files as I didn't write a gitignore yet. Keep the configuration files and metadata to yourself!
