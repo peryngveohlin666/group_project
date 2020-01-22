@@ -1,0 +1,4 @@
+ATS Should keep records of the tickets sold by a travel agent company to customers
+Ats should report financial department and allow travel agent company to discount
+Ticket types: flight coupons (up to 4) auditor's coupons (blanks)
+Blank types: 444 (international destinations' automatic ticketing up to 4 coupons), 440 
