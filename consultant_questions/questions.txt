@@ -6,3 +6,4 @@
 6. There was a question about database technologies we are able to use in the lecture regarding mongodb is it clear if we are allowed to use mongodb?
 7. Should the layout/ structure of our deliverables follow the assessment criteria?
 8. Should the layout of our individual report be consistent across all team members?
+9. With the Use Case Specifications 10 are recommended, does this include the included and extended use cases to a base case? 
