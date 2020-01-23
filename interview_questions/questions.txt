@@ -2,3 +2,6 @@ Questions we might have for the person who we are going to interview so that the
 
 1. Could you please explain the coupon and blank system in more detail if possible?
 2. Could you please explain the rate system?
+3. What commission rate would you charge for the sale of a ticket?
+4. What do you mean by "back-up/restore facility for database is required"?
+
