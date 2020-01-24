@@ -2,4 +2,5 @@ Please put the uml files in the uml folder. We are using django 2.2.9 with pytho
 
 
 Learn python (short 4 hour course that is more than enough to get into python): https://www.youtube.com/watch?v=rfscVS0vtbw
+
 Learn Django (you don't need to watch this all it is also 4 hours https://www.udemy.com/course/try-django-2-2-python-web-development/)
