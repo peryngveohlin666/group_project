@@ -6,3 +6,5 @@ Learn python (short 4 hour course that is more than enough to get into python): 
 Learn Django (you don't need to watch this all it is also 4 hours) https://www.udemy.com/course/try-django-2-2-python-web-development/
 
 Great documentation if you don't like videos: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django
+
+Google Drive link of shared folder for stuff - https://drive.google.com/open?id=1GwFb69SsU8ga00OeAX9FR1uL0O2Npgg2
