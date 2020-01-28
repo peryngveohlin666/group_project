@@ -1,0 +1,6 @@
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+{% else %}
+  <p>Invalid Password</p>
+  <a href="/">login</a>
+{% endif %}

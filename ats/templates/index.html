@@ -6,9 +6,11 @@
     <h1>Air Ticket Sales</h1>
 {% endblock %}
 {% block content %}
-    <form class="box" action method = "post">
-      <input type="text" name="" placeholder="Staff Code" value = {{ staff_code }}>
-      <input type="password" name="" placeholder="Password" value = {{ password }}>
+    <form class="box" method = "post">
+        {% csrf_token %}
+      <input type="text" name="" placeholder="Staff Code" value = "{{ username }}">
+      <input type="password" name="" placeholder="Password" value = "{{ password }}">
       <input type="submit" name="" value="Login">
+
     </form>
 {% endblock %}
