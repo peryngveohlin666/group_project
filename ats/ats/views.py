@@ -1,19 +1,25 @@
 from django.contrib import auth
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+from django.template import RequestContext
 
 
-# don't forget to add the templates folder in setting.py
 def index(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = auth.authenticate(username=username, password=password)
-        return render(request, "homepage.html")
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return render(request, "homepage.html")
+        else:
+            return render(request, "homepage.html")
+
     else:
-        return render(request, "index.html")
+        form = AuthenticationForm()
+        return render(request, "index.html", {'form': form})
 
 
 # @user_passes_test(test here)

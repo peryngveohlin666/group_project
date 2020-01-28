@@ -1,4 +1,5 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 
-main_sysadmin = User.objects.create(username='main_sysadmin', password='123456')
 
+sysadmin = User.objects.create(username='sysadmin', password='123456')
+sysadmin.save()
