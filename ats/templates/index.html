@@ -1,7 +1,14 @@
 {%  extends "base.html" %}
+<head>
+    <title>Air Ticket Sales - Login</title>
+</head>
 {% block title %}
-    <h1>title here</h1>
+    <h1>Air Ticket Sales</h1>
 {% endblock %}
 {% block content %}
- <p>implement a login system here</p>
+    <form class="box" action method = "post">
+      <input type="text" name="" placeholder="Staff Code" value = {{ staff_code }}>
+      <input type="password" name="" placeholder="Password" value = {{ password }}>
+      <input type="submit" name="" value="Login">
+    </form>
 {% endblock %}
