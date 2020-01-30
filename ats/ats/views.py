@@ -16,10 +16,12 @@ def index(request):
             return render(request, "homepage.html")
         else:
             return render(request, "homepage.html")
-
     else:
-        form = AuthenticationForm()
-        return render(request, "index.html", {'form': form})
+        if request.user.is_authenticated:
+            return render(request, "homepage.html")
+        else:
+            form = AuthenticationForm()
+            return render(request, "index.html", {'form': form})
 
 
 # @user_passes_test(test here)
