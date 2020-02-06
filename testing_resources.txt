@@ -1,0 +1,7 @@
+http://sqlmap.org/
+
+https://observatory.mozilla.org/
+
+https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
+
+https://docs.djangoproject.com/en/2.1/topics/security/
