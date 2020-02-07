@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+#a table of types
 type_choices = (
         ('444', 'international up to four coupons'),
         ('440', 'manual - international'),
@@ -11,8 +12,10 @@ type_choices = (
         ('452', 'MCO'),
     )
 
+#a class to generate an object model of blank with different values stored inside
 class blank(models.Model):
-    number = models.IntegerField()
+    #an integer field that automatically increments by itself as the object are created
+    number = models.AutoField(primary_key=True)
     type = models.CharField(max_length=50, choices=type_choices, default='green')
     is_sold = models.BooleanField(default=False)
     is_refunded = models.BooleanField(default=False)
