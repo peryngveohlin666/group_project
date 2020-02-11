@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -19,6 +20,7 @@ class blank(models.Model):
     type = models.CharField(max_length=50, choices=type_choices, default='green')
     is_sold = models.BooleanField(default=False)
     is_refunded = models.BooleanField(default=False)
+    date = models.DateField(auto_now_add=True)
     advisor = models.ForeignKey(
         User,
         models.SET_NULL,
