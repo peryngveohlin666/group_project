@@ -10,8 +10,12 @@ def create_blanks(request):
     if request.method == 'POST':
         #initializes the data from the form to the value form
         form = blank_form(data=request.POST)
+        batch = request.POST.get("batch", "")
         if form.is_valid():
-            new_blank = form.save();
+            for b in range(int(batch)):
+                form.save()
+                form.instance = None
+                form = blank_form(data=request.POST)
             return render(request, "create_blanks.html")
         else:
             return render(request, "create_blanks.html")

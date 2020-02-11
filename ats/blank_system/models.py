@@ -21,6 +21,7 @@ class blank(models.Model):
     is_sold = models.BooleanField(default=False)
     is_refunded = models.BooleanField(default=False)
     date = models.DateField(auto_now_add=True)
+    date.editable = True
     advisor = models.ForeignKey(
         User,
         models.SET_NULL,

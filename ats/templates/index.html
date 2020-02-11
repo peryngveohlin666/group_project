@@ -5,6 +5,9 @@
 {% block title %}
 {% endblock %}
 {% block content %}
+    {% if errors %}
+        {{ errors }}
+    {% endif %}
     <form class="box" method = "post">
         {% csrf_token %}
         <h1>Air Ticket Sales</h1>
