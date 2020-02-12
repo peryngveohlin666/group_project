@@ -2,11 +2,14 @@ from django.contrib import admin
 from django.urls import path
 from .views import index, homepage
 from blank_system.views import create_blanks
+from blank_system.views import blanks
 #url patterns for the pages we use in views.py so that we won't have to write the whole directory tree
+
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', index, name='index'),
     path('homepage', homepage, name='homepage'),
-    path('create_blanks', create_blanks, name='create_blanks')
+    path('create_blanks', create_blanks, name='create_blanks'),
+    path('blanks', blanks, name='blanks')
 ]

@@ -1,0 +1,20 @@
+{%  extends "base.html" %}
+
+{% block content %}
+<br />
+{% for blank in blanks %}
+number:
+    {{ blank.type }}
+    {{ blank.number }}
+    sold?
+    {{ blank.is_sold }}
+    refunded?
+    {{ blank.is_refunded }}
+    date created:
+    {{ blank.date }}
+    assigned advisor:
+    {{ blank.advisor }}
+<br />
+{% endfor %}
+
+{% endblock %}
