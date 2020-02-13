@@ -1,0 +1,17 @@
+{%  extends "base.html" %}
+{% block content %}
+    {% if errors %}
+        {{ errors }}
+    {% endif %}
+    <form class="box" method = "post">
+        {% csrf_token %}
+        <h1>Air Ticket Sales</h1>
+        {{ form }}
+        assign from:
+        <input type="number" name="from_value" value="{{ from_value }}">
+        assign to:
+        <input type="number" name="to_value" value="{{ to_value }}">
+        <input type="submit" name="" value="Assign blanks">
+
+    </form>
+{% endblock %}
