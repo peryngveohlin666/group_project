@@ -29,3 +29,5 @@ Create an interline sales report
 Assign the interline sales report to report
 Create a stock turnover report
 Assign the stock turnover report to report
+
+After this we need to create 2 different types of reports using the data we entered
