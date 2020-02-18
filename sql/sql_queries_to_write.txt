@@ -4,24 +4,37 @@ After Creating tables for every single element in the erd diagram write queries 
 Create a batch of blanks
 View all the blanks
 Create a customer
+Delete a customer
+Update customer address
+Update customer email
 Assign a customer to a blank
 Create a Payment
 Assign a payment to a blank
 Create a currency
+Update a currency rate
 Assign a currency to a payment
 Create a discount
+Update the discount
 Apply the discount(assign it to a payment)
 
 --User stuff--
 Create a user
 Login as a user
+Delete the user
+Update user address
+Update user password
 Assign a group to a user
 Assign blanks to a user
+Update the assigned user for a blank
+Update the group of the user
 Create Permissions
+Delete Permissions
 Assign Permissions to a group
+Remove permissions from a group
 
 -Report Stuff--
 Create a Report
+Delete a Report
 Assign blanks to the report
 Create a domestic sales report
 Assign the domestic sales report to the report
