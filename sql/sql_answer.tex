@@ -1,0 +1,178 @@
+\documentclass[8pt]{article}
+\usepackage{spverbatim}
+\begin{document}
+\title{SQL}
+\author{Yuzu}
+\maketitle
+\section{Tables}
+\subsection{User}
+\begin{verbatim}
+CREATE TABLE User (
+  id         int(10) NOT NULL AUTO_INCREMENT, 
+  staff_code int(10) NOT NULL UNIQUE, 
+  password   int(10) NOT NULL, 
+  name       varchar(255), 
+  surname    varchar(255), 
+  address    varchar(255), 
+  agency     varchar(255) NOT NULL, 
+  Groupid    int(10) NOT NULL, 
+  PRIMARY KEY (id));
+\end{verbatim}
+\subsection{Permission}
+\begin{verbatim}
+CREATE TABLE Permission (
+  id              int(10) NOT NULL AUTO_INCREMENT, 
+  codename        varchar(10) NOT NULL UNIQUE, 
+  name            varchar(10) NOT NULL UNIQUE, 
+  content_type_id int(10) NOT NULL UNIQUE, 
+  PRIMARY KEY (id));
+\end{verbatim}
+\subsection{Blank}
+\begin{verbatim}
+CREATE TABLE Blank (
+  number                           int(10) NOT NULL AUTO_INCREMENT, 
+  type                             int(10) NOT NULL, 
+  is_sold                          bit(1) NOT NULL, 
+  is_refunded                      bit(1) NOT NULL, 
+  Customerid                       int(10) NOT NULL, 
+  `date`                           date NOT NULL, 
+  User_Blank_AssignmentUserid      int(10) NOT NULL, 
+  User_Blank_AssignmentBlanknumber int(10) NOT NULL, 
+  PRIMARY KEY (number), 
+  UNIQUE INDEX (number));
+\end{verbatim}
+\subsection{Payment}
+\begin{verbatim}
+CREATE TABLE Payment (
+  Blanknumber  int(10) NOT NULL, 
+  amount       int(10) NOT NULL, 
+  type         bit(1) NOT NULL, 
+  is_valid     bit(1) NOT NULL, 
+  is_regular   bit(1) NOT NULL, 
+  Currencytype int(10) NOT NULL, 
+  Discounttype bit(1), 
+  PRIMARY KEY (Blanknumber));
+\end{verbatim}
+\subsection{Report}
+\begin{verbatim}
+CREATE TABLE Report (
+  id                 int(10) NOT NULL AUTO_INCREMENT, 
+  period_from        date NOT NULL, 
+  period_to          date NOT NULL, 
+  created_on         date NOT NULL, 
+  is_global          bit(1) NOT NULL, 
+  number             int(10) NOT NULL, 
+  sales_office_place varchar(255) NOT NULL, 
+  PRIMARY KEY (id));
+\end{verbatim}
+\subsection{Group}
+\begin{verbatim}
+CREATE TABLE `Group` (
+  id   int(10) NOT NULL AUTO_INCREMENT, 
+  name varchar(255) NOT NULL UNIQUE, 
+  PRIMARY KEY (id));
+\end{verbatim}
+\subsection{Report Blank Inclusion}
+\begin{verbatim}
+CREATE TABLE Report_Blank_Inclusion (
+  Reportid    int(10) NOT NULL, 
+  Blanknumber int(10) NOT NULL, 
+  PRIMARY KEY (Reportid, 
+  Blanknumber));
+\end{verbatim}
+\subsection{Group Permissions}
+\begin{verbatim}
+CREATE TABLE Group_Permissions (
+  Groupid      int(10) NOT NULL UNIQUE, 
+  Permissionid int(10) NOT NULL, 
+  PRIMARY KEY (Groupid, 
+  Permissionid));
+\end{verbatim}
+\subsection{Ticket Stock Turnover Report}
+\begin{verbatim}
+CREATE TABLE Ticket_Stock_Turnover_Report (
+  Reportid                  int(10) NOT NULL, 
+  agent_received_blank_from int(10) NOT NULL, 
+  agent_received_blank_to   int(10) NOT NULL, 
+  agent_used_from           int(10) NOT NULL, 
+  agent_used_to             int(10) NOT NULL, 
+  sub_agent_from            int(10) NOT NULL, 
+  sub_agent_to              int(10) NOT NULL, 
+  PRIMARY KEY (Reportid));
+\end{verbatim}
+\subsection{Domestic Sales Report}
+\begin{verbatim}
+CREATE TABLE Domestic_Sales_Report (
+  Reportid int(10) NOT NULL, 
+  PRIMARY KEY (Reportid));
+\end{verbatim}
+\subsection{Interline Sales Report }
+\begin{verbatim}
+CREATE TABLE Interline_Sales_Report (
+  Reportid int(10) NOT NULL, 
+  PRIMARY KEY (Reportid));
+\end{verbatim}
+\subsection{User Blank Assignment}
+\begin{verbatim}
+CREATE TABLE User_Blank_Assignment (
+  Userid         int(10) NOT NULL, 
+  Blanknumber    int(10) NOT NULL, 
+  comission_rate int(10) NOT NULL, 
+  PRIMARY KEY (Userid, 
+  Blanknumber));
+\end{verbatim}
+\subsection{Currency}
+\begin{verbatim}
+CREATE TABLE Currency (
+  type int(10) NOT NULL AUTO_INCREMENT, 
+  rate int(10) NOT NULL, 
+  PRIMARY KEY (type));
+\end{verbatim}
+\subsection{Discount}
+\begin{verbatim}
+CREATE TABLE Discount (
+  type bit(1) NOT NULL, 
+  rate int(10), 
+  PRIMARY KEY (type));
+\end{verbatim}
+\subsection{Customer}
+\begin{verbatim}
+CREATE TABLE Customer (
+  id         int(10) NOT NULL AUTO_INCREMENT, 
+  is_regular bit(1) NOT NULL, 
+  is_valued  bit(1) NOT NULL, 
+  name       varchar(255) NOT NULL, 
+  surname    varchar(255) NOT NULL, 
+  address    varchar(500), 
+  PRIMARY KEY (id));
+\end{verbatim}
+\subsection{Report User}
+\begin{verbatim}
+CREATE TABLE Report_User (
+  Reportid          int(10) NOT NULL, 
+  Userid            int(10) NOT NULL, 
+  relationship_type int(10) NOT NULL, 
+  PRIMARY KEY (Reportid, 
+  Userid));
+\end{verbatim}
+\subsection{Foreign Keys}{}
+\begin{spverbatim}
+ALTER TABLE Payment ADD CONSTRAINT FKPayment981424 FOREIGN KEY (Blanknumber) REFERENCES Blank (number);
+ALTER TABLE Report_Blank_Inclusion ADD CONSTRAINT FKReport_Bla496473 FOREIGN KEY (Blanknumber) REFERENCES Blank (number);
+ALTER TABLE Group_Permissions ADD CONSTRAINT FKGroup_Perm423461 FOREIGN KEY (Groupid) REFERENCES `Group` (id);
+ALTER TABLE Group_Permissions ADD CONSTRAINT FKGroup_Perm527187 FOREIGN KEY (Permissionid) REFERENCES Permission (id);
+ALTER TABLE Domestic_Sales_Report ADD CONSTRAINT FKDomestic_S819725 FOREIGN KEY (Reportid) REFERENCES Report (id);
+ALTER TABLE Interline_Sales_Report ADD CONSTRAINT FKInterline_761250 FOREIGN KEY (Reportid) REFERENCES Report (id);
+ALTER TABLE Ticket_Stock_Turnover_Report ADD CONSTRAINT FKTicket_Sto281292 FOREIGN KEY (Reportid) REFERENCES Report (id);
+ALTER TABLE User_Blank_Assignment ADD CONSTRAINT FKUser_Blank506842 FOREIGN KEY (Userid) REFERENCES `User` (id);
+ALTER TABLE Payment ADD CONSTRAINT FKPayment811398 FOREIGN KEY (Currencytype) REFERENCES Currency (type);
+ALTER TABLE Payment ADD CONSTRAINT FKPayment232106 FOREIGN KEY (Discounttype) REFERENCES Discount (type);
+ALTER TABLE Report_Blank_Inclusion ADD CONSTRAINT FKReport_Bla560650 FOREIGN KEY (Reportid) REFERENCES Report (id);
+ALTER TABLE Blank ADD CONSTRAINT FKBlank371617 FOREIGN KEY (Customerid) REFERENCES Customer (id);
+ALTER TABLE Blank ADD CONSTRAINT FKBlank490598 FOREIGN KEY (User_Blank_AssignmentUserid, User_Blank_AssignmentBlanknumber) REFERENCES User_Blank_Assignment (Userid, Blanknumber);
+ALTER TABLE `User` ADD CONSTRAINT FKUser810444 FOREIGN KEY (Groupid) REFERENCES `Group` (id);
+ALTER TABLE Report_User ADD CONSTRAINT FKReport_Use649540 FOREIGN KEY (Reportid) REFERENCES Report (id);
+ALTER TABLE Report_User ADD CONSTRAINT FKReport_Use116167 FOREIGN KEY (Userid) REFERENCES `User` (id);
+\end{spverbatim}
+\section{Queries}
+\end{document}
