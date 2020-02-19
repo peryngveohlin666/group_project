@@ -67,10 +67,38 @@ CREATE TABLE Ticket_Stock_Turnover_Report (
   sub_agent_to              int(10) NOT NULL, 
   PRIMARY KEY (Reportid));
 CREATE TABLE Domestic_Sales_Report (
-  Reportid int(10) NOT NULL, 
+  Reportid                      int(10) NOT NULL, 
+  fare_base_ngl                 int(10) NOT NULL, 
+  fare_base_usd                 int(10) NOT NULL, 
+  cash_bgl                      int(10) NOT NULL, 
+  cheque_bgl                    int(10) NOT NULL, 
+  invoice_bgl                   int(10) NOT NULL, 
+  credit_usd                    int(10) NOT NULL, 
+  taxes                         int(10) NOT NULL, 
+  total_amount_paid             int(10) NOT NULL, 
+  commissions_assessable_amount int(10) NOT NULL, 
+  commission_rate               int(10) NOT NULL, 
+  notes                         varchar(255), 
+  total_net_amount_airvia       int(10) NOT NULL, 
+  total_commission_amount       int(10) NOT NULL, 
+  net_amounts_for_agent_debit   int(10) NOT NULL, 
   PRIMARY KEY (Reportid));
 CREATE TABLE Interline_Sales_Report (
-  Reportid int(10) NOT NULL, 
+  Reportid            int(10) NOT NULL, 
+  taxes_LZ            int(10) NOT NULL, 
+  taxes_OTHS          int(10) NOT NULL, 
+  commission_rate     int(10) NOT NULL, 
+  cash                int(10) NOT NULL, 
+  credit_lc           int(10) NOT NULL, 
+  credit_usd          int(10) NOT NULL, 
+  credit_bgl          int(10) NOT NULL, 
+  non_assess_amount   int(10) NOT NULL, 
+  total_net_to_airvia int(10) NOT NULL, 
+  airvia_n            int(10) NOT NULL, 
+  airvia_amount       int(10) NOT NULL, 
+  airvia_bank_acc_no  int(10) NOT NULL, 
+  airvia_doc_no       int(10) NOT NULL, 
+  airvia_date         date NOT NULL, 
   PRIMARY KEY (Reportid));
 CREATE TABLE User_Blank_Assignment (
   Userid         int(10) NOT NULL, 
@@ -100,6 +128,45 @@ CREATE TABLE Report_User (
   relationship_type int(10) NOT NULL, 
   PRIMARY KEY (Reportid, 
   Userid));
+CREATE TABLE Global_Domestic_Sales (
+  Domestic_Sales_ReportReportid int(10) NOT NULL, 
+  agent_id                      int(10) NOT NULL, 
+  ttl_ttk_reported_num          int(10) NOT NULL, 
+  PRIMARY KEY (Domestic_Sales_ReportReportid));
+CREATE TABLE Individual_Domestic_Sales_Report (
+  Domestic_Sales_ReportReportid int(10) NOT NULL, 
+  num_of_tickets                int(10) NOT NULL, 
+  original_issued_num           int(10) NOT NULL, 
+  other_details                 varchar(255), 
+  airvia_n                      int(10) NOT NULL, 
+  airvia_amount                 int(10) NOT NULL, 
+  airvia_bank_acc               int(10) NOT NULL, 
+  airvia_doc_no                 int(10) NOT NULL, 
+  airvia_date                   date NOT NULL, 
+  PRIMARY KEY (Domestic_Sales_ReportReportid));
+CREATE TABLE Individual_Interline_Sales_Report (
+  Interline_Sales_ReportReportid int(10) NOT NULL, 
+  number_of_tickets              int(10) NOT NULL, 
+  original_issue_no              int(10) NOT NULL, 
+  fa_usd                         int(10) NOT NULL, 
+  fa_usd_bgl                     int(10) NOT NULL, 
+  airline_docs_no                int(10) NOT NULL, 
+  airline_fc                     int(10) NOT NULL, 
+  airline_pror_amnt              int(10) NOT NULL, 
+  airline_cd                     int(10) NOT NULL, 
+  PRIMARY KEY (Interline_Sales_ReportReportid));
+CREATE TABLE Global_Interline_Sales_Report (
+  Interline_Sales_ReportReportid int(10) NOT NULL, 
+  advisor_no                     int(10) NOT NULL, 
+  doc_no_acpns                   int(10) NOT NULL, 
+  fare_amount                    int(10) NOT NULL, 
+  airvia_docs                    int(10) NOT NULL, 
+  airvia_fcpns                   int(10) NOT NULL, 
+  airvia_prorate_amounts         int(10) NOT NULL, 
+  other_airline_docs             int(10) NOT NULL, 
+  other_airline_fcpns            int(10) NOT NULL, 
+  other_airline_prorate_amounts  int(10) NOT NULL, 
+  PRIMARY KEY (Interline_Sales_ReportReportid));
 ALTER TABLE Payment ADD CONSTRAINT FKPayment981424 FOREIGN KEY (Blanknumber) REFERENCES Blank (number);
 ALTER TABLE Report_Blank_Inclusion ADD CONSTRAINT FKReport_Bla496473 FOREIGN KEY (Blanknumber) REFERENCES Blank (number);
 ALTER TABLE Group_Permissions ADD CONSTRAINT FKGroup_Perm423461 FOREIGN KEY (Groupid) REFERENCES `Group` (id);
@@ -116,3 +183,7 @@ ALTER TABLE Blank ADD CONSTRAINT FKBlank490598 FOREIGN KEY (User_Blank_Assignmen
 ALTER TABLE `User` ADD CONSTRAINT FKUser810444 FOREIGN KEY (Groupid) REFERENCES `Group` (id);
 ALTER TABLE Report_User ADD CONSTRAINT FKReport_Use649540 FOREIGN KEY (Reportid) REFERENCES Report (id);
 ALTER TABLE Report_User ADD CONSTRAINT FKReport_Use116167 FOREIGN KEY (Userid) REFERENCES `User` (id);
+ALTER TABLE Global_Domestic_Sales ADD CONSTRAINT FKGlobal_Dom370294 FOREIGN KEY (Domestic_Sales_ReportReportid) REFERENCES Domestic_Sales_Report (Reportid);
+ALTER TABLE Individual_Domestic_Sales_Report ADD CONSTRAINT FKIndividual345877 FOREIGN KEY (Domestic_Sales_ReportReportid) REFERENCES Domestic_Sales_Report (Reportid);
+ALTER TABLE Individual_Interline_Sales_Report ADD CONSTRAINT FKIndividual995737 FOREIGN KEY (Interline_Sales_ReportReportid) REFERENCES Interline_Sales_Report (Reportid);
+ALTER TABLE Global_Interline_Sales_Report ADD CONSTRAINT FKGlobal_Int467036 FOREIGN KEY (Interline_Sales_ReportReportid) REFERENCES Interline_Sales_Report (Reportid);
