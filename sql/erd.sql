@@ -91,7 +91,7 @@ CREATE TABLE Interline_Sales_Report (
   cash                int(10) NOT NULL, 
   credit_lc           int(10) NOT NULL, 
   credit_usd          int(10) NOT NULL, 
-  credit_bgl          int(10) NOT NULL, 
+  credit_local        int(10) NOT NULL, 
   non_assess_amount   int(10) NOT NULL, 
   total_net_to_airvia int(10) NOT NULL, 
   airvia_n            int(10) NOT NULL, 
@@ -148,8 +148,8 @@ CREATE TABLE Individual_Interline_Sales_Report (
   Interline_Sales_ReportReportid int(10) NOT NULL, 
   number_of_tickets              int(10) NOT NULL, 
   original_issue_no              int(10) NOT NULL, 
-  fa_usd                         int(10) NOT NULL, 
-  fa_usd_bgl                     int(10) NOT NULL, 
+  fa_usd                         int(10), 
+  fa_usd_local                   int(10), 
   airline_docs_no                int(10) NOT NULL, 
   airline_fc                     int(10) NOT NULL, 
   airline_pror_amnt              int(10) NOT NULL, 
@@ -167,6 +167,15 @@ CREATE TABLE Global_Interline_Sales_Report (
   other_airline_fcpns            int(10) NOT NULL, 
   other_airline_prorate_amounts  int(10) NOT NULL, 
   PRIMARY KEY (Interline_Sales_ReportReportid));
+CREATE TABLE Card_Informatin (
+  name       varchar(255) NOT NULL, 
+  surname    varchar(255) NOT NULL, 
+  no         int(10) NOT NULL AUTO_INCREMENT, 
+  cvv        int(10) NOT NULL, 
+  password   int(10) NOT NULL, 
+  card_type  varchar(255) NOT NULL, 
+  Customerid int(10) NOT NULL, 
+  PRIMARY KEY (no));
 ALTER TABLE Payment ADD CONSTRAINT FKPayment981424 FOREIGN KEY (Blanknumber) REFERENCES Blank (number);
 ALTER TABLE Report_Blank_Inclusion ADD CONSTRAINT FKReport_Bla496473 FOREIGN KEY (Blanknumber) REFERENCES Blank (number);
 ALTER TABLE Group_Permissions ADD CONSTRAINT FKGroup_Perm423461 FOREIGN KEY (Groupid) REFERENCES `Group` (id);
@@ -187,3 +196,4 @@ ALTER TABLE Global_Domestic_Sales ADD CONSTRAINT FKGlobal_Dom370294 FOREIGN KEY 
 ALTER TABLE Individual_Domestic_Sales_Report ADD CONSTRAINT FKIndividual345877 FOREIGN KEY (Domestic_Sales_ReportReportid) REFERENCES Domestic_Sales_Report (Reportid);
 ALTER TABLE Individual_Interline_Sales_Report ADD CONSTRAINT FKIndividual995737 FOREIGN KEY (Interline_Sales_ReportReportid) REFERENCES Interline_Sales_Report (Reportid);
 ALTER TABLE Global_Interline_Sales_Report ADD CONSTRAINT FKGlobal_Int467036 FOREIGN KEY (Interline_Sales_ReportReportid) REFERENCES Interline_Sales_Report (Reportid);
+ALTER TABLE Card_Informatin ADD CONSTRAINT FKCard_Infor761361 FOREIGN KEY (Customerid) REFERENCES Customer (id);
