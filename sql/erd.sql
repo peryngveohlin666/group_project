@@ -11,8 +11,8 @@ CREATE TABLE `User` (
 CREATE TABLE Permission (
   id              int(10) NOT NULL AUTO_INCREMENT, 
   codename        varchar(10) NOT NULL UNIQUE, 
-  name            varchar(10) NOT NULL UNIQUE, 
-  content_type_id int(10) NOT NULL UNIQUE, 
+  name            varchar(255) NOT NULL UNIQUE, 
+  content_type_id int(10) NOT NULL, 
   PRIMARY KEY (id));
 CREATE TABLE Blank (
   number                           int(10) NOT NULL AUTO_INCREMENT, 
