@@ -2,12 +2,16 @@
 \usepackage{spverbatim}
 \begin{document}
 \title{SQL}
+\date{February 2020}
 \author{Yuzu}
 \maketitle
+\begin{large}
+--------------This paper is made only using free software--------------
+\end{large}
 \section{Tables}
 \subsection{User}
 \begin{verbatim}
-CREATE TABLE User (
+CREATE TABLE `User` (
   id         int(10) NOT NULL AUTO_INCREMENT, 
   staff_code int(10) NOT NULL UNIQUE, 
   password   int(10) NOT NULL, 
@@ -23,8 +27,8 @@ CREATE TABLE User (
 CREATE TABLE Permission (
   id              int(10) NOT NULL AUTO_INCREMENT, 
   codename        varchar(10) NOT NULL UNIQUE, 
-  name            varchar(10) NOT NULL UNIQUE, 
-  content_type_id int(10) NOT NULL UNIQUE, 
+  name            varchar(255) NOT NULL UNIQUE, 
+  content_type_id int(10) NOT NULL, 
   PRIMARY KEY (id));
 \end{verbatim}
 \subsection{Blank}
@@ -103,13 +107,41 @@ CREATE TABLE Ticket_Stock_Turnover_Report (
 \subsection{Domestic Sales Report}
 \begin{verbatim}
 CREATE TABLE Domestic_Sales_Report (
-  Reportid int(10) NOT NULL, 
+  Reportid                      int(10) NOT NULL, 
+  fare_base_ngl                 int(10) NOT NULL, 
+  fare_base_usd                 int(10) NOT NULL, 
+  cash_local                    int(10) NOT NULL, 
+  cheque_local                  int(10) NOT NULL, 
+  invoice_local                 int(10) NOT NULL, 
+  credit_usd                    int(10) NOT NULL, 
+  taxes                         int(10) NOT NULL, 
+  total_amount_paid             int(10) NOT NULL, 
+  commissions_assessable_amount int(10) NOT NULL, 
+  commission_rate               int(10) NOT NULL, 
+  notes                         varchar(255), 
+  total_net_amount_airvia       int(10) NOT NULL, 
+  total_commission_amount       int(10) NOT NULL, 
+  net_amounts_for_agent_debit   int(10) NOT NULL, 
   PRIMARY KEY (Reportid));
 \end{verbatim}
 \subsection{Interline Sales Report }
 \begin{verbatim}
 CREATE TABLE Interline_Sales_Report (
-  Reportid int(10) NOT NULL, 
+  Reportid            int(10) NOT NULL, 
+  taxes_LZ            int(10) NOT NULL, 
+  taxes_OTHS          int(10) NOT NULL, 
+  commission_rate     int(10) NOT NULL, 
+  cash                int(10) NOT NULL, 
+  credit_lc           int(10) NOT NULL, 
+  credit_usd          int(10) NOT NULL, 
+  credit_local        int(10) NOT NULL, 
+  non_assess_amount   int(10) NOT NULL, 
+  total_net_to_airvia int(10) NOT NULL, 
+  airvia_n            int(10) NOT NULL, 
+  airvia_amount       int(10) NOT NULL, 
+  airvia_bank_acc_no  int(10) NOT NULL, 
+  airvia_doc_no       int(10) NOT NULL, 
+  airvia_date         date NOT NULL, 
   PRIMARY KEY (Reportid));
 \end{verbatim}
 \subsection{User Blank Assignment}
@@ -155,6 +187,69 @@ CREATE TABLE Report_User (
   PRIMARY KEY (Reportid, 
   Userid));
 \end{verbatim}
+\subsection{Global Domestic Sales}
+\begin{verbatim}
+CREATE TABLE Global_Domestic_Sales (
+  Domestic_Sales_ReportReportid int(10) NOT NULL, 
+  agent_id                      int(10) NOT NULL, 
+  ttl_ttk_reported_num          int(10) NOT NULL, 
+  PRIMARY KEY (Domestic_Sales_ReportReportid));
+\end{verbatim}
+\subsection{Individual Domestic Sales Report}
+\begin{verbatim}
+CREATE TABLE Individual_Domestic_Sales_Report (
+  Domestic_Sales_ReportReportid int(10) NOT NULL, 
+  num_of_tickets                int(10) NOT NULL, 
+  original_issued_num           int(10) NOT NULL, 
+  other_details                 varchar(255), 
+  airvia_n                      int(10) NOT NULL, 
+  airvia_amount                 int(10) NOT NULL, 
+  airvia_bank_acc               int(10) NOT NULL, 
+  airvia_doc_no                 int(10) NOT NULL, 
+  airvia_date                   date NOT NULL, 
+  PRIMARY KEY (Domestic_Sales_ReportReportid));
+\end{verbatim}
+\subsection{Individual Interline Sales Report}
+\begin{verbatim}
+CREATE TABLE Individual_Interline_Sales_Report (
+  Interline_Sales_ReportReportid int(10) NOT NULL, 
+  number_of_tickets              int(10) NOT NULL, 
+  original_issue_no              int(10) NOT NULL, 
+  fa_usd                         int(10), 
+  fa_usd_local                   int(10), 
+  airline_docs_no                int(10) NOT NULL, 
+  airline_fc                     int(10) NOT NULL, 
+  airline_pror_amnt              int(10) NOT NULL, 
+  airline_cd                     int(10) NOT NULL, 
+  PRIMARY KEY (Interline_Sales_ReportReportid));
+\end{verbatim}
+\subsection{Global Interline Sales Report}
+\begin{verbatim}
+CREATE TABLE Global_Interline_Sales_Report (
+  Interline_Sales_ReportReportid int(10) NOT NULL, 
+  advisor_no                     int(10) NOT NULL, 
+  doc_no_acpns                   int(10) NOT NULL, 
+  fare_amount                    int(10) NOT NULL, 
+  airvia_docs                    int(10) NOT NULL, 
+  airvia_fcpns                   int(10) NOT NULL, 
+  airvia_prorate_amounts         int(10) NOT NULL, 
+  other_airline_docs             int(10) NOT NULL, 
+  other_airline_fcpns            int(10) NOT NULL, 
+  other_airline_prorate_amounts  int(10) NOT NULL, 
+  PRIMARY KEY (Interline_Sales_ReportReportid));
+\end{verbatim}
+\subsection{Card Information}
+\begin{verbatim}
+ name       varchar(255) NOT NULL, 
+  surname    varchar(255) NOT NULL, 
+  no         int(10) NOT NULL AUTO_INCREMENT, 
+  cvv        int(10) NOT NULL, 
+  password   int(10) NOT NULL, 
+  card_type  varchar(255) NOT NULL, 
+  Customerid int(10) NOT NULL, 
+  PRIMARY KEY (no));
+\end{verbatim}
+
 \subsection{Foreign Keys}{}
 \begin{spverbatim}
 ALTER TABLE Payment ADD CONSTRAINT FKPayment981424 FOREIGN KEY (Blanknumber) REFERENCES Blank (number);
@@ -173,6 +268,172 @@ ALTER TABLE Blank ADD CONSTRAINT FKBlank490598 FOREIGN KEY (User_Blank_Assignmen
 ALTER TABLE `User` ADD CONSTRAINT FKUser810444 FOREIGN KEY (Groupid) REFERENCES `Group` (id);
 ALTER TABLE Report_User ADD CONSTRAINT FKReport_Use649540 FOREIGN KEY (Reportid) REFERENCES Report (id);
 ALTER TABLE Report_User ADD CONSTRAINT FKReport_Use116167 FOREIGN KEY (Userid) REFERENCES `User` (id);
+ALTER TABLE Global_Domestic_Sales ADD CONSTRAINT FKGlobal_Dom370294 FOREIGN KEY (Domestic_Sales_ReportReportid) REFERENCES Domestic_Sales_Report (Reportid);
+ALTER TABLE Individual_Domestic_Sales_Report ADD CONSTRAINT FKIndividual345877 FOREIGN KEY (Domestic_Sales_ReportReportid) REFERENCES Domestic_Sales_Report (Reportid);
+ALTER TABLE Individual_Interline_Sales_Report ADD CONSTRAINT FKIndividual995737 FOREIGN KEY (Interline_Sales_ReportReportid) REFERENCES Interline_Sales_Report (Reportid);
+ALTER TABLE Global_Interline_Sales_Report ADD CONSTRAINT FKGlobal_Int467036 FOREIGN KEY (Interline_Sales_ReportReportid) REFERENCES Interline_Sales_Report (Reportid);
+ALTER TABLE Card_Informatin ADD CONSTRAINT FKCard_Infor761361 FOREIGN KEY (Customerid) REFERENCES Customer (id);
 \end{spverbatim}
 \section{Queries}
+\subsection{Create Groups}
+\begin{verbatim}
+INSERT INTO `Group`(id,name) VALUES(1,'Admin');
+INSERT INTO `Group`(id,name) VALUES(2,'Manger');
+INSERT INTO `Group`(id,name) VALUES(3,'Advisor');
+\end{verbatim}
+\subsection{Create Users}
+\begin{verbatim}
+INSERT INTO `User` (id,staff_code,password,name,surname,address,agency,Groupid) VALUES (1,100,112233,'john','smart','house1 road1 postcode1','agency1',1);
+INSERT INTO `User` (id,staff_code,password,name,surname,address,agency,Groupid) VALUES (2,200,445566,'mark','hunt','house2 road2 postcode2','agency2',1);
+INSERT INTO `User` (id,staff_code,password,name,surname,address,agency,Groupid) VALUES (3,300,778899,'tom','smith','house3 road3 postcode3','agency3',1);
+INSERT INTO `User` (id,staff_code,password,name,surname,address,agency,Groupid) VALUES (4,400,001122,'kyle','love','house4 road4 postcode4','agency4',2);
+INSERT INTO `User` (id,staff_code,password,name,surname,address,agency,Groupid) VALUES (5,500,334455,'adam','jones','house5 road5 postcode5','agency5',2);
+INSERT INTO `User` (id,staff_code,password,name,surname,address,agency,Groupid) VALUES (6,600,667788,'steve','cooke','house6 road6 postcode6','agency6',3);;
+INSERT INTO `User` (id,staff_code,password,name,surname,address,agency,Groupid) VALUES (7,700,000000,'mert','Pitt','house7 road7 postcode7','agency7',3);
+INSERT INTO user (id,staff_code,password,name,surname,address,agency,Groupid)
+VALUES (452,11,990403,'Peter','Stefanov','15 Red Wall','HH',10);
+\end{verbatim}
+\subsection{Login Users}
+\begin{verbatim}
+SELECT staff_code,password FROM User
+\end{verbatim}
+\subsection{Update User Address}
+\begin{verbatim}
+UPDATE `User` SET address = 'house10 road10 postcode10' WHERE id = 7;
+Output: ''7','700','0','mert','Pitt','house10 road10 postcode10','3'
+\end{verbatim}
+\subsection{Update User Password}
+\begin{verbatim}
+UPDATE `User` SET password = 123456789 WHERE id = 7;
+Output: '7','700','123456789','mert','Pitt','house10 road10 postcode10','agency7','3'
+\end{verbatim}
+\subsection{Delete a User}
+\begin{verbatim}
+DELETE FROM `User` WHERE id = 7;
+\end{verbatim}
+\subsection{Assign a Group to a User}
+\begin{verbatim}
+SELECT User.name, User.surname, `Group`.name
+FROM USER
+INNER JOIN `Group` ON User.Groupid = `Group`.id; 
+\end{verbatim}
+\subsection{Assign Blanks to a User}
+\begin{verbatim}
+INSERT INTO User_Blank_Assignment (Userid,Blanknumber,comission_rate) VALUES (2,1234,2.5);
+INSERT INTO Customer (id,is_regular,is_valued,name,surname,address) VALUES (452,0,1,'Peter','Stefanov','15 Red Wall');
+IINSERT INTO blank (number,type,is_sold,is_refunded,Customerid,date,User_Blank_AssignmentUserid,User_Blank_AssignmentBlanknumber)
+VALUES	(451,13,0,1,452,'2008-11-11',2,1234);
+INSERT INTO user_blank_assignment (Userid,Blanknumber,comission_rate)
+VALUE (452,41236,12);
+\end{verbatim}
+\subsection{Update the Assigned User for Blanks}
+\begin{verbatim}
+UPDATE User_Blank_Assignment SET Userid = 3 WHERE Userid = 2;
+\end{verbatim}
+\subsection{Update the Group for the User}
+\begin{verbatim}
+UPDATE User SET Groupid = 2 WHERE id = 3;
+\end{verbatim}
+\subsection{Create Permissions}
+\begin{verbatim}
+INSERT INTO Permission VALUES(2,'add_blank','can add blank',1);
+INSERT INTO Permission VALUES(3,'change_blank','can change blank',1);
+INSERT INTO Permission VALUES(4,'view_logentry','can view log entry',2);
+INSERT INTO Permission VALUES(5,'delete_logentry','can delete log entry',2);
+INSERT INTO Permission VALUES(6,'add_group','can add group',3);
+\end{verbatim}
+\subsection{Delete permissions}
+\begin{verbatim}
+DELETE FROM Permission WHERE id = 2;
+\end{verbatim}
+\subsection{Assign Permissions to a Group}
+\begin{verbatim}
+INSERT INTO Group_Permissions (Groupid,Permissionid) VALUES (1,2);
+INSERT INTO Group_Permissions (Groupid,Permissionid) VALUES (1,3);
+INSERT INTO Group_Permissions (Groupid,Permissionid) VALUES (1,4);
+INSERT INTO Group_Permissions (Groupid,Permissionid) VALUES (1,5);
+INSERT INTO Group_Permissions (Groupid,Permissionid) VALUES (1,6);
+INSERT INTO Group_Permissions (Groupid,Permissionid) VALUES (2,3);
+INSERT INTO Group_Permissions (Groupid,Permissionid) VALUES (2,4);
+INSERT INTO Group_Permissions (Groupid,Permissionid) VALUES (3,5);
+INSERT INTO Group_Permissions (Groupid,Permissionid) VALUES (2,6);
+\end{verbatim}
+\subsection{Get Permissions for a Group}
+\begin{verbatim}
+SELECT Permission.content_type_id, Group_Permissions.Permissionid,`Group`.id FROM Group_Permissions 
+INNER JOIN `Group`
+ON `Group`.id = Group_Permissions.Groupid 
+LEFT JOIN Permission
+ON Group_Permissions.Permissionid = Permission.id;
+\end{verbatim}
+\subsection{Remove Permissions from a Group}
+\begin{verbatim}
+DELETE FROM Group_Permissions WHERE Groupid = 1 AND Permissionid = 2;
+\end{verbatim}
+\subsection{Register a Customer}
+\begin{verbatim}
+INSERT INTO customer (id,is_regular,is_valued,name,surname,address)
+VALUES (452,1,1,'Peter','Stefanov','15 Red Wall');
+\end{verbatim}
+\subsection{Create a Blank}
+\begin{verbatim}
+INSERT INTO blank (number,type,is_sold,is_refunded,Customerid,date,User_Blank_AssignmentUserid,User_Blank_AssignmentBlanknumber)
+VALUES	(41236,3,1,0,452,'2008-11-11',452,41236);
+\end{verbatim}
+\subsection{Create a Currency}
+\begin{verbatim}
+INSERT INTO currency (type,rate)
+VALUES (true,13);
+\end{verbatim}
+\subsection{Register Discount}
+\begin{verbatim}
+INSERT INTO discount (type,rate)
+VALUES (true,13);
+\end{verbatim}
+\subsection{Register Payment}
+\begin{verbatim}
+INSERT INTO payment (Blanknumber, amount, type, is_valid, is_regular, Currencytype, Discounttype)
+VALUES (41236,100,true,1,1,true,true);
+\end{verbatim}
+\subsection{Create Report}
+\begin{verbatim}
+Report
+INSERT INTO Report (id,period_from,period_to,created_on,is_global,number,sales_office_place) VALUES (1,'2020-04-05','2020-04-25','2020-04-04',1,345345,'sales office1');
+INSERT INTO Report (id,period_from,period_to,created_on,is_global,number,sales_office_place)
+VALUES (2,'2020-05-01','2020-05-20','2020-04-30',1,12340,'sales office2');
+\end{verbatim}
+\subsection{Create Domestic Sales Report}
+\begin{verbatim}
+INSERT INTO Domestic_Sales_Report (Reportid,fare_base_ngl,fare_base_usd,cash_local,cheque_local,invoice_local,credit_usd,taxes,total_amount_paid,commissions_assessable_amount,commission_rate,notes,total_net_amount_airvia,total_commission_amount,net_amounts_for_agent_debit)
+VALUES (1,220,240,200,220,220,235,10,230,240,10,'FIRST FARE SALE',250,20,15);
+\end{verbatim}
+\subsection{Create Global Domestic Sales Report}
+\begin{verbatim}
+INSERT INTO Global_Domestic_Sales (Domestic_Sales_ReportReportid,agent_id,ttl_ttk_reported_num)
+VALUES (1,111,67890);
+\end{verbatim}
+\subsection{Read a Global Domestic Sales Report}
+\begin{verbatim}
+SELECT Domestic_Sales_Report.*, Global_Domestic_Sales.*, Report.*
+FROM ((Report
+INNER JOIN Domestic_Sales_Report ON Report.id = Domestic_Sales_Report.Reportid)
+INNER JOIN Global_Domestic_Sales ON Report.id = Global_Domestic_Sales.Domestic_Sales_ReportReportid);
+\end{verbatim}
+\subsection{Create an Interline Sales Report}
+\begin{verbatim}
+INSERT INTO Interline_Sales_Report (Reportid,taxes_LZ,taxes_OTHS,commission_rate,cash,credit_lc,credit_usd,credit_local,non_assess_amount,total_net_to_airvia,airvia_n,airvia_amount,airvia_bank_acc_no,airvia_doc_no,airvia_date)
+VALUES (2,30,40,10,300,330,340,320,300,350,40,300,123456789,23450,'2020-05-01')
+\end{verbatim}
+\subsection{Create a Global Interline Sales Report}
+\begin{verbatim}
+INSERT INTO Global_Interline_Sales_Report (Interline_Sales_ReportReportid,advisor_no,doc_no_acpns,fare_amount,airvia_docs,airvia_fcpns,airvia_prorate_amounts,other_airline_docs,other_airline_fcpns,other_airline_prorate_amounts)
+VALUES (2,112,23450,300,444,445,300,20,55,400);
+\end{verbatim}
+\subsection{Read a Global Interline Sales Report}
+\begin{verbatim}
+SELECT Report.*, Interline_Sales_Report.*, Global_Interline_Sales_Report.*
+FROM ((Report
+INNER JOIN Interline_Sales_Report ON Report.id = Interline_Sales_Report.Reportid)
+INNER JOIN Global_Interline_Sales_Report ON Report.id = Global_Interline_Sales_Report.Interline_Sales_ReportReportid);
+\end{verbatim}
 \end{document}

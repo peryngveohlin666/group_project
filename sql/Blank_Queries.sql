@@ -1,9 +1,6 @@
 INSERT INTO customer (id,is_regular,is_valued,name,surname,address)
 VALUES (452,1,1,'Peter','Stefanov','15 Red Wall');
 
-INSERT INTO `group` (id,name)
-VALUES (10,'Peter');
-
 INSERT INTO user (id,staff_code,password,name,surname,address,agency,Groupid)
 VALUES (452,11,990403,'Peter','Stefanov','15 Red Wall','HH',10);
 
