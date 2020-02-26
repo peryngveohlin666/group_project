@@ -2,20 +2,39 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-#a table of types
+# a table of types
 type_choices = (
-        ('444', 'international up to four coupons'),
-        ('440', 'manual - international'),
-        ('420', 'international with two coupons'),
-        ('201', 'domestic with two coupons'),
-        ('101', 'domestic with one coupon'),
-        ('451', 'MCO'),
-        ('452', 'MCO'),
-    )
+    ('444', 'international up to four coupons'),
+    ('440', 'manual - international'),
+    ('420', 'international with two coupons'),
+    ('201', 'domestic with two coupons'),
+    ('101', 'domestic with one coupon'),
+    ('451', 'MCO'),
+    ('452', 'MCO'),
+)
 
-#a class to generate an object model of blank with different values stored inside
+
+# a class to generate an object model of card information with different values stored inside
+class card(models.Model):
+    number = models.TextField()
+    name = models.TextField()
+    surname = models.TextField()
+    address = models.TextField()
+
+
+# a class to generate an object model of customer with different values stored inside
+class customer(models.Model):
+    is_regular = models.BooleanField(default=False)
+    is_valued = models.BooleanField(default=False)
+    name = models.TextField()
+    surname = models.TextField()
+    address = models.TextField()
+    card_info = models.ManyToManyField(to=card)
+
+
+# a class to generate an object model of blank with different values stored inside
 class blank(models.Model):
-    #an integer field that automatically increments by itself as the object are created
+    # an integer field that automatically increments by itself as the object are created
     number = models.AutoField(primary_key=True)
     type = models.CharField(max_length=50, choices=type_choices, default='green')
     is_sold = models.BooleanField(default=False)
@@ -24,6 +43,12 @@ class blank(models.Model):
     date.editable = True
     advisor = models.ForeignKey(
         User,
+        models.SET_NULL,
+        blank=True,
+        null=True
+    )
+    blank_customer = models.ForeignKey(
+        customer,
         models.SET_NULL,
         blank=True,
         null=True,
