@@ -6,8 +6,8 @@ body{
 }
 
 .box{
-  width: 300px;
-  padding:40px;
+  width: 50%;
+  padding: 10px;
   position:absolute;
   top:50%;
   left:50%;
@@ -18,24 +18,30 @@ body{
   border-color: #0603C2;
 }
 
+.bottom{
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
 .box h1 {
   color: #040474;
   text-transform: uppercase;
-  font-weight: 2000;
+  font-weight: bold;
   font-style: italic;
+  text-align:center;
 }
 
 .box input[type = "text"],.box input[type = "password"]{
   background: none;
   display: block;
-  margin: 20px auto;
+  margin: 1% auto;
   text-align:center;
   border: 2px solid #0603C2;
   padding: 5px 10px;
   width:200px;
   outline: #0603C2;
   color: #020063;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: 0.25s;
 }
 

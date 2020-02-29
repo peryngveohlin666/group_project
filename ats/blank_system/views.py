@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponse
@@ -8,6 +9,7 @@ from blank_system.models import blank
 # Create your views here.
 
 
+@user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
 def create_blanks(request):
     if request.method == 'POST':
         #initializes the data from the form to the value form
@@ -26,6 +28,7 @@ def create_blanks(request):
         return render(request, "create_blanks.html", {'form': form})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def blanks(request):
     blanks = blank.objects.all()
     context = {
@@ -34,6 +37,7 @@ def blanks(request):
     return render(request, 'blanks.html', context)
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def assign_blanks(request):
     if request.method == 'POST':
         form = assign_blank_form(data=request.POST)
@@ -55,6 +59,7 @@ def assign_blanks(request):
         return render(request, 'assign_blanks.html', {'form':form})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def register_customer(request):
     if request.method == 'POST':
         #initializes the data from the form to the value form

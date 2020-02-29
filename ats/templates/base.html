@@ -1,16 +1,41 @@
+{% load auth_extras %}
 <head>
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta charset="utf-8">
 </head>
 
 
+
 <body>
-put header and things that are meant to be on top of the title here this applies to every html class write head of your html file etc
+<div class="card-header d-flex justify-content-left">
+{% if user.is_authenticated %}
+  Hi {{ user.username }}&nbsp;
+    {% if request.user|has_group:"system_administrator" %}
+    <p>our favorite sysadmin&nbsp;</p>
+{% endif %}
+{% if request.user|has_group:"travel_advisor" %}
+    <p>our favorite travel advisor&nbsp;</p>
+{% endif %}
+{% if request.user|has_group:"manager" %}
+    <p>our favorite manager&nbsp;</p>
+{% endif %}
+    welcome to Yuzu!
+{% else %}
+  <p>Please log in to continue</p>
+  <a href="/">login</a>
+{% endif %}
+
+</div>
 {% block title %}
 {% endblock %}
-add the stuff that gets inbetween the title and the content if there is here for every single page
-{% block content %}
-{% endblock %}
-write footer here
+    <div class="row align-items-center h-100">
+        <div class="col-10 mx-auto justify-content-center">
+            <div class="h-100 border-secondary justify-content-center">
+                   {% block content %}
+                   {% endblock %}
+            </div>
+        </div>
+    </div>
 </body>

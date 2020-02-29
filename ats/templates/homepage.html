@@ -1,7 +1,62 @@
 {%  extends "base.html" %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-{% else %}
-  <p>Please log in to continue</p>
-  <a href="/">login</a>
+{% load auth_extras %}
+{% block content %}
+    <br>
+{% if request.user|has_group:"system_administrator" %}
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Create blanks</h5>
+    <p class="card-text">Click here to create a batch of blanks</p>
+    <a href="create_blanks" class="btn btn-primary">Go</a>
+  </div>
+</div>
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">View Blanks</h5>
+    <p class="card-text">Click here to view all the blanks in our system</p>
+    <a href="blanks" class="btn btn-primary">Go</a>
+  </div>
+</div>
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Assign Blanks</h5>
+    <p class="card-text">Click here to assign blanks to an advisor</p>
+    <a href="assign_blanks" class="btn btn-primary">Go</a>
+  </div>
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Register Customer</h5>
+    <p class="card-text">Click here to register a new customer to the system</p>
+    <a href="register_customer" class="btn btn-primary">Go</a>
+</div>
 {% endif %}
+{% if request.user|has_group:"travel_advisor" %}
+<div class="card-body">
+    <h5 class="card-title">Register Customer</h5>
+    <p class="card-text">Click here to register a new customer to the system</p>
+    <a href="register_customer" class="btn btn-primary">Go</a>
+</div>
+{% endif %}
+{% if request.user|has_group:"manager" %}
+</div>
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">View Blanks</h5>
+    <p class="card-text">Click here to view all the blanks in our system</p>
+    <a href="blanks" class="btn btn-primary">Go</a>
+  </div>
+</div>
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Assign Blanks</h5>
+    <p class="card-text">Click here to assign blanks to an advisor</p>
+    <a href="assign_blanks" class="btn btn-primary">Go</a>
+  </div>
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Register Customer</h5>
+    <p class="card-text">Click here to register a new customer to the system</p>
+    <a href="register_customer" class="btn btn-primary">Go</a>
+</div>
+{% endif %}
+{% endblock %}
