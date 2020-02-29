@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
-from blank_system.forms import blank_form, assign_blank_form
+from blank_system.forms import blank_form, assign_blank_form, register_customer_form
 from blank_system.models import blank
 # Create your views here.
 
@@ -53,3 +53,17 @@ def assign_blanks(request):
     else:
         form = assign_blank_form()
         return render(request, 'assign_blanks.html', {'form':form})
+
+
+def register_customer(request):
+    if request.method == 'POST':
+        #initializes the data from the form to the value form
+        form = register_customer_form(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "register_customer.html")
+        else:
+            return render(request, "register_customer.html")
+    else:
+        form = register_customer_form
+        return render(request, "register_customer.html", {'form': form})

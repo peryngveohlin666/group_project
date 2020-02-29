@@ -26,10 +26,10 @@ class card(models.Model):
 class customer(models.Model):
     is_regular = models.BooleanField(default=False)
     is_valued = models.BooleanField(default=False)
-    name = models.TextField()
-    surname = models.TextField()
+    name = models.CharField(max_length=50)
+    surname = models.CharField(max_length=50)
     address = models.TextField()
-    card_info = models.ManyToManyField(to=card)
+    card_info = models.ManyToManyField(to=card, blank=True, null=True)
 
 
 # a class to generate an object model of blank with different values stored inside
@@ -40,7 +40,7 @@ class blank(models.Model):
     is_sold = models.BooleanField(default=False)
     is_refunded = models.BooleanField(default=False)
     date = models.DateField(auto_now_add=True)
-    date.editable = True
+    date_sold = models.DateField(auto_now_add=False)
     advisor = models.ForeignKey(
         User,
         models.SET_NULL,
