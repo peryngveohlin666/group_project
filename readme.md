@@ -1,5 +1,6 @@
 Please put the uml files in the uml folder. We are using django 2.2.9 with python 3.7.6 to start the server you have to go to the ats folder in your shell of choice and write python3 (or python regarding your default settings) manage.py runserver before running that spectacularly beautifull command you might want to install the requirements (pip3 install -r requirements.txt) as they are required for the project to boot up. please don't push your ide settings if you are using one.  Thanks. Also make sure that you don't push any unnecessary files as I didn't write a gitignore yet. Keep the configuration files and metadata to yourself! Use the same naming convention I use for the folders with no capitals and underscores as spaces e.g. "cute_cat_pictues"
 
+Project binder - https://docs.google.com/document/d/17uR5woHUrwoDPmH8-zCaTy1laMAh86ICuhWGPOgJH9o/edit?usp=sharing
 
 Learn python (short 4 hour course that is more than enough to get into python): https://www.youtube.com/watch?v=rfscVS0vtbw
 
