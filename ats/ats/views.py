@@ -1,9 +1,10 @@
 from django.contrib import auth
 from django.contrib.auth import login
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
-from django.shortcuts import render
-from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from ats.forms import register_form
 from django.template import RequestContext
 
 
@@ -33,3 +34,16 @@ def index(request):
 # @user_passes_test(test here)
 def homepage(request):
     return render(request, "homepage.html")
+
+
+def register_user(request):
+    if request.method == 'POST':
+        form = register_form(request.POST)
+        if form.is_valid():
+            user = form.save()
+            group = Group.objects.get(name='group_name')
+            user.groups.add(group)
+            return redirect('index.html')
+    else:
+        form = register_form
+    return render(request, 'register_user.html', {'form': form})
