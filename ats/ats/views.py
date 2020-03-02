@@ -1,5 +1,6 @@
 from django.contrib import auth
 from django.contrib.auth import login
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -31,11 +32,11 @@ def index(request):
             return render(request, "index.html", {'form': form})
 
 
-# @user_passes_test(test here)
 def homepage(request):
     return render(request, "homepage.html")
 
 
+@user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
 def register_user(request):
     if request.method == 'POST':
         form = register_form(request.POST)

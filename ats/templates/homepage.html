@@ -2,12 +2,18 @@
 {% load auth_extras %}
 {% block content %}
     <br>
-{% if request.user|has_group:"system_administrator" %}
-    <div class="card" style="width: 18rem;">
+    {% if request.user|has_group:"system_administrator" %}
+        <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">Create blanks</h5>
     <p class="card-text">Click here to create a batch of blanks</p>
     <a href="create_blanks" class="btn btn-primary">Go</a>
+  </div>
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Register Users</h5>
+    <p class="card-text">Click here to register a new employee</p>
+    <a href="register_user" class="btn btn-primary">Go</a>
   </div>
 </div>
     <div class="card" style="width: 18rem;">
