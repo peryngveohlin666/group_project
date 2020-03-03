@@ -42,6 +42,9 @@ def register_user(request):
         form = register_form(request.POST)
         if form.is_valid():
             user = form.save()
+            my_group = form.data['group']
+            print(my_group)
+            user.groups.add(my_group)
             return redirect('index.html')
     else:
         form = register_form
