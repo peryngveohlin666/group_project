@@ -72,3 +72,14 @@ def register_customer(request):
     else:
         form = register_customer_form
         return render(request, "register_customer.html", {'form': form})
+
+
+@user_passes_test(lambda u: u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
+def my_blanks(request):
+    blanks = blank.objects.all()
+    curren_user = request.user
+    context = {
+        'blanks': blanks,
+        'current_user': curren_user
+    }
+    return render(request, 'my_blanks.html', context)
