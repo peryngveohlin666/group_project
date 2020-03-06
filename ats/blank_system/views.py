@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
-from blank_system.forms import blank_form, assign_blank_form, register_customer_form
+from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form
 from blank_system.models import blank
 # Create your views here.
 
@@ -83,3 +83,16 @@ def my_blanks(request):
         'current_user': curren_user
     }
     return render(request, 'my_blanks.html', context)
+
+
+def register_card(request):
+	if request.method == 'POST':
+		form = register_card_form(data=request.POST)
+		if form.is_valid():
+			form.save()
+			return render(request, "register_card.html")
+		else:
+			return render(request, "register_customer.html")
+	else:
+		form = register_card_form
+		return render(request, "register_card.html", {'form' : form})

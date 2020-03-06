@@ -1,0 +1,12 @@
+{%  extends "base.html" %}
+{% block content %}
+    {% if errors %}
+        {{ errors }}
+    {% endif %}
+    <form class="box" method = "post">
+        {% csrf_token %}
+        <h1 >Air Ticket Sales</h1>
+        {{ form }}
+      <input type="submit" name="" value="Register Card">
+    </form>
+{% endblock %}							
