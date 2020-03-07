@@ -16,8 +16,8 @@ number:
     {{ blank.date }}
     assigned advisor:
     {{ blank.advisor }}
-        Baught by:
-        {{ blank.blank_customer }}
+        baught by:
+        {{ blank.blank_customer.name }}
         {% if not blank.is_sold %}
         <a href="blanku_by_cash/{{ blank.number }}/" class="btn btn-primary">Sell by cash</a>
     <a href="blanku_by_card/{{ blank.number }}/" class="btn btn-primary">Sell by card</a>
