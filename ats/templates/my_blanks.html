@@ -4,6 +4,7 @@
 <br />
 {% for blank in blanks %}
     {% if blank.advisor == current_user %}
+
 number:
     {{ blank.type }}
     {{ blank.number }}
@@ -15,9 +16,12 @@ number:
     {{ blank.date }}
     assigned advisor:
     {{ blank.advisor }}
+        {% if not blank.is_sold %}
         <a href="blanku_by_cash/{{ blank.number }}/" class="btn btn-primary">Sell by cash</a>
     <a href="blanku_by_card/{{ blank.number }}/" class="btn btn-primary">Sell by card</a>
+            {% endif %}
 <br />
+
     {% endif %}
 {% endfor %}
 

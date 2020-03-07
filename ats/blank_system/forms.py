@@ -28,8 +28,7 @@ class register_card_form(ModelForm):
         fields = ['number', 'name', 'surname', 'address']
 
 
-class sell_by_cash_form(ModelForm):
-
+class sell_form(ModelForm):
     class Meta:
         model = blank
         fields = ['blank_customer', 'is_sold', 'is_paid', 'payment_due']

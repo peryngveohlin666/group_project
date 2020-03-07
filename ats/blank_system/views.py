@@ -6,8 +6,8 @@ from django.contrib import auth
 from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
-from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_by_cash_form
-from blank_system.models import blank
+from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form
+from blank_system.models import blank, customer, card
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -107,25 +107,41 @@ def register_card(request):
 
 def blanku_by_card(request, number):
     blanket = blank.objects.get(pk=number)
-    context = {
-        'blank': blanket,
-    }
-    return render(request, 'blanku_by_card.html', context)
+    if request.method == 'POST':
+        _sell_form = sell_form(data=request.POST, instance=blanket)
+        _create_card_form = register_card_form(data=request.POST)
+        if _sell_form.is_valid() and _create_card_form.is_valid():
+            _sell_form.save()
+            # returns the current customer in the form
+            current_customer = customer.objects.get(pk=_sell_form.instance.blank_customer.name)
+            _create_card_form.save()
+            # sets the card for the customer to the card from the form
+            card_customer = card.objects.get(pk=_create_card_form.instance.number)
+            current_customer.card_info.add(card_customer)
+            return render(request, 'blanku_by_card.html',
+                          {'sell_form': _sell_form, 'blank': blanket, 'card_form': _create_card_form})
+        else:
+            print('error')
+            return render(request, 'homepage.html')
+    else:
+        print('send')
+        _sell_form = sell_form(data=request.POST, instance=blanket)
+        _create_card_form = register_card_form(data=request.POST)
+        return render(request, 'blanku_by_card.html',
+                      {'sell_form': _sell_form, 'blank': blanket, 'card_form': _create_card_form})
 
 
 def blanku_by_cash(request, number):
     blanket = blank.objects.get(pk=number)
     if request.method == 'POST':
-        form = sell_by_cash_form(data=request.POST, instance=blanket)
+        form = sell_form(data=request.POST, instance=blanket)
         if form.is_valid():
             form.save()
-            blanket.is_sold = True
-            blanket.date_sold = date.today()
             return render(request, 'blanku_by_cash.html', {'form': form, 'blank': blanket})
         else:
             print('error')
             return render(request, 'homepage.html')
     else:
         print('send')
-        form = sell_by_cash_form(data=request.POST, instance=blanket)
+        form = sell_form(data=request.POST, instance=blanket)
         return render(request, 'blanku_by_cash.html', {'form': form, 'blank': blanket})

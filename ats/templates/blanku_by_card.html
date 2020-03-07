@@ -1,6 +1,8 @@
 {%  extends "base.html" %}
         {% block content %}
-{{ blank.type }}
+
+            <div class="bg-secondary card">
+            {{ blank.type }}
     {{ blank.number }}
     sold?
     {{ blank.is_sold }}
@@ -10,4 +12,16 @@
     {{ blank.date }}
     assigned advisor:
     {{ blank.advisor }}
+
+    <form class="border-secondary card bg-light" method = "post">
+        {% csrf_token %}
+        <h1 >Air Ticket Sales</h1>
+        {{ sell_form }}
+        Date format '2020-03-06' (Most of the time the due date is 30 days from today but you can make exceptions after asking your manager)
+        {{ card_form }}
+         <br>
+      <input type="submit" name="" value="Sell">
+    </form>
+
+    </div>
 {% endblock %}
