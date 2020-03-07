@@ -42,6 +42,11 @@
     <p class="card-text">Click here to register a new customer to the system</p>
     <a href="register_customer" class="btn btn-primary">Go</a>
 </div>
+    <div class="card-body">
+    <h5 class="card-title">My Blanks</h5>
+    <p class="card-text">Click here to see your assigned blanks</p>
+    <a href="my_blanks" class="btn btn-primary">Go</a>
+</div>
 {% endif %}
 {% if request.user|has_group:"manager" %}
 </div>

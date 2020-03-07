@@ -16,9 +16,9 @@ type_choices = (
 
 # a class to generate an object model of card information with different values stored inside
 class card(models.Model):
-    number = models.TextField()
-    name = models.TextField()
-    surname = models.TextField()
+    number = models.CharField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=50)
+    surname = models.CharField(max_length=50)
     address = models.TextField()
 
 
@@ -26,8 +26,7 @@ class card(models.Model):
 class customer(models.Model):
     is_regular = models.BooleanField(default=False)
     is_valued = models.BooleanField(default=False)
-    name = models.CharField(max_length=50)
-    surname = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, primary_key=True)
     address = models.TextField()
     card_info = models.ManyToManyField(to=card, blank=True, null=True)
 
@@ -39,8 +38,10 @@ class blank(models.Model):
     type = models.CharField(max_length=50, choices=type_choices, default='green')
     is_sold = models.BooleanField(default=False)
     is_refunded = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
+    price = models.IntegerField()
     date = models.DateField(auto_now_add=True)
-    date_sold = models.DateField(auto_now_add=False)
+    payment_due = models.DateField(auto_now_add=False)
     advisor = models.ForeignKey(
         User,
         models.SET_NULL,

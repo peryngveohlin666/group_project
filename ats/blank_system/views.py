@@ -1,14 +1,13 @@
+from datetime import date
+
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
-from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form
+from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_by_cash_form
 from blank_system.models import blank
-
-
-# Create your views here.
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -91,6 +90,8 @@ def my_blanks(request):
     return render(request, 'my_blanks.html', context)
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def register_card(request):
     if request.method == 'POST':
         form = register_card_form(data=request.POST)
@@ -104,9 +105,27 @@ def register_card(request):
         return render(request, "register_card.html", {'form': form})
 
 
-def blanku(request, number):
+def blanku_by_card(request, number):
     blanket = blank.objects.get(pk=number)
     context = {
         'blank': blanket,
     }
-    return render(request, 'blanku.html', context)
+    return render(request, 'blanku_by_card.html', context)
+
+
+def blanku_by_cash(request, number):
+    blanket = blank.objects.get(pk=number)
+    if request.method == 'POST':
+        form = sell_by_cash_form(data=request.POST, instance=blanket)
+        if form.is_valid():
+            form.save()
+            blanket.is_sold = True
+            blanket.date_sold = date.today()
+            return render(request, 'blanku_by_cash.html', {'form': form, 'blank': blanket})
+        else:
+            print('error')
+            return render(request, 'homepage.html')
+    else:
+        print('send')
+        form = sell_by_cash_form(data=request.POST, instance=blanket)
+        return render(request, 'blanku_by_cash.html', {'form': form, 'blank': blanket})

@@ -1,0 +1,26 @@
+{%  extends "base.html" %}
+        {% block content %}
+
+            <div class="bg-secondary card">
+            {{ blank.type }}
+    {{ blank.number }}
+    sold?
+    {{ blank.is_sold }}
+    refunded?
+    {{ blank.is_refunded }}
+    date created:
+    {{ blank.date }}
+    assigned advisor:
+    {{ blank.advisor }}
+
+    <form class="border-secondary card bg-light" method = "post">
+        {% csrf_token %}
+        <h1 >Air Ticket Sales</h1>
+        {{ form }}
+        Date format '2020-03-06'
+         <br>
+      <input type="submit" name="" value="Sell">
+    </form>
+
+    </div>
+{% endblock %}
