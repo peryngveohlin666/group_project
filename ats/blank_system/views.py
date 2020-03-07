@@ -6,13 +6,15 @@ from django.template import RequestContext
 import ats.urls
 from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form
 from blank_system.models import blank
+
+
 # Create your views here.
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
 def create_blanks(request):
     if request.method == 'POST':
-        #initializes the data from the form to the value form
+        # initializes the data from the form to the value form
         form = blank_form(data=request.POST)
         batch = request.POST.get("batch", "")
         if form.is_valid():
@@ -28,7 +30,8 @@ def create_blanks(request):
         return render(request, "create_blanks.html", {'form': form})
 
 
-@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def blanks(request):
     blanks = blank.objects.all()
     context = {
@@ -37,7 +40,8 @@ def blanks(request):
     return render(request, 'blanks.html', context)
 
 
-@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
+@user_passes_test(
+    lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def assign_blanks(request):
     if request.method == 'POST':
         form = assign_blank_form(data=request.POST)
@@ -56,13 +60,14 @@ def assign_blanks(request):
         return render(request, 'assign_blanks.html')
     else:
         form = assign_blank_form()
-        return render(request, 'assign_blanks.html', {'form':form})
+        return render(request, 'assign_blanks.html', {'form': form})
 
 
-@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def register_customer(request):
     if request.method == 'POST':
-        #initializes the data from the form to the value form
+        # initializes the data from the form to the value form
         form = register_customer_form(data=request.POST)
         if form.is_valid():
             form.save()
@@ -74,25 +79,34 @@ def register_customer(request):
         return render(request, "register_customer.html", {'form': form})
 
 
-@user_passes_test(lambda u: u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
+@user_passes_test(
+    lambda u: u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def my_blanks(request):
     blanks = blank.objects.all()
-    curren_user = request.user
+    current_user = request.user
     context = {
         'blanks': blanks,
-        'current_user': curren_user
+        'current_user': current_user
     }
     return render(request, 'my_blanks.html', context)
 
 
 def register_card(request):
-	if request.method == 'POST':
-		form = register_card_form(data=request.POST)
-		if form.is_valid():
-			form.save()
-			return render(request, "register_card.html")
-		else:
-			return render(request, "register_customer.html")
-	else:
-		form = register_card_form
-		return render(request, "register_card.html", {'form' : form})
+    if request.method == 'POST':
+        form = register_card_form(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "register_card.html")
+        else:
+            return render(request, "register_customer.html")
+    else:
+        form = register_card_form
+        return render(request, "register_card.html", {'form': form})
+
+
+def blanku(request, number):
+    blanket = blank.objects.get(pk=number)
+    context = {
+        'blank': blanket,
+    }
+    return render(request, 'blanku.html', context)

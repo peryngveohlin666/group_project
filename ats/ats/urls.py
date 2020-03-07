@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from .views import index, homepage, register_user
-from blank_system.views import create_blanks, blanks, assign_blanks, register_customer, my_blanks, register_card
+from blank_system.views import create_blanks, blanks, assign_blanks, register_customer, my_blanks, register_card, blanku
 #url patterns for the pages we use in views.py so that we won't have to write the whole directory tree
 
 urlpatterns = [
@@ -14,5 +14,6 @@ urlpatterns = [
     path('register_customer', register_customer, name='register_customer'),
     path('register_user', register_user, name='register_user'),
     path('my_blanks', my_blanks, name='my_blanks'),
-    path('register_card', register_card , name='register_card')
+    path('register_card', register_card , name='register_card'),
+    path('blanku/<int:number>/', blanku, name='blanku')
 ]
