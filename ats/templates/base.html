@@ -1,36 +1,58 @@
+<!DOCTYPE html>
 {% load auth_extras %}
+<html lang="en">
 <head>
 {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta charset="utf-8">
+    <title>Air Ticket Sales</title>
 </head>
-
-
-
+ {% if user.is_authenticated %}
 <body>
+<main>
+</main>
+<header>
+
+    <div class="container">
+        <div id="slogan">
+            <h1>
+                Air Ticket Sales
+            </h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href=homepage> Home</a> </li>
+                <li><a href=index> Logout</a> </li>
+            </ul>
+        </nav>
+    </div>
+
+</header>
+</body>
+{% endif %}
+
 <div class="card-header d-flex justify-content-left">
 {% if user.is_authenticated %}
   Hi {{ user.username }}&nbsp;
     {% if request.user|has_group:"system_administrator" %}
-    <p>our favorite sysadmin&nbsp;</p>
+    <p>our favourite System Admin!&nbsp;</p>
 {% endif %}
 {% if request.user|has_group:"travel_advisor" %}
-    <p>our favorite travel advisor&nbsp;</p>
+    <p>our favourite Travel Advisor!&nbsp;</p>
 {% endif %}
 {% if request.user|has_group:"manager" %}
-    <p>our favorite manager&nbsp;</p>
+    <p>our favourite Manager!&nbsp;</p>
 {% endif %}
-    welcome to Yuzu!
+    Welcome to Yuzu!
 {% else %}
-  <p>Please log in to continue</p>
-  <a href="/">login</a>
+  <p>Please Login to continue</p>
 {% endif %}
 
 </div>
 {% block title %}
 {% endblock %}
-    <div class="row align-items-center h-100">
+    <div class="row align-items-center h-500">
         <div class="col-10 mx-auto justify-content-center">
             <div class="h-100 border-secondary justify-content-center">
                    {% block content %}
@@ -39,3 +61,4 @@
         </div>
     </div>
 </body>
+</html>
