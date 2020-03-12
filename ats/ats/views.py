@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from ats.forms import register_form
+from django.contrib.auth import logout
 from django.template import RequestContext
 
 
@@ -49,3 +50,8 @@ def register_user(request):
     else:
         form = register_form
     return render(request, 'register_user.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'logout.html')
