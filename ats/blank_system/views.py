@@ -175,13 +175,19 @@ def create_stock_turnover_report(request):
         report = stock_turnover_report()
         ranges = assigned_range.objects.filter(date__range=[form['date_from'].value(), form['date_to'].value()])
         if form.is_valid():
+            for r in ranges:
+                blankets = blank.objects.filter(number__range=[r.range_from, r.range_to])
+                i = 0
+                for b in blankets:
+                    if(b.is_sold):
+                        i = i + 1
+                r.sold_blank_count = i
+                r.save()
             ranges = list(ranges)
             report.date_from = form.instance.date_from
             report.date_to = form.instance.date_to
             report.save()
             report.assigned_range.add(*ranges)
-            for r in ranges:
-                print(r)
             report.save()
             return render(request, "create_stock_turnover_report.html")
         else:

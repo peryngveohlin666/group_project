@@ -79,6 +79,7 @@ class assigned_range(models.Model):
         null=True,
     )
     date = models.DateField(auto_now_add=False, blank=True, null=True)
+    sold_blank_count = models.IntegerField(blank=True, null=True)
 
 
 class stock_turnover_report(models.Model):
