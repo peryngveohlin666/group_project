@@ -9,9 +9,14 @@ type_choices = (
     ('420', 'international with two coupons'),
     ('201', 'domestic with two coupons'),
     ('101', 'domestic with one coupon'),
-    ('451', 'MCO'),
-    ('452', 'MCO'),
+    ('451', 'MCO - 451'),
+    ('452', 'MCO - 452'),
 )
+
+
+class currency(models.Model):
+    type = models.CharField(max_length=50, primary_key=True)
+    rate = models.IntegerField(blank=False, null=False)
 
 
 # a class to generate an object model of card information with different values stored inside
@@ -51,6 +56,12 @@ class blank(models.Model):
     )
     blank_customer = models.ForeignKey(
         customer,
+        models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    blank_currency = models.ForeignKey(
+        currency,
         models.SET_NULL,
         blank=True,
         null=True,

@@ -6,8 +6,8 @@ from django.contrib import auth
 from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
-from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form
-from blank_system.models import blank, customer, card
+from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, add_currency_form
+from blank_system.models import blank, customer, card, currency
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -146,3 +146,16 @@ def blanku_by_cash(request, number):
         print('send')
         form = sell_form(data=request.POST, instance=blanket)
         return render(request, 'blanku_by_cash.html', {'form': form, 'blank': blanket})
+
+
+def add_currency(request):
+    if request.method == 'POST':
+        form = add_currency_form(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "add_currency.html")
+        else:
+            return render(request, "add_currency.html")
+    else:
+        form = add_currency_form
+        return render(request, "add_currency.html", {'form': form})

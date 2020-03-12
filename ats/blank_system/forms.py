@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from blank_system.models import blank, customer, card
+from blank_system.models import blank, customer, card, currency
 
 
 # a form object for blanks
@@ -32,3 +32,9 @@ class sell_form(ModelForm):
     class Meta:
         model = blank
         fields = ['blank_customer', 'is_sold', 'is_paid', 'payment_due']
+
+
+class add_currency_form(ModelForm):
+    class Meta:
+        model = currency
+        fields = ['type', 'rate']
