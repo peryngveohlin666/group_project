@@ -82,8 +82,15 @@ class assigned_range(models.Model):
     sold_blank_count = models.IntegerField(blank=True, null=True)
 
 
+class created_range(models.Model):
+    range_from = models.IntegerField()
+    range_to = models.IntegerField()
+    date = models.DateField(auto_now_add=True)
+
+
 class stock_turnover_report(models.Model):
     date_from = models.DateField(auto_now_add=False)
     date_to = models.DateField(auto_now_add=False)
     assigned_range = models.ManyToManyField(to=assigned_range, blank=True, null=True)
+    created_range = models.ManyToManyField(to=created_range, blank=True, null=True)
     blanks = models.ManyToManyField(to=blank, blank=True, null=True)

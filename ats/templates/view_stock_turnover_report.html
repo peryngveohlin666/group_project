@@ -1,0 +1,82 @@
+{%  extends "base.html" %}
+{% load mathfilters %}
+
+{% block content %}
+    <div class = "container">
+    <div class="card-body bg-dark ">
+
+<div class="col-xl- card bg-secondary">
+    Created:from/to/total
+    {% for a in created_ranges %}
+        <div class="bg-light">
+        Created
+        from:
+        {{a.range_from}}
+        to:
+        {{a.range_to}}
+        total
+    {{ a.range_to|sub:a.range_from }}
+        </div>
+    {% endfor %}
+       </div>
+
+<div class="col-xl- card bg-secondary">
+Assigned:from/to/advisor/total
+{% for a in assigned_ranges  %}
+    <div class="bg-light">
+    Assigned
+    from:
+    {{ a.range_from }}
+    to:
+    {{ a.range_to }}
+    assigned to
+    {{ a.agent }}
+        total
+    {{ a.range_to|sub:a.range_from }}
+    </div>
+{% endfor %}
+<div/>
+
+
+
+    </div>
+
+    </div>
+<div class="col-xl- card bg-secondary">
+Used:from/to/total
+{% for a in assigned_ranges  %}
+
+    <div class="bg-light">
+    Used
+    from:
+    {{ a.range_from }}
+    to:
+    {{ a.range_from|add:a.sold_blank_count|add:1  }}
+    sold by
+    {{ a.agent }}
+        total sold
+    {{ a.sold_blank_count}}
+    </div>
+{% endfor %}
+</div>
+
+    <div class="col-xl- card bg-secondary">
+Used:from/to/total
+{% for a in assigned_ranges  %}
+
+    <div class="bg-light">
+    Left
+    from:
+    {{ a.range_from|add:a.sold_blank_count|add:1 }}
+    to:
+    {{ a.range_to  }}
+    sold by
+    {{ a.agent }}
+        total sold
+    {{ a.sold_blank_count}}
+    </div>
+{% endfor %}
+</div>
+    </div>
+
+{% endblock %}

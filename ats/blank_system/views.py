@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
 from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, add_currency_form, stock_turnover_form
-from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report
+from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -15,8 +15,13 @@ def create_blanks(request):
     if request.method == 'POST':
         # initializes the data from the form to the value form
         form = blank_form(data=request.POST)
+        crtd_range = created_range()
         batch = request.POST.get("batch", "")
         if form.is_valid():
+            blankie = blank.objects.last()
+            crtd_range.range_from = blankie.number + 1
+            crtd_range.range_to = blankie.number + int(batch)
+            crtd_range.save()
             for b in range(int(batch)):
                 form.save()
                 form.instance = None
@@ -174,7 +179,14 @@ def create_stock_turnover_report(request):
         form = stock_turnover_form(data=request.POST)
         report = stock_turnover_report()
         ranges = assigned_range.objects.filter(date__range=[form['date_from'].value(), form['date_to'].value()])
+        created_ranges = created_range.objects.filter(date__range=[form['date_from'].value(), form['date_to'].value()])
         if form.is_valid():
+            report.date_from = form.instance.date_from
+            report.date_to = form.instance.date_to
+            report.save()
+            all_blanks = blank.objects.filter(date__range=[form['date_from'].value(), form['date_to'].value()])
+            all_blanks = list(all_blanks)
+            report.blanks.add(*all_blanks)
             for r in ranges:
                 blankets = blank.objects.filter(number__range=[r.range_from, r.range_to])
                 i = 0
@@ -184,10 +196,9 @@ def create_stock_turnover_report(request):
                 r.sold_blank_count = i
                 r.save()
             ranges = list(ranges)
-            report.date_from = form.instance.date_from
-            report.date_to = form.instance.date_to
-            report.save()
+            created_ranges = list(created_ranges)
             report.assigned_range.add(*ranges)
+            report.created_range.add(*created_ranges)
             report.save()
             return render(request, "create_stock_turnover_report.html")
         else:
@@ -195,3 +206,22 @@ def create_stock_turnover_report(request):
     else:
         form = stock_turnover_form
         return render(request, "create_stock_turnover_report.html", {'form': form})
+
+
+def view_stock_turnover_report(request, number):
+    report = stock_turnover_report.objects.get(pk=number)
+    assigned_ranges = report.assigned_range.all()
+    for r in assigned_ranges:
+        blankets = blank.objects.filter(number__range=[r.range_from, r.range_to])
+        i = 0
+        for b in blankets:
+            if (b.is_sold):
+                i = i + 1
+        r.sold_blank_count = i
+        r.save()
+    created_ranges = report.created_range.all()
+
+    number = 0
+    print(assigned_ranges)
+
+    return render(request, "view_stock_turnover_report.html", {'assigned_ranges': assigned_ranges, 'created_ranges': created_ranges})
