@@ -52,6 +52,7 @@ def assign_blanks(request):
                 if b.number >= int(from_value) and b.number <= int(to_value):
                     print(form.instance.advisor)
                     b.advisor = form.instance.advisor
+                    b.commission_rate = form.instance.commission_rate
                     b.save()
                 if b.number == int(to_value):
                     break

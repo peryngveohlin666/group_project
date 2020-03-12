@@ -42,6 +42,7 @@ class blank(models.Model):
     price = models.IntegerField()
     date = models.DateField(auto_now_add=True)
     payment_due = models.DateField(auto_now_add=False)
+    commission_rate = models.IntegerField(blank=True, null=True)
     advisor = models.ForeignKey(
         User,
         models.SET_NULL,

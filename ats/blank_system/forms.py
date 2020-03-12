@@ -13,7 +13,7 @@ class blank_form(ModelForm):
 class assign_blank_form(ModelForm):
     class Meta:
         model = blank
-        fields = ['advisor']
+        fields = ['advisor', 'commission_rate']
 
 
 class register_customer_form(ModelForm):
