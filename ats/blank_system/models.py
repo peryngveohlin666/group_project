@@ -66,3 +66,15 @@ class blank(models.Model):
         blank=True,
         null=True,
     )
+
+
+class assigned_range(models.Model):
+    range_from = models.IntegerField()
+    range_to = models.IntegerField()
+    agent = models.ForeignKey(
+        User,
+        models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+

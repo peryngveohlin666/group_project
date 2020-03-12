@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from blank_system.models import blank, customer, card, currency
+from blank_system.models import blank, customer, card, currency, assigned_range
 
 
 # a form object for blanks

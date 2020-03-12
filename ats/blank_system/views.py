@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
 from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, add_currency_form
-from blank_system.models import blank, customer, card, currency
+from blank_system.models import blank, customer, card, currency, assigned_range
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -48,6 +48,11 @@ def assign_blanks(request):
         to_value = request.POST.get("to_value", "")
         blanks = blank.objects.all()
         if form.is_valid():
+            assigned_r = assigned_range()
+            assigned_r.range_from = int(from_value)
+            assigned_r.range_to = int(to_value)
+            assigned_r.agent = form.instance.advisor
+            assigned_r.save()
             for b in blanks:
                 if b.number >= int(from_value) and b.number <= int(to_value):
                     print(form.instance.advisor)
