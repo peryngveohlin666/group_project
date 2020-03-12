@@ -1,8 +1,10 @@
 {%  extends "base.html" %}
 
 {% block content %}
+    <div class="card-body bg-secondary">
 <br />
 {% for blank in blanks %}
+    <div class="card bg-light">
 number:
     {{ blank.type }}
     {{ blank.number }}
@@ -16,7 +18,9 @@ number:
     {{ blank.advisor }}
     commission rate
     {{ blank.commission_rate }}
+    </div>
 <br />
 {% endfor %}
+    <div/>
 
 {% endblock %}

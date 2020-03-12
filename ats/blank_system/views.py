@@ -52,6 +52,9 @@ def assign_blanks(request):
             assigned_r.range_from = int(from_value)
             assigned_r.range_to = int(to_value)
             assigned_r.agent = form.instance.advisor
+            for b in blanks:
+                assigned_r.date = b.date
+                break
             assigned_r.save()
             for b in blanks:
                 if b.number >= int(from_value) and b.number <= int(to_value):

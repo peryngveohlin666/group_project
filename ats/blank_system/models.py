@@ -13,7 +13,7 @@ type_choices = (
     ('452', 'MCO - 452'),
 )
 
-
+# a class to generate an object model of currency information with different values stored inside
 class currency(models.Model):
     type = models.CharField(max_length=50, primary_key=True)
     rate = models.IntegerField(blank=False, null=False)
@@ -67,7 +67,7 @@ class blank(models.Model):
         null=True,
     )
 
-
+# a class to generate an object model of assigned range of blanks with different values stored inside
 class assigned_range(models.Model):
     range_from = models.IntegerField()
     range_to = models.IntegerField()
@@ -77,4 +77,5 @@ class assigned_range(models.Model):
         blank=True,
         null=True,
     )
+    date = models.DateField(auto_now_add=False, blank=True, null=True)
 

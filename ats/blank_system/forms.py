@@ -6,19 +6,25 @@ from blank_system.models import blank, customer, card, currency, assigned_range
 # a form object for blanks
 class blank_form(ModelForm):
     class Meta:
+        #the model the form references to
         model = blank
+        #the fields to fill in the form for that model
         fields = ['type', 'is_sold', 'is_refunded', 'price']
 
-
+#a form to support assigning blanks
 class assign_blank_form(ModelForm):
     class Meta:
+        # the model the form references to
         model = blank
+        # the fields to fill in the form for that model
         fields = ['advisor', 'commission_rate']
 
 
 class register_customer_form(ModelForm):
     class Meta:
+        # the model the form references to
         model = customer
+        # the fields to fill in the form for that model
         fields = ['is_regular', 'is_valued', 'name', 'address']
 
 
