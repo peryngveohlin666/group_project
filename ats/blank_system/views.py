@@ -6,8 +6,8 @@ from django.contrib import auth
 from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
-from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, add_currency_form
-from blank_system.models import blank, customer, card, currency, assigned_range
+from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, add_currency_form, stock_turnover_form
+from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -167,3 +167,25 @@ def add_currency(request):
     else:
         form = add_currency_form
         return render(request, "add_currency.html", {'form': form})
+
+
+def create_stock_turnover_report(request):
+    if request.method == 'POST':
+        form = stock_turnover_form(data=request.POST)
+        report = stock_turnover_report()
+        ranges = assigned_range.objects.filter(date__range=[form['date_from'].value(), form['date_to'].value()])
+        if form.is_valid():
+            ranges = list(ranges)
+            report.date_from = form.instance.date_from
+            report.date_to = form.instance.date_to
+            report.save()
+            report.assigned_range.add(*ranges)
+            for r in ranges:
+                print(r)
+            report.save()
+            return render(request, "create_stock_turnover_report.html")
+        else:
+            return render(request, "create_stock_turnover_report.html")
+    else:
+        form = stock_turnover_form
+        return render(request, "create_stock_turnover_report.html", {'form': form})

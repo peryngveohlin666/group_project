@@ -67,6 +67,7 @@ class blank(models.Model):
         null=True,
     )
 
+
 # a class to generate an object model of assigned range of blanks with different values stored inside
 class assigned_range(models.Model):
     range_from = models.IntegerField()
@@ -79,3 +80,9 @@ class assigned_range(models.Model):
     )
     date = models.DateField(auto_now_add=False, blank=True, null=True)
 
+
+class stock_turnover_report(models.Model):
+    date_from = models.DateField(auto_now_add=False)
+    date_to = models.DateField(auto_now_add=False)
+    assigned_range = models.ManyToManyField(to=assigned_range, blank=True, null=True)
+    blanks = models.ManyToManyField(to=blank, blank=True, null=True)

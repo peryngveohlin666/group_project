@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from blank_system.models import blank, customer, card, currency, assigned_range
+from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report
 
 
 # a form object for blanks
@@ -44,3 +44,8 @@ class add_currency_form(ModelForm):
     class Meta:
         model = currency
         fields = ['type', 'rate']
+
+class stock_turnover_form(ModelForm):
+    class Meta:
+        model = stock_turnover_report
+        fields = ['date_to', 'date_from']
