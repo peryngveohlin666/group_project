@@ -22,6 +22,7 @@ def create_blanks(request):
             blankie = blank.objects.last()
             crtd_range.range_from = blankie.number + 1
             crtd_range.range_to = blankie.number + int(batch)
+            crtd_range.type = form.instance.type
             crtd_range.save()
             for b in range(int(batch)):
                 form.save()
@@ -60,6 +61,7 @@ def assign_blanks(request):
             assigned_r.agent = form.instance.advisor
             for b in blanks:
                 assigned_r.date = b.date
+                assigned_r.type = b.type
                 break
             assigned_r.save()
             for b in blanks:
@@ -232,3 +234,10 @@ def view_stock_turnover_report(request, number):
 def reports(request):
     stock_turnover_reports = stock_turnover_report.objects.all()
     return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports})
+
+
+def create_reports(request):
+    return render(request, "create_reports.html")
+
+def create_individual_sales_report(request):
+    return render(request, 'logout.html')

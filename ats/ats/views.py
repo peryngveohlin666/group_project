@@ -55,3 +55,5 @@ def register_user(request):
 def logout_view(request):
     logout(request)
     return render(request, 'logout.html')
+
+

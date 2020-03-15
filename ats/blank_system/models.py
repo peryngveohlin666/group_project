@@ -13,6 +13,7 @@ type_choices = (
     ('452', 'MCO - 452'),
 )
 
+
 # a class to generate an object model of currency information with different values stored inside
 class currency(models.Model):
     type = models.CharField(max_length=50, primary_key=True)
@@ -80,12 +81,14 @@ class assigned_range(models.Model):
     )
     date = models.DateField(auto_now_add=False, blank=True, null=True)
     sold_blank_count = models.IntegerField(blank=True, null=True)
+    type = models.CharField(max_length=50, choices=type_choices, default='green')
 
 
 class created_range(models.Model):
     range_from = models.IntegerField()
     range_to = models.IntegerField()
     date = models.DateField(auto_now_add=True)
+    type = models.CharField(max_length=50, choices=type_choices, default='None')
 
 
 class stock_turnover_report(models.Model):
@@ -94,3 +97,14 @@ class stock_turnover_report(models.Model):
     assigned_range = models.ManyToManyField(to=assigned_range, blank=True, null=True)
     created_range = models.ManyToManyField(to=created_range, blank=True, null=True)
     blanks = models.ManyToManyField(to=blank, blank=True, null=True)
+
+
+class individual_sales_report(models.Model):
+    agent = models.ForeignKey(
+        User,
+        models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    date_from = models.DateField(auto_now_add=False)
+    date_to = models.DateField(auto_now_add=False)

@@ -3,6 +3,18 @@
 {% block content %}
     <br>
     {% if request.user|has_group:"system_administrator" %}
+        <div class="card" style="width: 100rem;">
+        <div class="card-body">
+    <h5 class="card-title">Create Report</h5>
+    <p class="card-text">Create a new report</p>
+    <a href="create_reports" class="btn btn-primary">Go</a>
+  </div>
+        <div class="card" style="width: 100rem;">
+        <div class="card-body">
+    <h5 class="card-title">Reports</h5>
+    <p class="card-text">Reports in the system</p>
+    <a href="reports" class="btn btn-primary">Go</a>
+  </div>
          <div class="card" style="width: 100rem;">
   <div class="card-body">
     <h5 class="card-title">Add Currency</h5>
@@ -44,6 +56,18 @@
 </div>
 {% endif %}
 {% if request.user|has_group:"travel_advisor" %}
+    <div class="card" style="width: 100rem;">
+        <div class="card-body">
+    <h5 class="card-title">Create Report</h5>
+    <p class="card-text">Create a new report</p>
+    <a href="create_reports" class="btn btn-primary">Go</a>
+  </div>
+        <div class="card" style="width: 100rem;">
+        <div class="card-body">
+    <h5 class="card-title">Reports</h5>
+    <p class="card-text">Reports in the system</p>
+    <a href="reports" class="btn btn-primary">Go</a>
+  </div>
 <div class="card-body">
     <h5 class="card-title">Register Customer</h5>
     <p class="card-text">Click here to register a new customer to the system</p>
@@ -56,6 +80,18 @@
 </div>
 {% endif %}
 {% if request.user|has_group:"manager" %}
+    <div class="card" style="width: 100rem;">
+        <div class="card-body">
+    <h5 class="card-title">Create Report</h5>
+    <p class="card-text">Create a new report</p>
+    <a href="create_reports" class="btn btn-primary">Go</a>
+  </div>
+        <div class="card" style="width: 100rem;">
+        <div class="card-body">
+    <h5 class="card-title">Reports</h5>
+    <p class="card-text">Reports in the system</p>
+    <a href="reports" class="btn btn-primary">Go</a>
+  </div>
 </div>
     <div class="card" style="width: 100rem;">
   <div class="card-body">
