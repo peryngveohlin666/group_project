@@ -7,8 +7,8 @@ from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
 from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, \
-    add_currency_form, stock_turnover_form
-from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range
+    add_currency_form, stock_turnover_form, individual_sales_form_manager, individual_sales_form_agent
+from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range, individual_sales_report
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -239,5 +239,25 @@ def reports(request):
 def create_reports(request):
     return render(request, "create_reports.html")
 
+
 def create_individual_sales_report(request):
-    return render(request, 'logout.html')
+    current_user = request.user
+    report = individual_sales_report()
+    if current_user.groups.filter(name__in=['travel_advisor']).exists():
+        form = individual_sales_form_agent(data=request.POST)
+    else:
+        form = individual_sales_form_manager(data=request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            report.date_from = form.instance.date_from
+            report.date_to = form.instance.date_to
+            if current_user.groups.filter(name__in=['travel_advisor']).exists():
+                report.agent = current_user
+            else:
+                report.agent = form.instance.agent
+            report.save()
+            return render(request, "create_individual_sales_report.html", {'form': form})
+        else:
+            return render(request, "create_individual_sales_report.html", {'form': form})
+    else:
+        return render(request, "create_individual_sales_report.html", {'form': form})
