@@ -1,0 +1,14 @@
+{%  extends "base.html" %}
+
+{% block content %}
+Stock Turnover Reports
+    {% for s in stock_turnover_reports %}
+        <br>
+        Report No:
+        {{ s.id }}
+        <a href="view_stock_turnover_report/{{ s.id }}">Go</a>
+    {% endfor %}
+
+
+
+{% endblock %}

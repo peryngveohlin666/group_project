@@ -6,7 +6,8 @@ from django.contrib import auth
 from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
-from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, add_currency_form, stock_turnover_form
+from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, \
+    add_currency_form, stock_turnover_form
 from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range
 
 
@@ -191,7 +192,7 @@ def create_stock_turnover_report(request):
                 blankets = blank.objects.filter(number__range=[r.range_from, r.range_to])
                 i = 0
                 for b in blankets:
-                    if(b.is_sold):
+                    if (b.is_sold):
                         i = i + 1
                 r.sold_blank_count = i
                 r.save()
@@ -224,4 +225,10 @@ def view_stock_turnover_report(request, number):
     number = 0
     print(assigned_ranges)
 
-    return render(request, "view_stock_turnover_report.html", {'assigned_ranges': assigned_ranges, 'created_ranges': created_ranges})
+    return render(request, "view_stock_turnover_report.html",
+                  {'assigned_ranges': assigned_ranges, 'created_ranges': created_ranges})
+
+
+def reports(request):
+    stock_turnover_reports = stock_turnover_report.objects.all()
+    return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports})

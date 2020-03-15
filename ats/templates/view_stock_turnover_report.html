@@ -51,7 +51,7 @@ Used:from/to/total
     from:
     {{ a.range_from }}
     to:
-    {{ a.range_from|add:a.sold_blank_count|add:1  }}
+    {{ a.range_from|add:a.sold_blank_count  }}
     sold by
     {{ a.agent }}
         total sold
@@ -67,13 +67,13 @@ Used:from/to/total
     <div class="bg-light">
     Left
     from:
-    {{ a.range_from|add:a.sold_blank_count|add:1 }}
+    {{ a.range_from|add:a.sold_blank_count }}
     to:
     {{ a.range_to  }}
-    sold by
+    assigned to
     {{ a.agent }}
-        total sold
-    {{ a.sold_blank_count}}
+        total left
+    {{ a.range_to|sub:a.range_from|sub:a.sold_blank_count}}
     </div>
 {% endfor %}
 </div>
