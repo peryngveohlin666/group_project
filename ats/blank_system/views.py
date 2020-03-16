@@ -261,3 +261,9 @@ def create_individual_sales_report(request):
             return render(request, "create_individual_sales_report.html", {'form': form})
     else:
         return render(request, "create_individual_sales_report.html", {'form': form})
+
+
+def view_individual_sales_report(request, number):
+    report = individual_sales_report.objects.get(pk=number)
+    blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], advisor=report.agent)
+    return render(request, "view_individual_sales_report.html", {'blanks_report': blanks_report})

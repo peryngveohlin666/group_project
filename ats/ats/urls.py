@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from .views import index, homepage, register_user, logout_view
-from blank_system.views import create_blanks, blanks, assign_blanks, register_customer, my_blanks, register_card, blanku_by_card, blanku_by_cash, add_currency, create_stock_turnover_report, view_stock_turnover_report, reports, create_reports, create_individual_sales_report
+from blank_system.views import create_blanks, blanks, assign_blanks, register_customer, my_blanks, register_card, blanku_by_card, blanku_by_cash, add_currency, create_stock_turnover_report, view_stock_turnover_report, reports, create_reports, create_individual_sales_report, view_individual_sales_report
 #url patterns for the pages we use in views.py so that we won't have to write the whole directory tree
 
 urlpatterns = [
@@ -23,5 +23,6 @@ urlpatterns = [
     path('view_stock_turnover_report/<int:number>/', view_stock_turnover_report, name='view_stock_turnover_report'),
     path('reports', reports, name='reports'),
     path('create_reports', create_reports, name='create_reports'),
-    path('create_individual_sales_report', create_individual_sales_report, name='create_individual_sales_report')
+    path('create_individual_sales_report', create_individual_sales_report, name='create_individual_sales_report'),
+    path('view_individual_sales_report/<int:number>/', view_individual_sales_report, name='view_individual_sales_report')
 ]

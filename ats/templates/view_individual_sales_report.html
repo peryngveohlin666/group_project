@@ -1,0 +1,32 @@
+{%  extends "base.html" %}
+{% load mathfilters %}
+{% block content %}
+    Agent:
+    {% for b in blanks_report|slice:":1" %}
+        {{ b.advisor }}
+    {% endfor %}
+    <br>
+    <br>
+    {% for b in blanks_report  %}
+        Assigned:
+       - {{ b.type }}
+{{ b.number }}
+        ---------------
+        Price(in GBP)
+        {{ b.price }}---------
+         {% if b.blank_currency.rate is not None %}
+             Local Currency(if paid in)
+             rate:
+             {{ b.blank_currency.rate }}
+             {{ b.blank_currency.type }}
+        {{ b.price|mul:b.blank_currency.rate }}-----------
+             -------------
+        {% endif %}
+        ------
+        VAT:
+        {{ b.price|mul:0.2  }}----
+        Price after VAT:
+        {{ b.price|mul:0.2|add:b.price }}
+        <br>
+{% endfor %}
+{% endblock %}
