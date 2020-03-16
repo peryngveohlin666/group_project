@@ -233,7 +233,8 @@ def view_stock_turnover_report(request, number):
 
 def reports(request):
     stock_turnover_reports = stock_turnover_report.objects.all()
-    return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports})
+    individual_sales_reports = individual_sales_report.objects.all()
+    return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports, 'individual_sales_reports': individual_sales_reports})
 
 
 def create_reports(request):
@@ -265,5 +266,21 @@ def create_individual_sales_report(request):
 
 def view_individual_sales_report(request, number):
     report = individual_sales_report.objects.get(pk=number)
-    blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], advisor=report.agent)
-    return render(request, "view_individual_sales_report.html", {'blanks_report': blanks_report})
+    blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], advisor=report.agent, is_sold=True)
+    total_price = 0
+    total_price_local = 0
+    total_commission = 0
+    total_paid = 0
+    total_paid = 0
+    num = 0
+    for b in blanks_report:
+        total_price = b.price + total_price
+        if b.blank_currency is not None:
+            total_price_local = (b.price * b.blank_currency.rate) + total_price_local
+        num = num + 1
+        if b.is_paid:
+            total_commission = (b.price * b.commission_rate / 100) + total_commission
+            total_paid = total_paid + b.price
+
+
+    return render(request, "view_individual_sales_report.html", {'blanks_report': blanks_report, 'total_price': total_price, 'num': num, 'total_price_local': total_price_local, 'total_commission':total_commission, 'total_paid': total_paid})

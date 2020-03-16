@@ -1,32 +1,68 @@
 {%  extends "base.html" %}
 {% load mathfilters %}
 {% block content %}
-    Agent:
+
+    <div class="card">
+    <div class="card-body">
     {% for b in blanks_report|slice:":1" %}
+        Agent:
         {{ b.advisor }}
+        </div>
     {% endfor %}
-    <br>
-    <br>
+</div>
+    <div class="card">
     {% for b in blanks_report  %}
+        <div class="card">
+        <div class="card-body">
         Assigned:
        - {{ b.type }}
 {{ b.number }}
-        ---------------
+        </div>
+<div class="card-body">
         Price(in GBP)
-        {{ b.price }}---------
+        {{ b.price }}
+        </div>
          {% if b.blank_currency.rate is not None %}
+             <div class="card-body">
              Local Currency(if paid in)
              rate:
              {{ b.blank_currency.rate }}
              {{ b.blank_currency.type }}
-        {{ b.price|mul:b.blank_currency.rate }}-----------
-             -------------
+        {{ b.price|mul:b.blank_currency.rate|div:100 }}</div>
         {% endif %}
-        ------
+       <div class="card-body">
         VAT:
-        {{ b.price|mul:0.2  }}----
+        {{ b.price|mul:0.2  }}
+        </div>
+        <div class="card-body">
         Price after VAT:
         {{ b.price|mul:0.2|add:b.price }}
+        </div>
+        <div class="card-body">
+        Is paid? {{ b.is_paid }}
+        </div>
+        <div class="card-body">
+        Commission Rate:
+        {{ b.commission_rate }} %
+        </div>
+        <div class="card-body">
+        Commission in USD (after the payment is made): {{ b.price|mul:b.commission_rate|div:100 }}
+        </div>
         <br>
 {% endfor %}
+    </div>
+    Number Of Tickets: {{ num }}
+    <br>
+    Total Price (in GBP): {{ total_price }}
+    <br>
+    Total Price (in Local Currencies (these are already converted to gbp and added to the total price)): {{ total_price_local }}
+    <br>
+    Total Price after the Taxes: {{ total_price|mul:0.2|add:total_price  }}
+    <br>
+    Total Commissions: {{ total_commission }}
+    <br>
+    Total Paid: {{ total_paid }}
+    <br>
+    Net Amount: {{ total_paid|sub:total_commission }}
+    </div>
 {% endblock %}

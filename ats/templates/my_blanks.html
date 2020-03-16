@@ -1,5 +1,5 @@
 {%  extends "base.html" %}
-
+{% load mathfilters %}
 {% block content %}
     <div class="card-body bg-light">
 <br />
@@ -11,6 +11,13 @@ number:
     {{ blank.number }}
     sold?
     {{ blank.is_sold }}
+price:
+    {{ blank.price }}
+USD
+VAT:
+{{ blank.price|mul:20|div:100 }}
+price + vat:
+{{ blank.price|mul:20|div:100|add:blank.price }}
     refunded?
     {{ blank.is_refunded }}
     date created:
@@ -19,8 +26,11 @@ number:
     {{ blank.advisor }}
         commission_rate
         {{ blank.comission_rate }}
+{% if blank.is_sold %}
         baught by:
         {{ blank.blank_customer.name }}
+{% endif %}
+<br>
         {% if not blank.is_sold %}
         <a href="blanku_by_cash/{{ blank.number }}/" class="btn btn-primary ">Sell by cash</a>
     <a href="blanku_by_card/{{ blank.number }}/" class="btn btn-primary">Sell by card</a>
