@@ -234,7 +234,8 @@ def view_stock_turnover_report(request, number):
 def reports(request):
     stock_turnover_reports = stock_turnover_report.objects.all()
     individual_sales_reports = individual_sales_report.objects.all()
-    return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports, 'individual_sales_reports': individual_sales_reports})
+    global_sales_reports = individual_sales_report.objects.all()
+    return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports, 'individual_sales_reports': individual_sales_reports, 'global_sales_reports': global_sales_reports})
 
 
 def create_reports(request):

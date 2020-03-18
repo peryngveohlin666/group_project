@@ -1,5 +1,5 @@
 {%  extends "base.html" %}
-
+{% load auth_extras %}
 {% block content %}
 Stock Turnover Reports
     {% for s in stock_turnover_reports %}
@@ -9,12 +9,40 @@ Stock Turnover Reports
         <a href="view_stock_turnover_report/{{ s.id }}">Go</a>
     {% endfor %}
     <br>
-    Individual sales reports:
+    <br>
+    {% if request.user|has_group:"manager" %}
+        Individual sales reports:
+        <br>
     {% for i in individual_sales_reports %}
         <br>
         Report No:
         {{ i.id }}
+        <br>
+        Advisor:
+        {{ i.agent }}
         <a href="view_individual_sales_report/{{ i.id }}">Go</a>
+    {% endfor %}
+    {% endif %}
+    {% if request.user|has_group:"travel_advisor" %}
+        Individual sales reports:
+        <br>
+        {% for i in individual_sales_reports %}
+        {% if i.agent == request.user %}
+            Report No:
+        {{ i.id }}
+            <a href="view_individual_sales_report/{{ i.id }}">Go</a>
+            <br>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <br>
+    Global Sales Reports:
+    {% for g in global_sales_reports %}
+        <br>
+        Report No:
+        {{ g.id }}
+        <a href="view_global_sales_report/{{ g.id }}">Go</a>
     {% endfor %}
 
 
