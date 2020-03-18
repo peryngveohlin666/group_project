@@ -7,8 +7,8 @@ from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
 from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, \
-    add_currency_form, stock_turnover_form, individual_sales_form_manager, individual_sales_form_agent
-from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range, individual_sales_report
+    add_currency_form, stock_turnover_form, individual_sales_form_manager, individual_sales_form_agent, global_sales_form
+from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range, individual_sales_report, global_sales_report
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -281,6 +281,39 @@ def view_individual_sales_report(request, number):
         if b.is_paid:
             total_commission = (b.price * b.commission_rate / 100) + total_commission
             total_paid = total_paid + b.price
-
-
     return render(request, "view_individual_sales_report.html", {'blanks_report': blanks_report, 'total_price': total_price, 'num': num, 'total_price_local': total_price_local, 'total_commission':total_commission, 'total_paid': total_paid})
+
+
+def create_global_sales_report(request):
+    report = global_sales_report()
+    form = global_sales_form(data=request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            report.date_from = form.instance.date_from
+            report.date_to = form.instance.date_to
+            report.save()
+            return render(request, "create_individual_sales_report.html", {'form': form})
+        else:
+            return render(request, "create_individual_sales_report.html", {'form': form})
+    else:
+        return render(request, "create_individual_sales_report.html", {'form': form})
+
+
+def view_global_sales_report(request, number):
+    report = global_sales_report.objects.get(pk=number)
+    blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to])
+    total_price = 0
+    total_price_local = 0
+    total_commission = 0
+    total_paid = 0
+    total_paid = 0
+    num = 0
+    for b in blanks_report:
+        total_price = b.price + total_price
+        if b.blank_currency is not None:
+            total_price_local = (b.price * b.blank_currency.rate) + total_price_local
+        num = num + 1
+        if b.is_paid:
+            total_commission = (b.price * b.commission_rate / 100) + total_commission
+            total_paid = total_paid + b.price
+    return render(request, "view_global_sales_report.html", {'blanks_report': blanks_report, 'total_price': total_price, 'num': num, 'total_price_local': total_price_local, 'total_commission':total_commission, 'total_paid': total_paid})

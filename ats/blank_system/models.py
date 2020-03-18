@@ -108,3 +108,8 @@ class individual_sales_report(models.Model):
     )
     date_from = models.DateField(auto_now_add=False)
     date_to = models.DateField(auto_now_add=False)
+
+
+class global_sales_report(models.Model):
+    date_from = models.DateField(auto_now_add=False)
+    date_to = models.DateField(auto_now_add=False)

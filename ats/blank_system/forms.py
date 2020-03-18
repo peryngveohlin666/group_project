@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, individual_sales_report
+from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, individual_sales_report, global_sales_report
 
 
 # a form object for blanks
@@ -37,7 +37,7 @@ class register_card_form(ModelForm):
 class sell_form(ModelForm):
     class Meta:
         model = blank
-        fields = ['blank_customer', 'is_sold', 'is_paid', 'payment_due']
+        fields = ['blank_customer', 'is_sold', 'is_paid', 'payment_due', 'blank_currency']
 
 
 class add_currency_form(ModelForm):
@@ -61,4 +61,10 @@ class individual_sales_form_manager(ModelForm):
 class individual_sales_form_agent(ModelForm):
     class Meta:
         model = individual_sales_report
+        fields = ['date_to', 'date_from']
+
+
+class global_sales_form(ModelForm):
+    class Meta:
+        model = global_sales_report
         fields = ['date_to', 'date_from']
