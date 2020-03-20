@@ -12,6 +12,7 @@ body{
   justify-content: center;
   justify-content: space-evenly;
   justify-content: space-between;
+
 }
 
 .box{
@@ -25,6 +26,8 @@ body{
   outline-color: #0603C2;
   border-color: #0603C2;
 }
+
+
 
 .bottom{
   margin-bottom: auto;
@@ -101,6 +104,7 @@ header{
 }
 
 header a{
+    color:white;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 16px;
@@ -114,6 +118,7 @@ header li{
 }
 
 header nav {
+    float:right;
     margin-top:10px;
 }
 
