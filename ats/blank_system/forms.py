@@ -37,7 +37,7 @@ class register_card_form(ModelForm):
 class sell_form(ModelForm):
     class Meta:
         model = blank
-        fields = ['blank_customer', 'is_sold', 'is_paid', 'payment_due', 'blank_currency', 'discount']
+        fields = ['blank_customer', 'is_paid', 'payment_due', 'blank_currency', 'discount']
 
 
 class add_currency_form(ModelForm):

@@ -48,8 +48,9 @@ class blank(models.Model):
     price = models.IntegerField()
     discount = models.IntegerField(blank=True, null=True)
     date = models.DateField(auto_now_add=True)
-    payment_due = models.DateField(auto_now_add=False)
+    payment_due = models.DateField(auto_now_add=False, blank=True, null=True)
     commission_rate = models.IntegerField(blank=True, null=True)
+    paid_by_card = models.BooleanField(default=False)
     advisor = models.ForeignKey(
         User,
         models.SET_NULL,
@@ -64,6 +65,12 @@ class blank(models.Model):
     )
     blank_currency = models.ForeignKey(
         currency,
+        models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    blank_card = models.ForeignKey(
+        card,
         models.SET_NULL,
         blank=True,
         null=True,

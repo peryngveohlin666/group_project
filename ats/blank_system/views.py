@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
@@ -95,8 +95,8 @@ def register_customer(request):
         return render(request, "register_customer.html", {'form': form})
 
 
-@user_passes_test(
-    lambda u: u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def my_blanks(request):
     current_user = request.user
     blanks = blank.objects.filter(advisor=current_user)
@@ -122,14 +122,19 @@ def register_card(request):
         return render(request, "register_card.html", {'form': form})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists())
 def blanku_by_card(request, number):
     blanket = blank.objects.get(pk=number)
     if request.method == 'POST':
         _sell_form = sell_form(data=request.POST, instance=blanket)
         _create_card_form = register_card_form(data=request.POST)
         if _sell_form.is_valid() and _create_card_form.is_valid():
-            blanket.price = blanket.price - form.instance.discount
-            blanket.save()
+            if _sell_form.instance.discount is not None:
+                blanket.price = blanket.price - _sell_form.instance.discount
+            blanket.is_sold = True
+            if _sell_form.instance.payment_due is None:
+                blanket.payment_due = date.today() + timedelta(days=30)
             _sell_form.save()
             # returns the current customer in the form
             current_customer = customer.objects.get(pk=_sell_form.instance.blank_customer.name)
@@ -137,11 +142,14 @@ def blanku_by_card(request, number):
             # sets the card for the customer to the card from the form
             card_customer = card.objects.get(pk=_create_card_form.instance.number)
             current_customer.card_info.add(card_customer)
-            return render(request, 'blanku_by_card.html',
+            blanket.blank_card = card_customer
+            blanket.paid_by_card = True
+            blanket.save()
+            return render(request, 'my_blanks.html',
                           {'sell_form': _sell_form, 'blank': blanket, 'card_form': _create_card_form})
         else:
             print('error')
-            return render(request, 'homepage.html')
+            return render(request, 'my_blanks.html')
     else:
         print('send')
         _sell_form = sell_form(data=request.POST, instance=blanket)
@@ -150,24 +158,31 @@ def blanku_by_card(request, number):
                       {'sell_form': _sell_form, 'blank': blanket, 'card_form': _create_card_form})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists())
 def blanku_by_cash(request, number):
     blanket = blank.objects.get(pk=number)
     if request.method == 'POST':
         form = sell_form(data=request.POST, instance=blanket)
         if form.is_valid():
-            blanket.price = blanket.price - form.instance.discount
+            if form.instance.discount is not None:
+                blanket.price = blanket.price - form.instance.discount
+            blanket.is_sold = True
+            if form.instance.payment_due is None:
+                blanket.payment_due = date.today() + timedelta(days=30)
             blanket.save()
             form.save()
             return render(request, 'my_blanks.html', {'form': form, 'blank': blanket})
         else:
             print('error')
-            return render(request, 'homepage.html')
+            return render(request, 'my_blanks.html')
     else:
         print('send')
         form = sell_form(data=request.POST, instance=blanket)
         return render(request, 'blanku_by_cash.html', {'form': form, 'blank': blanket})
 
 
+@user_passes_test(lambda u:  u.groups.filter(name='system_administrator').exists())
 def add_currency(request):
     if request.method == 'POST':
         form = add_currency_form(data=request.POST)
@@ -181,6 +196,7 @@ def add_currency(request):
         return render(request, "add_currency.html", {'form': form})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def create_stock_turnover_report(request):
     if request.method == 'POST':
         form = stock_turnover_form(data=request.POST)
@@ -215,6 +231,7 @@ def create_stock_turnover_report(request):
         return render(request, "create_stock_turnover_report.html", {'form': form})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def view_stock_turnover_report(request, number):
     report = stock_turnover_report.objects.get(pk=number)
     assigned_ranges = report.assigned_range.all()
@@ -235,6 +252,8 @@ def view_stock_turnover_report(request, number):
                   {'assigned_ranges': assigned_ranges, 'created_ranges': created_ranges})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def reports(request):
     stock_turnover_reports = stock_turnover_report.objects.all()
     individual_sales_reports = individual_sales_report.objects.all()
@@ -242,10 +261,14 @@ def reports(request):
     return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports, 'individual_sales_reports': individual_sales_reports, 'global_sales_reports': global_sales_reports})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def create_reports(request):
     return render(request, "create_reports.html")
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists())
 def create_individual_sales_report(request):
     current_user = request.user
     report = individual_sales_report()
@@ -269,6 +292,8 @@ def create_individual_sales_report(request):
         return render(request, "create_individual_sales_report.html", {'form': form})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists())
 def view_individual_sales_report(request, number):
     report = individual_sales_report.objects.get(pk=number)
     blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], advisor=report.agent, is_sold=True)
@@ -289,6 +314,7 @@ def view_individual_sales_report(request, number):
     return render(request, "view_individual_sales_report.html", {'blanks_report': blanks_report, 'total_price': total_price, 'num': num, 'total_price_local': total_price_local, 'total_commission':total_commission, 'total_paid': total_paid})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def create_global_sales_report(request):
     report = global_sales_report()
     form = global_sales_form(data=request.POST)
@@ -304,6 +330,7 @@ def create_global_sales_report(request):
         return render(request, "create_individual_sales_report.html", {'form': form})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def view_global_sales_report(request, number):
     report = global_sales_report.objects.get(pk=number)
     blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to])
@@ -324,6 +351,8 @@ def view_global_sales_report(request, number):
     return render(request, "view_global_sales_report.html", {'blanks_report': blanks_report, 'total_price': total_price, 'num': num, 'total_price_local': total_price_local, 'total_commission':total_commission, 'total_paid': total_paid})
 
 
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists())
 def refund(request, number):
     blankie = blank.objects.get(pk=number)
     blankie.is_refunded = True
