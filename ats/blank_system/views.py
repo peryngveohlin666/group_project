@@ -333,7 +333,7 @@ def create_global_sales_report(request):
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def view_global_sales_report(request, number):
     report = global_sales_report.objects.get(pk=number)
-    blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to])
+    blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True)
     total_price = 0
     total_price_local = 0
     total_commission = 0

@@ -45,6 +45,21 @@
         <div class="card-body">
         Is paid? {{ b.is_paid }}
         </div>
+        {% if b.is_paid is not True %}
+            <div class="card-body">
+        Payment Due {{ b.payment_due }}
+        </div>
+        {% endif %}
+        {% if b.is_paid is True %}
+            <div class="card-body">
+        Paid by card? {{ b.paid_by_card }}
+            {% if b.paid_by_card is True %}
+                Card No {{ b.blank_card.number }}
+            {% endif %}
+        </div>
+        {% endif %}
+        <div class="card-body">
+        </div>
         <div class="card-body">
         Commission Rate:
         {{ b.commission_rate }} %
