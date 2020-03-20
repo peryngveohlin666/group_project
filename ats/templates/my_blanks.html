@@ -1,7 +1,7 @@
 {%  extends "base.html" %}
 {% load mathfilters %}
 {% block content %}
-    <div class="card-body bg-light">
+    <div class="card-body">
 <br />
 {% for blank in blanks %}
     {% if blank.advisor == current_user %}
@@ -31,6 +31,11 @@ price + vat:
         {{ blank.blank_customer.name }}
 {% endif %}
 <br>
+{% if blank.is_sold %}
+    {% if not blank.is_refunded %}
+        <a href="refund/{{ blank.number }}/" class="btn btn-secondary ">Refund Blank</a>
+        {% endif %}
+{% endif %}
         {% if not blank.is_sold %}
         <a href="blanku_by_cash/{{ blank.number }}/" class="btn btn-primary ">Sell by cash</a>
     <a href="blanku_by_card/{{ blank.number }}/" class="btn btn-primary">Sell by card</a>
@@ -39,7 +44,7 @@ price + vat:
 <br />
 
     {% endif %}
-    <div/>
-{% endfor %}
 
+{% endfor %}
+<div/>
 {% endblock %}
