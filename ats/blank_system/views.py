@@ -128,6 +128,8 @@ def blanku_by_card(request, number):
         _sell_form = sell_form(data=request.POST, instance=blanket)
         _create_card_form = register_card_form(data=request.POST)
         if _sell_form.is_valid() and _create_card_form.is_valid():
+            blanket.price = blanket.price - form.instance.discount
+            blanket.save()
             _sell_form.save()
             # returns the current customer in the form
             current_customer = customer.objects.get(pk=_sell_form.instance.blank_customer.name)
@@ -153,8 +155,10 @@ def blanku_by_cash(request, number):
     if request.method == 'POST':
         form = sell_form(data=request.POST, instance=blanket)
         if form.is_valid():
+            blanket.price = blanket.price - form.instance.discount
+            blanket.save()
             form.save()
-            return render(request, 'blanku_by_cash.html', {'form': form, 'blank': blanket})
+            return render(request, 'my_blanks.html', {'form': form, 'blank': blanket})
         else:
             print('error')
             return render(request, 'homepage.html')
@@ -234,7 +238,7 @@ def view_stock_turnover_report(request, number):
 def reports(request):
     stock_turnover_reports = stock_turnover_report.objects.all()
     individual_sales_reports = individual_sales_report.objects.all()
-    global_sales_reports = individual_sales_report.objects.all()
+    global_sales_reports = global_sales_report.objects.all()
     return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports, 'individual_sales_reports': individual_sales_reports, 'global_sales_reports': global_sales_reports})
 
 

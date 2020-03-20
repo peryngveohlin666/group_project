@@ -9,13 +9,14 @@
     {% for b in blanks_report  %}
         <div class="card">
         <div class="card-body">
-        Agent Username
+        Agent Username:
        - {{ b.advisor }}
             <br>
-        Agent Name  {{ b.advisor.name }}
+            Agent Name:
+ {{ b.advisor.first_name }}
             <br>
         Agent Surname:
-        Agent Name  {{ b.advisor.name }}
+ {{ b.advisor.last_name }}
         </div>
         <div class="card-body">
         Assigned:
@@ -23,8 +24,12 @@
 {{ b.number }}
         </div>
 <div class="card-body">
-        Price(in GBP)
+        Price-With Discount-(in GBP)
         {{ b.price }}
+        </div>
+        <div class="card-body">
+        Discount Applied (in GBP):
+        {{ b.discount }}
         </div>
          {% if b.blank_currency.rate is not None %}
              <div class="card-body">

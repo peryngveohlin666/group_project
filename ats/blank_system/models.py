@@ -46,6 +46,7 @@ class blank(models.Model):
     is_refunded = models.BooleanField(default=False)
     is_paid = models.BooleanField(default=False)
     price = models.IntegerField()
+    discount = models.IntegerField(blank=True, null=True)
     date = models.DateField(auto_now_add=True)
     payment_due = models.DateField(auto_now_add=False)
     commission_rate = models.IntegerField(blank=True, null=True)

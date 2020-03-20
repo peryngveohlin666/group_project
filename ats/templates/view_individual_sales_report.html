@@ -19,8 +19,12 @@
 {{ b.number }}
         </div>
 <div class="card-body">
-        Price(in GBP)
+        Price-With Discount-(in GBP)
         {{ b.price }}
+        </div>
+        <div class="card-body">
+        Discount Applied (in GBP):
+        {{ b.discount }}
         </div>
          {% if b.blank_currency.rate is not None %}
              <div class="card-body">
