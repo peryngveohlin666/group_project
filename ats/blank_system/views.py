@@ -98,8 +98,8 @@ def register_customer(request):
 @user_passes_test(
     lambda u: u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def my_blanks(request):
-    blanks = blank.objects.all()
     current_user = request.user
+    blanks = blank.objects.filter(advisor=current_user)
     context = {
         'blanks': blanks,
         'current_user': current_user
