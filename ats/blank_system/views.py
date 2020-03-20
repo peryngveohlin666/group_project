@@ -318,3 +318,8 @@ def view_global_sales_report(request, number):
             total_commission = (b.price * b.commission_rate / 100) + total_commission
             total_paid = total_paid + b.price
     return render(request, "view_global_sales_report.html", {'blanks_report': blanks_report, 'total_price': total_price, 'num': num, 'total_price_local': total_price_local, 'total_commission':total_commission, 'total_paid': total_paid})
+
+
+def refund(request, number):
+
+    return render(request, 'refund.html')
