@@ -356,6 +356,7 @@ def view_global_sales_report(request, number):
 def refund(request, number):
     blankie = blank.objects.get(pk=number)
     blankie.is_refunded = True
+    blankie.price = 0
     blankie.save()
     return render(request, 'refund.html')
 

@@ -13,10 +13,10 @@ number:
     {{ blank.is_sold }}
 price:
     {{ blank.price }}
-USD
+GBP
 VAT:
 {{ blank.price|mul:20|div:100 }}
-price + vat:
+price + vat in GBP:
 {{ blank.price|mul:20|div:100|add:blank.price }}
     refunded?
     {{ blank.is_refunded }}
@@ -25,7 +25,7 @@ price + vat:
     assigned advisor:
     {{ blank.advisor }}
         commission_rate
-        {{ blank.comission_rate }}
+        {{ blank.commission_rate }}
 {% if blank.is_sold %}
         baught by:
         {{ blank.blank_customer.name }}

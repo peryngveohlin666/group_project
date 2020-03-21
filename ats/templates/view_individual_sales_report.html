@@ -4,6 +4,11 @@
 
     <div class="card">
     <div class="card-body">
+    {% if b.is_refunded %}
+            <div class="card-body bg-primary">
+            This blank has been refunded
+        </div>
+        {% endif %}
     {% for b in blanks_report|slice:":1" %}
         Agent:
         {{ b.advisor }}
@@ -65,7 +70,7 @@
         {{ b.commission_rate }} %
         </div>
         <div class="card-body">
-        Commission in USD (after the payment is made): {{ b.price|mul:b.commission_rate|div:100 }}
+        Commission in GBP (after the payment is made): {{ b.price|mul:b.commission_rate|div:100 }}
         </div>
         <br>
 {% endfor %}

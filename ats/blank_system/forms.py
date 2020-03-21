@@ -9,7 +9,7 @@ class blank_form(ModelForm):
         #the model the form references to
         model = blank
         #the fields to fill in the form for that model
-        fields = ['type', 'is_sold', 'is_refunded', 'price']
+        fields = ['type', 'price']
 
 #a form to support assigning blanks
 class assign_blank_form(ModelForm):
