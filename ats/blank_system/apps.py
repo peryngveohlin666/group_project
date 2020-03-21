@@ -11,5 +11,3 @@ class BlankSystemConfig(AppConfig):
         Group.objects.get_or_create(name='system_administrator')
         Group.objects.get_or_create(name='manager')
         Group.objects.get_or_create(name='travel_advisor')
-
-        print("Test")

@@ -7,6 +7,20 @@ head>
     {% if request.user|has_group:"system_administrator" %}
         <div class="card" style="width: 100%;">
         <div class="card-body">
+    <h5 class="card-title">Back Up Database</h5>
+    <p class="card-text">Download the database as a json file</p>
+    <a href="backup_database" class="btn btn-primary">Go</a>
+  </div>
+        </div>
+        <div class="card" style="width: 100%;">
+        <div class="card-body">
+    <h5 class="card-title">Restore Database</h5>
+    <p class="card-text">Restore the database from a json file</p>
+    <a href="restore_database" class="btn btn-primary">Go</a>
+  </div>
+        </div>
+        <div class="card" style="width: 100%;">
+        <div class="card-body">
     <h5 class="card-title">Create Report</h5>
     <p class="card-text">Create a new report</p>
     <a href="create_reports" class="btn btn-primary">Go</a>

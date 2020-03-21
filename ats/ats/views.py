@@ -1,16 +1,20 @@
+import os
 from datetime import date, timedelta
-
 from django.contrib import auth
 from django.contrib.auth import login
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User, Group
+from django.core.management import call_command
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from ats.forms import register_form
 from django.contrib.auth import logout
 from blank_system.models import blank
+from io import StringIO
+from django.core import management
 from django.template import RequestContext
+from django.utils.encoding import smart_str
 
 
 def index(request):
@@ -60,4 +64,25 @@ def logout_view(request):
     logout(request)
     return render(request, 'logout.html')
 
+
+@user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
+def backup_database(request):
+    output = open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static/database.json'), 'w')
+    call_command('dumpdata', format='json', indent=3, stdout=output)
+    output.close()
+    return render(request, "backup_database.html")
+
+
+
+@user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
+def restore_database(request):
+    if request.method == 'POST':
+        file = request.FILES['file']
+        with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static/input_database.json'),'wb') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+        call_command('loaddata', 'static/input_database.json')
+        return render(request,  'success.html')
+    else:
+        return render(request, "restore_database.html")
 
