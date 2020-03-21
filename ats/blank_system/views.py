@@ -28,9 +28,9 @@ def create_blanks(request):
                 form.save()
                 form.instance = None
                 form = blank_form(data=request.POST)
-            return render(request, "create_blanks.html")
+            return render(request, "success.html")
         else:
-            return render(request, "create_blanks.html")
+            return render(request, "error.html")
     else:
         form = blank_form
         return render(request, "create_blanks.html", {'form': form})
@@ -73,7 +73,7 @@ def assign_blanks(request):
                 if b.number == int(to_value):
                     break
                 print(b.number)
-        return render(request, 'assign_blanks.html')
+        return render(request, 'success.html')
     else:
         form = assign_blank_form()
         return render(request, 'assign_blanks.html', {'form': form})
@@ -87,9 +87,9 @@ def register_customer(request):
         form = register_customer_form(data=request.POST)
         if form.is_valid():
             form.save()
-            return render(request, "register_customer.html")
+            return render(request, "success.html")
         else:
-            return render(request, "register_customer.html")
+            return render(request, "error.html")
     else:
         form = register_customer_form
         return render(request, "register_customer.html", {'form': form})
@@ -114,9 +114,9 @@ def register_card(request):
         form = register_card_form(data=request.POST)
         if form.is_valid():
             form.save()
-            return render(request, "register_card.html")
+            return render(request, "success.html")
         else:
-            return render(request, "register_customer.html")
+            return render(request, "error.html")
     else:
         form = register_card_form
         return render(request, "register_card.html", {'form': form})
@@ -145,11 +145,11 @@ def blanku_by_card(request, number):
             blanket.blank_card = card_customer
             blanket.paid_by_card = True
             blanket.save()
-            return render(request, 'my_blanks.html',
+            return render(request, 'success.html',
                           {'sell_form': _sell_form, 'blank': blanket, 'card_form': _create_card_form})
         else:
             print('error')
-            return render(request, 'my_blanks.html')
+            return render(request, 'error.html')
     else:
         print('send')
         _sell_form = sell_form(data=request.POST, instance=blanket)
@@ -172,10 +172,10 @@ def blanku_by_cash(request, number):
                 blanket.payment_due = date.today() + timedelta(days=30)
             blanket.save()
             form.save()
-            return render(request, 'my_blanks.html', {'form': form, 'blank': blanket})
+            return render(request, 'success.html', {'form': form, 'blank': blanket})
         else:
             print('error')
-            return render(request, 'my_blanks.html')
+            return render(request, 'error.html')
     else:
         print('send')
         form = sell_form(data=request.POST, instance=blanket)
@@ -188,9 +188,9 @@ def add_currency(request):
         form = add_currency_form(data=request.POST)
         if form.is_valid():
             form.save()
-            return render(request, "add_currency.html")
+            return render(request, "success.html")
         else:
-            return render(request, "add_currency.html")
+            return render(request, "error.html")
     else:
         form = add_currency_form
         return render(request, "add_currency.html", {'form': form})
@@ -223,9 +223,9 @@ def create_stock_turnover_report(request):
             report.assigned_range.add(*ranges)
             report.created_range.add(*created_ranges)
             report.save()
-            return render(request, "create_stock_turnover_report.html")
+            return render(request, "success.html")
         else:
-            return render(request, "create_stock_turnover_report.html")
+            return render(request, "error.html")
     else:
         form = stock_turnover_form
         return render(request, "create_stock_turnover_report.html", {'form': form})
@@ -285,9 +285,9 @@ def create_individual_sales_report(request):
             else:
                 report.agent = form.instance.agent
             report.save()
-            return render(request, "create_individual_sales_report.html", {'form': form})
+            return render(request, "success.html", {'form': form})
         else:
-            return render(request, "create_individual_sales_report.html", {'form': form})
+            return render(request, "error.html", {'form': form})
     else:
         return render(request, "create_individual_sales_report.html", {'form': form})
 
@@ -323,9 +323,9 @@ def create_global_sales_report(request):
             report.date_from = form.instance.date_from
             report.date_to = form.instance.date_to
             report.save()
-            return render(request, "create_individual_sales_report.html", {'form': form})
+            return render(request, "success.html", {'form': form})
         else:
-            return render(request, "create_individual_sales_report.html", {'form': form})
+            return render(request, "error.html", {'form': form})
     else:
         return render(request, "create_individual_sales_report.html", {'form': form})
 
