@@ -1,8 +1,54 @@
 {%  extends "base.html" %}
 {% block content %}
-    <a href="create_stock_turnover_report">Create Stock Turnover Report</a>
-    <br>
-    <a href="create_individual_sales_report">Create Individual Sales Report</a>
-    <br>
-    <a href="create_global_sales_report">Create Global Sales Report</a>
+    {% load auth_extras %}
+
+
+
+    {% if request.user|has_group:"manager" %}
+        <div class="card" style="width: 100%;">
+    <div class="card-body">
+    <h5 class="card-title">Create Stock Turnover Report</h5>
+    <p class="card-text">Click here to create a stock turnover report</p>
+    <a href="create_stock_turnover_report" class="btn btn-primary">Go</a>
+</div>
+    </div>
+    <div class="card" style="width: 100%;">
+    <div class="card-body">
+    <h5 class="card-title">Create Individual Sales Report</h5>
+    <p class="card-text">Click here to create an Individual Sales Report</p>
+    <a href="create_individual_sales_report" class="btn btn-primary">Go</a>
+</div>
+    </div>
+    <div class="card" style="width: 100%;">
+    <div class="card-body">
+    <h5 class="card-title">Create Global Sales Report</h5>
+    <p class="card-text">Click here to create a Global Sales Report</p>
+    <a href="create_global_sales_report" class="btn btn-primary">Go</a>
+</div>
+    </div>
+    {% endif %}
+
+
+
+
+    {% if request.user|has_group:"system_administrator" %}
+        <div class="card" style="width: 100%;">
+    <div class="card-body">
+    <h5 class="card-title">Create Stock Turnover Report</h5>
+    <p class="card-text">Click here to create a stock turnover report</p>
+    <a href="create_stock_turnover_report" class="btn btn-primary">Go</a>
+</div>
+    {% endif %}
+
+
+
+
+    {% if request.user|has_group:"travel_advisor" %}
+        <div class="card" style="width: 100%;">
+    <div class="card-body">
+    <h5 class="card-title">Create Individual Sales Report</h5>
+    <p class="card-text">Click here to create an Individual Sales Report</p>
+    <a href="create_individual_sales_report" class="btn btn-primary">Go</a>
+</div>
+    {% endif %}
 {% endblock %}

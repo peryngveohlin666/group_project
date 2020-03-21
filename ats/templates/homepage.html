@@ -4,6 +4,11 @@ head>
 {% load auth_extras %}
 {% block content %}
     <br>
+
+
+
+
+
     {% if request.user|has_group:"system_administrator" %}
         <div class="card" style="width: 100%;">
         <div class="card-body">
@@ -76,6 +81,11 @@ head>
 </div>
     </div>
 {% endif %}
+<br>
+
+
+
+
 {% if request.user|has_group:"travel_advisor" %}
     <div class="card" style="width: 100%;">
         <div class="card-body">
@@ -106,6 +116,11 @@ head>
 </div>
     </div>
 {% endif %}
+<br>
+
+
+
+
 {% if request.user|has_group:"manager" %}
     {% for blank in blanks %}
         <div class="card bg-light" style="width: 100%;">
@@ -116,12 +131,15 @@ head>
             <a href="set_paid/{{ blank.number }}/" class="btn-primary">Set Paid</a>
         </div>
     {% endfor %}
+
+
     <div class="card" style="width: 100%;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
     <p class="card-text">Create a new report</p>
     <a href="create_reports" class="btn btn-primary">Go</a>
   </div>
+    </div>
         <div class="card" style="width: 100%;">
         <div class="card-body">
     <h5 class="card-title">Reports</h5>
@@ -150,5 +168,16 @@ head>
     <a href="register_customer" class="btn btn-primary">Go</a>
 </div>
     </div>
+    <div class="card" style="width: 100%;">
+    <div class="card-body">
+    <h5 class="card-title">My Blanks</h5>
+    <p class="card-text">Click here to see your assigned blanks</p>
+    <a href="my_blanks" class="btn btn-primary">Go</a>
+</div>
+    </div>
 {% endif %}
+<br>
+
+
+
 {% endblock %}
