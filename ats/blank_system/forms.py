@@ -61,10 +61,10 @@ class individual_sales_form_manager(ModelForm):
 class individual_sales_form_agent(ModelForm):
     class Meta:
         model = individual_sales_report
-        fields = ['date_to', 'date_from']
+        fields = ['date_to', 'date_from', 'type']
 
 
 class global_sales_form(ModelForm):
     class Meta:
         model = global_sales_report
-        fields = ['date_to', 'date_from']
+        fields = ['date_to', 'date_from', 'type']

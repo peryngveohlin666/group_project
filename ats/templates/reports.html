@@ -17,9 +17,9 @@ Stock Turnover Reports
         <br>
         Report No:
         {{ i.id }}
-        <br>
         Advisor:
         {{ i.agent }}
+        Report Type: {{ i.type }}
         <a href="view_individual_sales_report/{{ i.id }}">Go</a>
     {% endfor %}
     {% endif %}
@@ -31,6 +31,7 @@ Stock Turnover Reports
             Report No:
         {{ i.id }}
             <a href="view_individual_sales_report/{{ i.id }}">Go</a>
+            Report Type: {{ i.type }}
             <br>
             {% endif %}
         {% endfor %}
@@ -42,6 +43,7 @@ Stock Turnover Reports
         <br>
         Report No:
         {{ g.id }}
+        Report Type: {{ g.type }}
         <a href="view_global_sales_report/{{ g.id }}">Go</a>
     {% endfor %}
 

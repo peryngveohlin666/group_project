@@ -280,6 +280,7 @@ def create_individual_sales_report(request):
         if form.is_valid():
             report.date_from = form.instance.date_from
             report.date_to = form.instance.date_to
+            report.type = form.instance.type
             if current_user.groups.filter(name__in=['travel_advisor']).exists():
                 report.agent = current_user
             else:
@@ -296,7 +297,12 @@ def create_individual_sales_report(request):
     name='travel_advisor').exists())
 def view_individual_sales_report(request, number):
     report = individual_sales_report.objects.get(pk=number)
-    blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], advisor=report.agent, is_sold=True)
+    if report.type == "Interline":
+        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True,
+                                             type__in=["440", "444", "420"])
+    if report.type == "Domestic":
+        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True,
+                                             type__in=["201", "101"])
     total_price = 0
     total_price_local = 0
     total_commission = 0
@@ -322,6 +328,7 @@ def create_global_sales_report(request):
         if form.is_valid():
             report.date_from = form.instance.date_from
             report.date_to = form.instance.date_to
+            report.type = form.instance.type
             report.save()
             return render(request, "success.html", {'form': form})
         else:
@@ -333,7 +340,10 @@ def create_global_sales_report(request):
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def view_global_sales_report(request, number):
     report = global_sales_report.objects.get(pk=number)
-    blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True)
+    if report.type == "Interline":
+        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["440", "444", "420"])
+    if report.type == "Domestic":
+        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["201", "101"])
     total_price = 0
     total_price_local = 0
     total_commission = 0

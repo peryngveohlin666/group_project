@@ -13,6 +13,11 @@ type_choices = (
     ('452', 'MCO - 452'),
 )
 
+report_types = (
+    ('Interline', 'Interline'),
+    ('Domestic', 'Domestic'),
+)
+
 
 # a class to generate an object model of currency information with different values stored inside
 class currency(models.Model):
@@ -41,7 +46,7 @@ class customer(models.Model):
 class blank(models.Model):
     # an integer field that automatically increments by itself as the object are created
     number = models.AutoField(primary_key=True)
-    type = models.CharField(max_length=50, choices=type_choices, default='green')
+    type = models.CharField(max_length=50, choices=type_choices, default='444')
     is_sold = models.BooleanField(default=False)
     is_refunded = models.BooleanField(default=False)
     is_paid = models.BooleanField(default=False)
@@ -116,8 +121,10 @@ class individual_sales_report(models.Model):
     )
     date_from = models.DateField(auto_now_add=False)
     date_to = models.DateField(auto_now_add=False)
+    type = models.CharField(max_length=50, choices=report_types, default='Interline')
 
 
 class global_sales_report(models.Model):
     date_from = models.DateField(auto_now_add=False)
     date_to = models.DateField(auto_now_add=False)
+    type = models.CharField(max_length=50, choices=report_types, default='Interline')
