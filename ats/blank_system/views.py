@@ -358,3 +358,13 @@ def refund(request, number):
     blankie.is_refunded = True
     blankie.save()
     return render(request, 'refund.html')
+
+
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists())
+def set_paid(request, number):
+    blankie = blank.objects.get(pk=number)
+    blankie.is_paid = True
+    blankie.save()
+    return render(request, 'set_paid.html')
+

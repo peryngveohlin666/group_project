@@ -1,3 +1,5 @@
+from datetime import date, timedelta
+
 from django.contrib import auth
 from django.contrib.auth import login
 from django.contrib.auth.decorators import user_passes_test
@@ -7,6 +9,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from ats.forms import register_form
 from django.contrib.auth import logout
+from blank_system.models import blank
 from django.template import RequestContext
 
 
@@ -34,7 +37,8 @@ def index(request):
 
 
 def homepage(request):
-    return render(request, "homepage.html")
+    blanks = blank.objects.filter(payment_due__range=[date.today() - timedelta(days=30), date.today()], is_sold=True, is_paid=False)
+    return render(request, "homepage.html", {'blanks': blanks})
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())

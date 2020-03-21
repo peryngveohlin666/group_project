@@ -93,7 +93,16 @@ head>
     </div>
 {% endif %}
 {% if request.user|has_group:"manager" %}
-    <div class="card" style="width: 100%;"">
+    {% for blank in blanks %}
+        <div class="card bg-light" style="width: 100%;">
+        {{ blank.blank_customer.name }} Has not paid for
+            {{ blank.type }}
+        {{ blank.number }}
+        Yet
+            <a href="set_paid/{{ blank.number }}/" class="btn-primary">Set Paid</a>
+        </div>
+    {% endfor %}
+    <div class="card" style="width: 100%;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
     <p class="card-text">Create a new report</p>
