@@ -19,9 +19,13 @@ def create_blanks(request):
         crtd_range = created_range()
         batch = request.POST.get("batch", "")
         if form.is_valid():
-            blankie = blank.objects.last()
-            crtd_range.range_from = blankie.number + 1
-            crtd_range.range_to = blankie.number + int(batch)
+            if blank.objects.last is not None:
+                blankie = blank.objects.last()
+                number = blankie.number + 1
+            else:
+                number = 1
+            crtd_range.range_from = number
+            crtd_range.range_to = number + int(batch)
             crtd_range.type = form.instance.type
             crtd_range.save()
             for b in range(int(batch)):
