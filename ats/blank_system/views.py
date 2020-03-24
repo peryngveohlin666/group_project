@@ -7,8 +7,10 @@ from django.http import HttpResponse
 from django.template import RequestContext
 import ats.urls
 from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, \
-    add_currency_form, stock_turnover_form, individual_sales_form_manager, individual_sales_form_agent, global_sales_form
-from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range, individual_sales_report, global_sales_report
+    add_currency_form, stock_turnover_form, individual_sales_form_manager, individual_sales_form_agent, \
+    global_sales_form
+from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range, \
+    individual_sales_report, global_sales_report
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -19,7 +21,7 @@ def create_blanks(request):
         crtd_range = created_range()
         batch = request.POST.get("batch", "")
         if form.is_valid():
-            if blank.objects.last is not None:
+            if blank.objects.last() != None:
                 blankie = blank.objects.last()
                 number = blankie.number + 1
             else:
@@ -186,7 +188,7 @@ def blanku_by_cash(request, number):
         return render(request, 'blanku_by_cash.html', {'form': form, 'blank': blanket})
 
 
-@user_passes_test(lambda u:  u.groups.filter(name='system_administrator').exists())
+@user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
 def add_currency(request):
     if request.method == 'POST':
         form = add_currency_form(data=request.POST)
@@ -200,7 +202,8 @@ def add_currency(request):
         return render(request, "add_currency.html", {'form': form})
 
 
-@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
+@user_passes_test(
+    lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def create_stock_turnover_report(request):
     if request.method == 'POST':
         form = stock_turnover_form(data=request.POST)
@@ -235,7 +238,8 @@ def create_stock_turnover_report(request):
         return render(request, "create_stock_turnover_report.html", {'form': form})
 
 
-@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
+@user_passes_test(
+    lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def view_stock_turnover_report(request, number):
     report = stock_turnover_report.objects.get(pk=number)
     assigned_ranges = report.assigned_range.all()
@@ -262,7 +266,9 @@ def reports(request):
     stock_turnover_reports = stock_turnover_report.objects.all()
     individual_sales_reports = individual_sales_report.objects.all()
     global_sales_reports = global_sales_report.objects.all()
-    return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports, 'individual_sales_reports': individual_sales_reports, 'global_sales_reports': global_sales_reports})
+    return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports,
+                                            'individual_sales_reports': individual_sales_reports,
+                                            'global_sales_reports': global_sales_reports})
 
 
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
@@ -321,10 +327,14 @@ def view_individual_sales_report(request, number):
         if b.is_paid:
             total_commission = (b.price * b.commission_rate / 100) + total_commission
             total_paid = total_paid + b.price
-    return render(request, "view_individual_sales_report.html", {'blanks_report': blanks_report, 'total_price': total_price, 'num': num, 'total_price_local': total_price_local, 'total_commission':total_commission, 'total_paid': total_paid})
+    return render(request, "view_individual_sales_report.html",
+                  {'blanks_report': blanks_report, 'total_price': total_price, 'num': num,
+                   'total_price_local': total_price_local, 'total_commission': total_commission,
+                   'total_paid': total_paid})
 
 
-@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
+@user_passes_test(
+    lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def create_global_sales_report(request):
     report = global_sales_report()
     form = global_sales_form(data=request.POST)
@@ -341,13 +351,16 @@ def create_global_sales_report(request):
         return render(request, "create_individual_sales_report.html", {'form': form})
 
 
-@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
+@user_passes_test(
+    lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def view_global_sales_report(request, number):
     report = global_sales_report.objects.get(pk=number)
     if report.type == "Interline":
-        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["440", "444", "420"])
+        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True,
+                                             type__in=["440", "444", "420"])
     if report.type == "Domestic":
-        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["201", "101"])
+        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True,
+                                             type__in=["201", "101"])
     total_price = 0
     total_price_local = 0
     total_commission = 0
@@ -362,7 +375,10 @@ def view_global_sales_report(request, number):
         if b.is_paid:
             total_commission = (b.price * b.commission_rate / 100) + total_commission
             total_paid = total_paid + b.price
-    return render(request, "view_global_sales_report.html", {'blanks_report': blanks_report, 'total_price': total_price, 'num': num, 'total_price_local': total_price_local, 'total_commission':total_commission, 'total_paid': total_paid})
+    return render(request, "view_global_sales_report.html",
+                  {'blanks_report': blanks_report, 'total_price': total_price, 'num': num,
+                   'total_price_local': total_price_local, 'total_commission': total_commission,
+                   'total_paid': total_paid})
 
 
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
@@ -382,4 +398,3 @@ def set_paid(request, number):
     blankie.is_paid = True
     blankie.save()
     return render(request, 'set_paid.html')
-
