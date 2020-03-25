@@ -68,7 +68,7 @@ def assign_blanks(request):
         form = assign_blank_form(data=request.POST)
         from_value = request.POST.get("from_value", "")
         to_value = request.POST.get("to_value", "")
-        blanks = blank.objects.all()
+        blanks = blank.objects.filter(number__range=[int(from_value), int(to_value)])
         if form.is_valid():
             assigned_r = assigned_range()
             assigned_r.range_from = int(from_value)
