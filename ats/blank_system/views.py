@@ -398,3 +398,20 @@ def set_paid(request, number):
     blankie.is_paid = True
     blankie.save()
     return render(request, 'set_paid.html')
+
+
+@user_passes_test(
+    lambda u: u.groups.filter(name='system_administrator').exists())
+def delete_blanks(request):
+    if request.method == 'POST':
+        from_value = request.POST.get("from_value", "")
+        to_value = request.POST.get("to_value", "")
+        created_rang = created_range.objects.filter(range_from__range=[int(from_value), int(to_value)], range_to__range=[int(from_value), int(to_value)])
+        assigned_rang = assigned_range.objects.filter(range_from__range=[int(from_value), int(to_value)], range_to__range=[int(from_value), int(to_value)])
+        created_rang.delete()
+        assigned_rang.delete()
+        blanket = blank.objects.filter(number__range=[int(from_value), int(to_value)])
+        blanket.delete()
+        return render(request, 'success.html')
+    else:
+        return render(request, 'delete_blanks.html')
