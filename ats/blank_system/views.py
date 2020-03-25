@@ -102,7 +102,7 @@ def register_customer(request):
 
 
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
-    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
+    name='travel_advisor').exists())
 def my_blanks(request):
     current_user = request.user
     blanks = blank.objects.filter(advisor=current_user)
@@ -428,6 +428,7 @@ def create_blanks_with_range(request):
             to_value = request.POST.get("to_value", "")
             crtd_range.range_from = from_value
             crtd_range.range_to = to_value
+            crtd_range.type = form.instance.type
             crtd_range.save()
             for i in range(int(from_value), int(to_value) + 1):
                 blankie = blank()

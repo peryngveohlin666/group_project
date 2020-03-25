@@ -11,10 +11,14 @@
         <div class="bg-light">
         Created
         from:
+            type:
             {{ a.type }}
+            number:
         {{a.range_from}}
         to:
+            type:
             {{ a.type }}
+            number:
         {{a.range_to}}
         total
     {{ a.range_to|sub:a.range_from }}
@@ -28,10 +32,14 @@ Assigned:from/to/advisor/total
     <div class="bg-light">
     Assigned
     from:
+        type:
         {{ a.type }}
+        number:
     {{ a.range_from }}
     to:
+        type:
         {{ a.type }}
+        number:
     {{ a.range_to }}
     assigned to
     {{ a.agent }}
@@ -53,10 +61,14 @@ Used:from/to/total
     <div class="bg-light">
     Used
     from:
+        type:
         {{ a.type }}
+        number:
     {{ a.range_from }}
     to:
+        type:
         {{ a.type }}
+        number:
     {{ a.range_from|add:a.sold_blank_count  }}
     sold by
     {{ a.agent }}
@@ -73,14 +85,18 @@ Used:from/to/total
     <div class="bg-light">
     Left
     from:
+        type:
         {{ a.type }}
+        number
     {{ a.range_from|add:a.sold_blank_count }}
     to:
+        type:
         {{ a.type }}
+        number:
     {{ a.range_to  }}
-    assigned to
+    assigned to:
     {{ a.agent }}
-        total left
+        total left:
     {{ a.range_to|sub:a.range_from|sub:a.sold_blank_count }}
     </div>
 {% endfor %}

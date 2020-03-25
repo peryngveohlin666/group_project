@@ -6,8 +6,9 @@
 {% for blank in blanks %}
     {% if blank.advisor == current_user %}
 <div class="bg-light">
-number:
+type:
     {{ blank.type }}
+number:
     {{ blank.number }}
     sold?
     {{ blank.is_sold }}
