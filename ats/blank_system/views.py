@@ -415,3 +415,30 @@ def delete_blanks(request):
         return render(request, 'success.html')
     else:
         return render(request, 'delete_blanks.html')
+
+
+@user_passes_test(
+    lambda u: u.groups.filter(name='system_administrator').exists())
+def create_blanks_with_range(request):
+    crtd_range = created_range()
+    form = blank_form(data=request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            from_value = request.POST.get("from_value", "")
+            to_value = request.POST.get("to_value", "")
+            crtd_range.range_from = from_value
+            crtd_range.range_to = to_value
+            crtd_range.save()
+            for i in range(int(from_value), int(to_value) + 1):
+                blankie = blank()
+                blankie.number = i
+                blankie.price = form.instance.price
+                blankie.type = form.instance.type
+                blankie.save()
+                print(i)
+                print(blankie)
+            return render(request, "success.html")
+        else:
+            return render(request, "error.html")
+    else:
+        return render(request, 'create_blanks_with_range.html', {'form': form})
