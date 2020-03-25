@@ -29,11 +29,20 @@ def create_blanks(request):
             crtd_range.range_from = number
             crtd_range.range_to = number + int(batch)
             crtd_range.type = form.instance.type
-            crtd_range.save()
             for b in range(int(batch)):
+                m = form.save()
+                form.instance = None
+                form = blank_form(data=request.POST)
+                blankie = m
+                number = blankie.number + 1
+                crtd_range.range_from = number - 1
+                crtd_range.range_to = number + int(batch) - 2
+                break
+            for b in range(int(batch) - 1):
                 form.save()
                 form.instance = None
                 form = blank_form(data=request.POST)
+            crtd_range.save()
             return render(request, "success.html")
         else:
             return render(request, "error.html")
