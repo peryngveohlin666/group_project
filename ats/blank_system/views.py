@@ -452,3 +452,24 @@ def create_blanks_with_range(request):
             return render(request, "error.html")
     else:
         return render(request, 'create_blanks_with_range.html', {'form': form})
+
+
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists())
+def search_for_a_blank(request):
+    if request.method == 'POST':
+        from_value = request.POST.get("blank_no", "")
+        return individual_blank(request, int(from_value))
+    else:
+        return render(request, 'search_for_a_blank.html')
+
+
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
+    name='travel_advisor').exists())
+def individual_blank(request, number):
+    blanket = blank.objects.filter(number=number)
+    if blanket is not None:
+        print(blanket)
+        return render(request, 'individual_blank.html', {'blanket': blanket})
+    else:
+        return render(request, 'error.html')

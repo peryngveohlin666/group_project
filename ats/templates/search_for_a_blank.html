@@ -1,0 +1,13 @@
+{%  extends "base.html" %}
+{% block content %}
+    {% if errors %}
+        {{ errors }}
+    {% endif %}
+    <form class="card" method = "post">
+        {% csrf_token %}
+        <h1>Air Ticket Sales</h1>
+        blank no:
+        <input type="number" name="blank_no" value="{{ blank_no }}">
+        <input type="submit" name="" value="Search">
+    </form>
+{% endblock %}

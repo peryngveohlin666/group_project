@@ -1,0 +1,29 @@
+{%  extends "base.html" %}
+
+{% block content %}
+    {% for blank in blanket %}
+    <div class="card-body">
+type:
+    {{ blank.type }}
+        <br>
+        number:
+    {{ blank.number }}
+        <br>
+    sold?
+    {{ blank.is_sold }}
+        <br>
+    refunded?
+    {{ blank.is_refunded }}
+        <br>
+    date created:
+    {{ blank.date }}
+        <br>
+    assigned advisor:
+    {{ blank.advisor }}
+        <br>
+    commission rate
+    {{ blank.commission_rate }}
+    </div>
+    {% endfor %}
+
+{% endblock %}
