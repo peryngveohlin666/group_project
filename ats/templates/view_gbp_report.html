@@ -1,0 +1,37 @@
+{%  extends "base.html" %}
+{% load mathfilters %}
+{% block content %}
+    Period: {{ report.date_from }} - {{ report.date_to }}
+{% for r in rates %}
+    <div class="card-body">
+    <div class="bg-light card">
+    date created:
+    {{ r.date }}
+    </div>
+    <div class="bg-light card">
+    currency:
+    {{ r.type }}
+    </div>
+        <div class="bg-light card">
+    rate:
+    {{ r.rate }}
+    </div>
+    <div class="bg-light card">
+    number of 444 sold:
+    {{ r.count_444 }}
+    </div>
+    <div class="bg-light card">
+    number of 420 sold:
+    {{ r.count_420 }}
+    </div>
+    <div class="bg-light card">
+    total sold:
+    {{ r.count_420|add:r.count_444 }}
+    </div>
+    <div class="bg-light card">
+    total price (in GBP):
+    {{ r.total }}
+    </div>
+    </div>
+{% endfor %}
+{% endblock %}

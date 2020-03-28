@@ -23,6 +23,10 @@ report_types = (
 class currency(models.Model):
     type = models.CharField(max_length=50, primary_key=True)
     rate = models.IntegerField(blank=False, null=False)
+    count_420 = models.IntegerField(blank=True, null=True)
+    count_444 = models.IntegerField(blank=True, null=True)
+    total = models.IntegerField(blank=True, null=True)
+    date = models.DateField(auto_now_add=True)
 
 
 # a class to generate an object model of card information with different values stored inside
@@ -94,7 +98,7 @@ class assigned_range(models.Model):
     )
     date = models.DateField(auto_now_add=False, blank=True, null=True)
     sold_blank_count = models.IntegerField(blank=True, null=True)
-    type = models.CharField(max_length=50, choices=type_choices, default='green')
+    type = models.CharField(max_length=50, choices=type_choices, default='None')
 
 
 class created_range(models.Model):

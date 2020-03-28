@@ -10,7 +10,7 @@ from blank_system.forms import blank_form, assign_blank_form, register_customer_
     add_currency_form, stock_turnover_form, individual_sales_form_manager, individual_sales_form_agent, \
     global_sales_form, gbp_report_form
 from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range, \
-    individual_sales_report, global_sales_report
+    individual_sales_report, global_sales_report, gbp_report
 
 
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
@@ -485,3 +485,30 @@ def create_gbp_report(request):
             return render(request, "error.html")
     else:
         return render(request, "create_gbp_report.html", {'form': form})
+
+
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists())
+def view_gbp_report(request, number):
+    report = gbp_report.objects.get(pk=number)
+    blanks420 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["420"])
+    blanks444 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["444"])
+    rates = currency.objects.filter(date__range=[report.date_from, report.date_to])
+    for r in rates:
+        count420 = 0
+        count444 = 0
+        total_price = 0
+        for b in blanks420:
+            if b.blank_currency == r:
+                count420 = count420 + 1
+                total_price = total_price + b.price
+        for b in blanks444:
+            if b.blank_currency == r:
+                count444 = count444 + 1
+                total_price = total_price + b.price
+        r.count_420 = count420
+        r.count_444 = count444
+        r.total = total_price
+        r.save()
+    rates = currency.objects.filter(date__range=[report.date_from, report.date_to])
+    return render(request, "view_gbp_report.html", {'rates': rates, 'report': report})
+

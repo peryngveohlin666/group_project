@@ -55,7 +55,7 @@ class stock_turnover_form(ModelForm):
 class individual_sales_form_manager(ModelForm):
     class Meta:
         model = individual_sales_report
-        fields = ['date_to', 'date_from', 'agent']
+        fields = ['date_to', 'date_from', 'agent', 'type']
 
 
 class individual_sales_form_agent(ModelForm):
