@@ -1,0 +1,14 @@
+{%  extends "base.html" %}
+{% block content %}
+    {% if errors %}
+        {{ errors }}
+    {% endif %}
+    <form class="card bg-light" method = "post">
+        {% csrf_token %}
+        <h1>Air Ticket Sales</h1>
+        {{ form }}
+        Date format '2020-03-06'
+        <input type="submit" name="" value="Generate GBP Report">
+
+    </form>
+{% endblock %}

@@ -128,3 +128,8 @@ class global_sales_report(models.Model):
     date_from = models.DateField(auto_now_add=False)
     date_to = models.DateField(auto_now_add=False)
     type = models.CharField(max_length=50, choices=report_types, default='Interline')
+
+
+class gbp_report(models.Model):
+    date_from = models.DateField(auto_now_add=False)
+    date_to = models.DateField(auto_now_add=False)

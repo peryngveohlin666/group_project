@@ -8,7 +8,7 @@ from django.template import RequestContext
 import ats.urls
 from blank_system.forms import blank_form, assign_blank_form, register_customer_form, register_card_form, sell_form, \
     add_currency_form, stock_turnover_form, individual_sales_form_manager, individual_sales_form_agent, \
-    global_sales_form
+    global_sales_form, gbp_report_form
 from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range, \
     individual_sales_report, global_sales_report
 
@@ -469,7 +469,19 @@ def search_for_a_blank(request):
 def individual_blank(request, number):
     blanket = blank.objects.filter(number=number)
     if blanket is not None:
-        print(blanket)
         return render(request, 'individual_blank.html', {'blanket': blanket})
     else:
         return render(request, 'error.html')
+
+
+@user_passes_test(lambda u: u.groups.filter(name='manager').exists())
+def create_gbp_report(request):
+    form = gbp_report_form(data=request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return render(request, "success.html")
+        else:
+            return render(request, "error.html")
+    else:
+        return render(request, "create_gbp_report.html", {'form': form})

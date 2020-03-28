@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from .views import index, homepage, register_user, logout_view, backup_database, restore_database
-from blank_system.views import create_blanks, blanks, assign_blanks, register_customer, my_blanks, register_card, blanku_by_card, blanku_by_cash, add_currency, create_stock_turnover_report, view_stock_turnover_report, reports, create_reports, create_individual_sales_report, view_individual_sales_report, create_global_sales_report, view_global_sales_report, refund, set_paid, delete_blanks, create_blanks_with_range, search_for_a_blank, individual_blank
+from blank_system.views import create_blanks, blanks, assign_blanks, register_customer, my_blanks, register_card, blanku_by_card, blanku_by_cash, add_currency, create_stock_turnover_report, view_stock_turnover_report, reports, create_reports, create_individual_sales_report, view_individual_sales_report, create_global_sales_report, view_global_sales_report, refund, set_paid, delete_blanks, create_blanks_with_range, search_for_a_blank, individual_blank, create_gbp_report
 #url patterns for the pages we use in views.py so that we won't have to write the whole directory tree
 
 urlpatterns = [
@@ -34,5 +34,6 @@ urlpatterns = [
     path('delete_blanks', delete_blanks, name='delete_blanks'),
     path('create_blanks_with_range', create_blanks_with_range, name='create_blanks_with_range'),
     path('search_for_a_blank', search_for_a_blank, name='search_for_a_blank'),
-    path('individual_blank/<int:number>/', individual_blank, name='individual_blank')
+    path('individual_blank/<int:number>/', individual_blank, name='individual_blank'),
+    path('create_gbp_report', create_gbp_report, name='create_gbp_report')
 ]
