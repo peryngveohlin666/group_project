@@ -54,7 +54,7 @@ def register_user(request):
             my_group = form.data['group']
             print(my_group)
             user.groups.add(my_group)
-            return redirect('index.html')
+            return redirect('/')
     else:
         form = register_form
     return render(request, 'register_user.html', {'form': form})
