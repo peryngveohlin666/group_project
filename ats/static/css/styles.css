@@ -27,7 +27,9 @@ body{
   border-color: #0603C2;
 }
 
-
+nav{
+    float: right;
+}
 
 .bottom{
   margin-bottom: auto;
@@ -79,6 +81,10 @@ body{
   background: #026BDE;
 }
 
+.card-title:hover{
+    font-weight: bold;
+}
+
 .card-body{
     background: white;
 }
@@ -86,8 +92,6 @@ body{
 .card{
     background: #026BDE;
 }
-
-
 
 /*Global such as container*/
 .container {
@@ -102,8 +106,9 @@ body{
     font-size: 45px;
 }
 
-ul{
 
+ul a.card-body{
+    color: #000d1a;
 }
 
 header{
@@ -115,7 +120,7 @@ header{
 header a{
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 
@@ -127,12 +132,12 @@ header nav {
 }
 
 header .highlight, header .current a{
-    color: #040474;
+    color: #000d1a;
     font-weight: bold;
 }
 
 header a:hover {
-    color:#040474;
+    color: lightskyblue;
     text-decoration: none;
     font-style: italic;
     font-weight: bold;
