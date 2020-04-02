@@ -41,7 +41,7 @@ def index(request):
 
 
 def homepage(request):
-    blanks = blank.objects.filter(payment_due__range=[date.today() - timedelta(days=30), date.today()], is_sold=True, is_paid=False)
+    blanks = blank.objects.filter(payment_due__range=[date.today() - timedelta(days=10000), date.today() - timedelta(days=30)], is_sold=True, is_paid=False)
     return render(request, "homepage.html", {'blanks': blanks})
 
 

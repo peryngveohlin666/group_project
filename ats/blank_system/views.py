@@ -12,7 +12,9 @@ from blank_system.forms import blank_form, assign_blank_form, register_customer_
 from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range, \
     individual_sales_report, global_sales_report, gbp_report
 
+# all the functions here are to serve web pages but i keep it short so if i don't repeat it just because i don't want to be redundant
 
+# a function to create blanks (this is not the one where you enter ranges)
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
 def create_blanks(request):
     if request.method == 'POST':
@@ -21,6 +23,7 @@ def create_blanks(request):
         crtd_range = created_range()
         batch = request.POST.get("batch", "")
         if form.is_valid():
+            #gets the latest blank if it is not none and sets it to the beginning then iterates through it and renders a page
             if blank.objects.last() != None:
                 blankie = blank.objects.last()
                 number = blankie.number + 1
@@ -51,6 +54,7 @@ def create_blanks(request):
         return render(request, "create_blanks.html", {'form': form})
 
 
+# a function to see all the blanks in the system, returns all the blanks to the front end and they get shown there
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def blanks(request):
@@ -61,6 +65,7 @@ def blanks(request):
     return render(request, 'blanks.html', context)
 
 
+# a function to assign blanks to a travel advisor, iterates through a from and a to value and sets their advisor to the selected one
 @user_passes_test(
     lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def assign_blanks(request):
@@ -94,6 +99,7 @@ def assign_blanks(request):
         return render(request, 'assign_blanks.html', {'form': form})
 
 
+# a function to register a new customer returns a form object to the front end
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def register_customer(request):
@@ -110,6 +116,7 @@ def register_customer(request):
         return render(request, "register_customer.html", {'form': form})
 
 
+# gets all the blanks that belongs to the user and shows them to the user giving them options to sell them by card or cash if the payment is not made makes you enter a payment due
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def my_blanks(request):
@@ -122,6 +129,7 @@ def my_blanks(request):
     return render(request, 'my_blanks.html', context)
 
 
+# a function to register a card (doesn't have any use in the system anymore but why delete it)
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def register_card(request):
@@ -137,6 +145,7 @@ def register_card(request):
         return render(request, "register_card.html", {'form': form})
 
 
+# a function to sell a blank by card that sets it as sold and sets the card entered as the card of the customer after getting it by number
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def blanku_by_card(request, number):
@@ -173,6 +182,7 @@ def blanku_by_card(request, number):
                       {'sell_form': _sell_form, 'blank': blanket, 'card_form': _create_card_form})
 
 
+# a function to sell the blank by cash gets the blank by number and sets it as sold if the payment is not made makes you enter a payment due
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def blanku_by_cash(request, number):
@@ -197,6 +207,7 @@ def blanku_by_cash(request, number):
         return render(request, 'blanku_by_cash.html', {'form': form, 'blank': blanket})
 
 
+# a function to add a currency object to the system
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
 def add_currency(request):
     if request.method == 'POST':
@@ -211,6 +222,7 @@ def add_currency(request):
         return render(request, "add_currency.html", {'form': form})
 
 
+# a function to create a stock turnover report
 @user_passes_test(
     lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def create_stock_turnover_report(request):
@@ -226,6 +238,7 @@ def create_stock_turnover_report(request):
             all_blanks = blank.objects.filter(date__range=[form['date_from'].value(), form['date_to'].value()])
             all_blanks = list(all_blanks)
             report.blanks.add(*all_blanks)
+            # for each range object returns blanks and counts the sold ones
             for r in ranges:
                 blankets = blank.objects.filter(number__range=[r.range_from, r.range_to])
                 i = 0
@@ -247,11 +260,13 @@ def create_stock_turnover_report(request):
         return render(request, "create_stock_turnover_report.html", {'form': form})
 
 
+# a function to view a stock turnover report
 @user_passes_test(
     lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def view_stock_turnover_report(request, number):
     report = stock_turnover_report.objects.get(pk=number)
     assigned_ranges = report.assigned_range.all()
+    # for each range gets the blanks and returns the count of the sold blanks in that range
     for r in assigned_ranges:
         blankets = blank.objects.filter(number__range=[r.range_from, r.range_to])
         i = 0
@@ -261,14 +276,13 @@ def view_stock_turnover_report(request, number):
         r.sold_blank_count = i
         r.save()
     created_ranges = report.created_range.all()
-
     number = 0
     print(assigned_ranges)
-
     return render(request, "view_stock_turnover_report.html",
                   {'assigned_ranges': assigned_ranges, 'created_ranges': created_ranges})
 
 
+# a function to list all the reports in the system (in the front end it is filtered for different users)
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def reports(request):
@@ -280,12 +294,14 @@ def reports(request):
                                             'global_sales_reports': global_sales_reports})
 
 
+# a function that serves the create reports page
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def create_reports(request):
     return render(request, "create_reports.html")
 
 
+# a function that creates an individual sales report (these all also serve web pages obviously)
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def create_individual_sales_report(request):
@@ -312,6 +328,7 @@ def create_individual_sales_report(request):
         return render(request, "create_individual_sales_report.html", {'form': form})
 
 
+# a function to view individual sales report
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def view_individual_sales_report(request, number):
@@ -328,6 +345,7 @@ def view_individual_sales_report(request, number):
     total_paid = 0
     total_paid = 0
     num = 0
+    # for all the blanks in report if it is paid by local currency calculates it and also calculates the number of them
     for b in blanks_report:
         total_price = b.price + total_price
         if b.blank_currency is not None:
@@ -342,6 +360,7 @@ def view_individual_sales_report(request, number):
                    'total_paid': total_paid})
 
 
+# a function to render the page for creating the global sales reports
 @user_passes_test(
     lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def create_global_sales_report(request):
@@ -360,6 +379,7 @@ def create_global_sales_report(request):
         return render(request, "create_individual_sales_report.html", {'form': form})
 
 
+# a function to view the global sales report with
 @user_passes_test(
     lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def view_global_sales_report(request, number):
@@ -376,6 +396,7 @@ def view_global_sales_report(request, number):
     total_paid = 0
     total_paid = 0
     num = 0
+    # for each blank that the report covers add the price to the total price and also calculates the local currency counterpart
     for b in blanks_report:
         total_price = b.price + total_price
         if b.blank_currency is not None:
@@ -390,6 +411,7 @@ def view_global_sales_report(request, number):
                    'total_paid': total_paid})
 
 
+# a function to refund blanks
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def refund(request, number):
@@ -400,6 +422,7 @@ def refund(request, number):
     return render(request, 'refund.html')
 
 
+# a function to set the blanks that show up in the alert as paid
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def set_paid(request, number):
@@ -409,6 +432,7 @@ def set_paid(request, number):
     return render(request, 'set_paid.html')
 
 
+# a function that deletes blanks with a from and a to value that it gets from html
 @user_passes_test(
     lambda u: u.groups.filter(name='system_administrator').exists())
 def delete_blanks(request):
@@ -426,6 +450,7 @@ def delete_blanks(request):
         return render(request, 'delete_blanks.html')
 
 
+# a function that creates blanks with a range
 @user_passes_test(
     lambda u: u.groups.filter(name='system_administrator').exists())
 def create_blanks_with_range(request):
@@ -439,6 +464,7 @@ def create_blanks_with_range(request):
             crtd_range.range_to = to_value
             crtd_range.type = form.instance.type
             crtd_range.save()
+            # creates blanks in the range of from to to value
             for i in range(int(from_value), int(to_value) + 1):
                 blankie = blank()
                 blankie.number = i
@@ -454,6 +480,7 @@ def create_blanks_with_range(request):
         return render(request, 'create_blanks_with_range.html', {'form': form})
 
 
+# a function to search for an individual blank
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def search_for_a_blank(request):
@@ -464,6 +491,7 @@ def search_for_a_blank(request):
         return render(request, 'search_for_a_blank.html')
 
 
+# a page to serve the individual blank
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def individual_blank(request, number):
@@ -474,6 +502,7 @@ def individual_blank(request, number):
         return render(request, 'error.html')
 
 
+# a function to create a gbp report
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists())
 def create_gbp_report(request):
     form = gbp_report_form(data=request.POST)
@@ -487,12 +516,14 @@ def create_gbp_report(request):
         return render(request, "create_gbp_report.html", {'form': form})
 
 
+# a function to view the gbp report
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists())
 def view_gbp_report(request, number):
     report = gbp_report.objects.get(pk=number)
     blanks420 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["420"])
     blanks444 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["444"])
     rates = currency.objects.filter(date__range=[report.date_from, report.date_to])
+    # for each rate in database calculate the count and sets them
     for r in rates:
         count420 = 0
         count444 = 0

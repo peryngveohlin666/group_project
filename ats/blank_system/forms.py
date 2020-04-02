@@ -11,6 +11,7 @@ class blank_form(ModelForm):
         #the fields to fill in the form for that model
         fields = ['type', 'price']
 
+
 #a form to support assigning blanks
 class assign_blank_form(ModelForm):
     class Meta:
@@ -37,7 +38,7 @@ class register_card_form(ModelForm):
 class sell_form(ModelForm):
     class Meta:
         model = blank
-        fields = ['blank_customer', 'is_paid', 'payment_due', 'blank_currency', 'discount']
+        fields = ['blank_customer', 'is_paid', 'blank_currency', 'discount']
 
 
 class add_currency_form(ModelForm):
