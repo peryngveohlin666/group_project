@@ -1,10 +1,10 @@
 body{
   margin: 0;
   padding:0;
-  font-family: sans-serif;
-  font: 15px/1.5 Arial, Helvetica,sans-serif;
+  font-family: 'Arial';
+  font: 15px/2 Arial, Helvetica,sans-serif;
   margin:0;
-  background-color:#f4f4f4;
+  background-color:#ffffff;
 }
 
 .card-body{
@@ -21,7 +21,7 @@ body{
   position:absolute;
   left:50%;
   transform: translate(-50%);
-  background: #F9F9F9;
+  background: white;
   text-align: center;
   outline-color: #0603C2;
   border-color: #0603C2;
@@ -92,7 +92,14 @@ body{
 /*Global such as container*/
 .container {
     overflow: hidden;
-    color: #040474;
+}
+
+.container h1 {
+    color: #000d1a;
+    font-style: italic;
+    font-weight: bolder;
+    font-family: 'Arial Black';
+    font-size: 45px;
 }
 
 ul{
@@ -100,17 +107,15 @@ ul{
 }
 
 header{
-    background: #026BDE;
+    background: white;
     color:white;
     padding-top: 1%;
-    border-bottom: #040474 10px solid;
-
 }
 
 header a{
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 
@@ -118,7 +123,7 @@ header li{
 }
 
 header nav {
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 header .highlight, header .current a{
@@ -128,5 +133,7 @@ header .highlight, header .current a{
 
 header a:hover {
     color:#040474;
+    text-decoration: none;
+    font-style: italic;
     font-weight: bold;
 }
