@@ -301,6 +301,7 @@ def create_reports(request):
     return render(request, "create_reports.html")
 
 
+# a function that creates an individual sales report (these all also serve web pages obviously)
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def create_individual_sales_report(request):
@@ -327,6 +328,7 @@ def create_individual_sales_report(request):
         return render(request, "create_individual_sales_report.html", {'form': form})
 
 
+# a function to view individual sales report
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def view_individual_sales_report(request, number):
@@ -343,6 +345,7 @@ def view_individual_sales_report(request, number):
     total_paid = 0
     total_paid = 0
     num = 0
+    # for all the blanks in report if it is paid by local currency calculates it and also calculates the number of them
     for b in blanks_report:
         total_price = b.price + total_price
         if b.blank_currency is not None:
@@ -357,6 +360,7 @@ def view_individual_sales_report(request, number):
                    'total_paid': total_paid})
 
 
+# a function to render the page for creating the global sales reports
 @user_passes_test(
     lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def create_global_sales_report(request):
@@ -375,6 +379,7 @@ def create_global_sales_report(request):
         return render(request, "create_individual_sales_report.html", {'form': form})
 
 
+# a function to view the global sales report with
 @user_passes_test(
     lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
 def view_global_sales_report(request, number):
@@ -391,6 +396,7 @@ def view_global_sales_report(request, number):
     total_paid = 0
     total_paid = 0
     num = 0
+    # for each blank that the report covers add the price to the total price and also calculates the local currency counterpart
     for b in blanks_report:
         total_price = b.price + total_price
         if b.blank_currency is not None:
@@ -405,6 +411,7 @@ def view_global_sales_report(request, number):
                    'total_paid': total_paid})
 
 
+# a function to refund blanks
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def refund(request, number):
@@ -415,6 +422,7 @@ def refund(request, number):
     return render(request, 'refund.html')
 
 
+# a function to set the blanks that show up in the alert as paid
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def set_paid(request, number):
@@ -424,6 +432,7 @@ def set_paid(request, number):
     return render(request, 'set_paid.html')
 
 
+# a function that deletes blanks with a from and a to value that it gets from html
 @user_passes_test(
     lambda u: u.groups.filter(name='system_administrator').exists())
 def delete_blanks(request):
@@ -441,6 +450,7 @@ def delete_blanks(request):
         return render(request, 'delete_blanks.html')
 
 
+# a function that creates blanks with a range
 @user_passes_test(
     lambda u: u.groups.filter(name='system_administrator').exists())
 def create_blanks_with_range(request):
@@ -454,6 +464,7 @@ def create_blanks_with_range(request):
             crtd_range.range_to = to_value
             crtd_range.type = form.instance.type
             crtd_range.save()
+            # creates blanks in the range of from to to value
             for i in range(int(from_value), int(to_value) + 1):
                 blankie = blank()
                 blankie.number = i
@@ -469,6 +480,7 @@ def create_blanks_with_range(request):
         return render(request, 'create_blanks_with_range.html', {'form': form})
 
 
+# a function to search for an individual blank
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def search_for_a_blank(request):
@@ -479,6 +491,7 @@ def search_for_a_blank(request):
         return render(request, 'search_for_a_blank.html')
 
 
+# a page to serve the individual blank
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def individual_blank(request, number):
@@ -489,6 +502,7 @@ def individual_blank(request, number):
         return render(request, 'error.html')
 
 
+# a function to create a gbp report
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists())
 def create_gbp_report(request):
     form = gbp_report_form(data=request.POST)
@@ -502,12 +516,14 @@ def create_gbp_report(request):
         return render(request, "create_gbp_report.html", {'form': form})
 
 
+# a function to view the gbp report
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists())
 def view_gbp_report(request, number):
     report = gbp_report.objects.get(pk=number)
     blanks420 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["420"])
     blanks444 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["444"])
     rates = currency.objects.filter(date__range=[report.date_from, report.date_to])
+    # for each rate in database calculate the count and sets them
     for r in rates:
         count420 = 0
         count444 = 0
