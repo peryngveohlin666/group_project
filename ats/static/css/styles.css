@@ -1,4 +1,5 @@
 body{
+    overflow-x: hidden;
   margin: 0;
   padding:0;
     font-family: 'Arial', monospace;
@@ -95,6 +96,22 @@ nav{
 /*Global such as container*/
 .container {
     overflow: hidden;
+}
+
+a.btn-primary {                     /* formatting the 'Go' button */
+    color: white;
+    text-decoration: none;
+    background-color: #026BDE;
+    outline: #026BDE;
+}
+
+a.btn-primary:hover {               /* formatting hovering over the 'Go' button */
+    text-decoration: none;
+    background-color: lightskyblue;
+    border: lightskyblue;
+    font-style: italic;
+    outline: none;
+
 }
 
 .container h1 {
