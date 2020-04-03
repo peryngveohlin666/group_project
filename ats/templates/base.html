@@ -33,17 +33,17 @@
 
 <div class="card-header d-flex justify-content-left">
 {% if user.is_authenticated %}
-  Hi {{ user.username }}&nbsp;
+  Welcome {{ user.username }},&nbsp;
     {% if request.user|has_group:"system_administrator" %}
-    <p>our favourite System Admin!&nbsp;</p>
+    <p>our favourite System Admin,&nbsp;</p>
 {% endif %}
 {% if request.user|has_group:"travel_advisor" %}
-    <p>our favourite Travel Advisor!&nbsp;</p>
+    <p>our favourite Travel Advisor,&nbsp;</p>
 {% endif %}
 {% if request.user|has_group:"manager" %}
-    <p>our favourite Manager!&nbsp;</p>
+    <p>our favourite Manager,&nbsp;</p>
 {% endif %}
-    Welcome to Yuzu!
+    to the ATS System!
 {% else %}
   <p>Please <a href=/> Login</a> to continue</p>
 {% endif %}
