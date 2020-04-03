@@ -2,6 +2,8 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+# models are database tables basically and you can instantiate them
+
 # a table of types
 type_choices = (
     ('444', 'international up to four coupons'),
@@ -101,6 +103,7 @@ class assigned_range(models.Model):
     type = models.CharField(max_length=50, choices=type_choices, default='None')
 
 
+# a class to generate an object model of created of blanks with different values stored inside
 class created_range(models.Model):
     range_from = models.IntegerField()
     range_to = models.IntegerField()
@@ -108,6 +111,7 @@ class created_range(models.Model):
     type = models.CharField(max_length=50, choices=type_choices, default='None')
 
 
+# a class to generate a stock turnover report
 class stock_turnover_report(models.Model):
     date_from = models.DateField(auto_now_add=False)
     date_to = models.DateField(auto_now_add=False)
@@ -116,6 +120,7 @@ class stock_turnover_report(models.Model):
     blanks = models.ManyToManyField(to=blank, blank=True, null=True)
 
 
+# a class to generate an individual sales report
 class individual_sales_report(models.Model):
     agent = models.ForeignKey(
         User,
@@ -128,12 +133,14 @@ class individual_sales_report(models.Model):
     type = models.CharField(max_length=50, choices=report_types, default='Interline')
 
 
+# a class to generate a global sales report
 class global_sales_report(models.Model):
     date_from = models.DateField(auto_now_add=False)
     date_to = models.DateField(auto_now_add=False)
     type = models.CharField(max_length=50, choices=report_types, default='Interline')
 
 
+# a class to generate a gbp report
 class gbp_report(models.Model):
     date_from = models.DateField(auto_now_add=False)
     date_to = models.DateField(auto_now_add=False)
