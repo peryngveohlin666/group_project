@@ -6,19 +6,17 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta charset="utf-8">
-    <title>Air Ticket Sales</title>
+    <title>AIR TICKET SALES</title>
 </head>
- {% if user.is_authenticated %}
-<body>
 
+<body>
 <header>
 
     <div class="container">
         <div id="slogan">
-            <h1>
-                Air Ticket Sales
-            </h1>
+            <h1>AIR TICKET SALES</h1>
         </div>
+        {% if user.is_authenticated %}
         <nav>
             <br>
             <ul>
@@ -26,24 +24,24 @@
                 <a class="card-body" href=/logout> Logout</a>
             </ul>
         </nav>
+        {% endif %}
     </div>
 
 </header>
-{% endif %}
 
 <div class="card-header d-flex justify-content-left">
 {% if user.is_authenticated %}
-  Welcome {{ user.username }},&nbsp;
+  Welcome to the ATS System {{ user.username }}, you are logged in as&nbsp;
     {% if request.user|has_group:"system_administrator" %}
-    <p>our favourite System Admin,&nbsp;</p>
+    <p>a System Administrator!&nbsp;</p>
 {% endif %}
 {% if request.user|has_group:"travel_advisor" %}
-    <p>our favourite Travel Advisor,&nbsp;</p>
+    <p>a Travel Advisor!&nbsp;</p>
 {% endif %}
 {% if request.user|has_group:"manager" %}
-    <p>our favourite Manager,&nbsp;</p>
+    <p>a Manager!&nbsp;</p>
 {% endif %}
-    to the ATS System!
+
 {% else %}
   <p>Please <a href=/> Login</a> to continue</p>
 {% endif %}

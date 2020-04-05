@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Group
 from django.core.management import call_command
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .forms import AuthenticationForm
 from ats.forms import register_form
 from django.contrib.auth import logout
 from blank_system.models import blank
@@ -29,7 +29,7 @@ def index(request):
             return render(request, "homepage.html")
         #sends you to the homepage if the form is invalid but you will get an error message when you arrive there as you are not logged in
         else:
-            return render(request, "homepage.html")
+            return render(request, "index.html", {'form': form})
     else:
         #returns the home page to the user if user is authenticated already
         if request.user.is_authenticated:
