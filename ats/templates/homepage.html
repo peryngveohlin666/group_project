@@ -10,89 +10,89 @@ head>
 
 
     {% if request.user|has_group:"system_administrator" %}
-        <div class="card" style="width: 50%; margin: auto;">
+        <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Back Up Database</h5>
     <p class="card-text">Download the database as a json file</p>
-    <a href="backup_database" class="btn btn-primary">Go</a>
+    <a href="backup_database" class="btn btn-primary">GO</a>
   </div>
         </div>
-        <div class="card" style="width: 50%; margin: auto;">
+        <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Restore Database</h5>
     <p class="card-text">Restore the database from a json file</p>
-    <a href="restore_database" class="btn btn-primary">Go</a>
+    <a href="restore_database" class="btn btn-primary">GO</a>
   </div>
         </div>
-        <div class="card" style="width: 50%; margin: auto;">
+        <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
     <p class="card-text">Create a new report</p>
-    <a href="create_reports" class="btn btn-primary">Go</a>
+    <a href="create_reports" class="btn btn-primary">GO</a>
   </div>
         </div>
-        <div class="card" style="width: 50%; margin: auto;">
+        <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">View Reports</h5>
     <p class="card-text">View previously generated Reports in the system</p>
-    <a href="reports" class="btn btn-primary">Go</a>
+    <a href="reports" class="btn btn-primary">GO</a>
   </div>
         </div>
-         <div class="card" style="width: 50%; margin: auto">
+         <div class="card" style="width: 40%; margin: auto">
   <div class="card-body">
     <h5 class="card-title">Add Currency</h5>
     <p class="card-text">Click here to add a new currency with a rate</p>
-    <a href="add_currency" class="btn btn-primary">Go</a>
+    <a href="add_currency" class="btn btn-primary">GO</a>
   </div>
          </div>
-        <div class="card" style="width: 50%; margin: auto;">
+        <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Create blanks</h5>
     <p class="card-text">Click here to create a batch of blanks</p>
-    <a href="create_blanks" class="btn btn-primary">Go</a>
+    <a href="create_blanks" class="btn btn-primary">GO</a>
   </div>
         </div>
-        <div class="card" style="width: 50%; margin: auto;">
+        <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Create blanks with range</h5>
     <p class="card-text">Click here to create a batch of blanks using a from and a to range</p>
-    <a href="create_blanks_with_range" class="btn btn-primary">Go</a>
+    <a href="create_blanks_with_range" class="btn btn-primary">GO</a>
   </div>
 
         </div>
-         <div class="card" style="width: 50%; margin: auto;">
+         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Delete blanks</h5>
     <p class="card-text">Delete some blanks from the system</p>
-    <a href="delete_blanks" class="btn btn-primary">Go</a>
+    <a href="delete_blanks" class="btn btn-primary">GO</a>
   </div>
             </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Users</h5>
     <p class="card-text">Click here to register a new employee</p>
-    <a href="register_user" class="btn btn-primary">Go</a>
+    <a href="register_user" class="btn btn-primary">GO</a>
   </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">View Blanks</h5>
     <p class="card-text">Click here to view all the blanks in our system</p>
-    <a href="blanks" class="btn btn-primary">Go</a>
+    <a href="blanks" class="btn btn-primary">GO</a>
   </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Assign Blanks</h5>
     <p class="card-text">Click here to assign blanks to an advisor</p>
-    <a href="assign_blanks" class="btn btn-primary">Go</a>
+    <a href="assign_blanks" class="btn btn-primary">GO</a>
   </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Customer</h5>
     <p class="card-text">Click here to register a new customer to the system</p>
-    <a href="register_customer" class="btn btn-primary">Go</a>
+    <a href="register_customer" class="btn btn-primary">GO</a>
 </div>
     </div>
 {% endif %}
@@ -102,39 +102,39 @@ head>
 
 
 {% if request.user|has_group:"travel_advisor" %}
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
     <p class="card-text">Create a new report</p>
-    <a href="create_reports" class="btn btn-primary">Go</a>
+    <a href="create_reports" class="btn btn-primary">GO</a>
         </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Search for a Blank</h5>
     <p class="card-text">Click to search for a blank in the system by entering its number</p>
-    <a href="search_for_a_blank" class="btn btn-primary">Go</a>
+    <a href="search_for_a_blank" class="btn btn-primary">GO</a>
         </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">View Reports</h5>
     <p class="card-text">View previously generated Reports in the system</p>
-    <a href="reports" class="btn btn-primary">Go</a>
+    <a href="reports" class="btn btn-primary">GO</a>
   </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
 <div class="card-body">
     <h5 class="card-title">Register Customer</h5>
     <p class="card-text">Click here to register a new customer to the system</p>
-    <a href="register_customer" class="btn btn-primary">Go</a>
+    <a href="register_customer" class="btn btn-primary">GO</a>
 </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
     <div class="card-body">
     <h5 class="card-title">My Blanks</h5>
     <p class="card-text">Click here to view your assigned blanks</p>
-    <a href="my_blanks" class="btn btn-primary">Go</a>
+    <a href="my_blanks" class="btn btn-primary">GO</a>
 </div>
     </div>
 {% endif %}
@@ -145,7 +145,7 @@ head>
 
 {% if request.user|has_group:"manager" %}
     {% for blank in blanks %}
-        <div class="card bg-light" style="width: 50%; margin: auto;">
+        <div class="card bg-light" style="width: 40%; margin: auto;">
         {{ blank.blank_customer.name }} Has not paid for
             {{ blank.type }}
         {{ blank.number }}
@@ -155,53 +155,53 @@ head>
     {% endfor %}
 
 
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
     <p class="card-text">Create a new report</p>
-    <a href="create_reports" class="btn btn-primary">Go</a>
+    <a href="create_reports" class="btn btn-primary">GO</a>
   </div>
     </div>
-        <div class="card" style="width: 50%; margin: auto;">
+        <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">View Reports</h5>
     <p class="card-text">View previously generated Reports in the system</p>
-    <a href="reports" class="btn btn-primary">Go</a>
+    <a href="reports" class="btn btn-primary">GO</a>
   </div>
 </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">View Blanks</h5>
     <p class="card-text">Click here to view all the blanks in our system</p>
-    <a href="blanks" class="btn btn-primary">Go</a>
+    <a href="blanks" class="btn btn-primary">GO</a>
   </div>
 </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Assign Blanks</h5>
     <p class="card-text">Click here to assign blanks to an advisor</p>
-    <a href="assign_blanks" class="btn btn-primary">Go</a>
+    <a href="assign_blanks" class="btn btn-primary">GO</a>
   </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Customer</h5>
     <p class="card-text">Click here to register a new customer to the system</p>
-    <a href="register_customer" class="btn btn-primary">Go</a>
+    <a href="register_customer" class="btn btn-primary">GO</a>
 </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
     <div class="card-body">
     <h5 class="card-title">My Blanks</h5>
     <p class="card-text">Click here to see your assigned blanks</p>
-    <a href="my_blanks" class="btn btn-primary">Go</a>
+    <a href="my_blanks" class="btn btn-primary">GO</a>
 </div>
     </div>
-    <div class="card" style="width: 50%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Search for a blank</h5>
     <p class="card-text">Click to search for a blank in the system by entering its number</p>
-    <a href="search_for_a_blank" class="btn btn-primary">Go</a>
+    <a href="search_for_a_blank" class="btn btn-primary">GO</a>
         </div>
     </div>
     </div>
