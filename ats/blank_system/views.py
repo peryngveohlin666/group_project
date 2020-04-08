@@ -12,6 +12,7 @@ from blank_system.forms import blank_form, assign_blank_form, register_customer_
 from blank_system.models import blank, customer, card, currency, assigned_range, stock_turnover_report, created_range, \
     individual_sales_report, global_sales_report, gbp_report
 
+
 # all the functions here are to serve web pages but i keep it short so if i don't repeat it just because i don't want to be redundant
 
 # a function to create blanks (this is not the one where you enter ranges)
@@ -23,7 +24,7 @@ def create_blanks(request):
         crtd_range = created_range()
         batch = request.POST.get("batch", "")
         if form.is_valid():
-            #gets the latest blank if it is not none and sets it to the beginning then iterates through it and renders a page
+            # gets the latest blank if it is not none and sets it to the beginning then iterates through it and renders a page
             if blank.objects.last() != None:
                 blankie = blank.objects.last()
                 number = blankie.number + 1
@@ -129,7 +130,7 @@ def my_blanks(request):
     return render(request, 'my_blanks.html', context)
 
 
-# a function to register a card (doesn't have any use in the system anymore but why delete it)
+#  a function to register a card (doesn't have any use in the system anymore but why delete it)
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def register_card(request):
@@ -279,7 +280,7 @@ def view_stock_turnover_report(request, number):
     number = 0
     print(assigned_ranges)
     return render(request, "view_stock_turnover_report.html",
-                  {'assigned_ranges': assigned_ranges, 'created_ranges': created_ranges})
+                  {'assigned_ranges': assigned_ranges, 'created_ranges': created_ranges, 'range_from': r.range_from, 'range_to': r.range_to})
 
 
 # a function to list all the reports in the system (in the front end it is filtered for different users)
@@ -328,7 +329,7 @@ def create_individual_sales_report(request):
         return render(request, "create_individual_sales_report.html", {'form': form})
 
 
-# a function to view individual sales report
+#  a function to view individual sales report
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def view_individual_sales_report(request, number):
@@ -439,8 +440,10 @@ def delete_blanks(request):
     if request.method == 'POST':
         from_value = request.POST.get("from_value", "")
         to_value = request.POST.get("to_value", "")
-        created_rang = created_range.objects.filter(range_from__range=[int(from_value), int(to_value)], range_to__range=[int(from_value), int(to_value)])
-        assigned_rang = assigned_range.objects.filter(range_from__range=[int(from_value), int(to_value)], range_to__range=[int(from_value), int(to_value)])
+        created_rang = created_range.objects.filter(range_from__range=[int(from_value), int(to_value)],
+                                                    range_to__range=[int(from_value), int(to_value)])
+        assigned_rang = assigned_range.objects.filter(range_from__range=[int(from_value), int(to_value)],
+                                                      range_to__range=[int(from_value), int(to_value)])
         created_rang.delete()
         assigned_rang.delete()
         blanket = blank.objects.filter(number__range=[int(from_value), int(to_value)])
@@ -516,14 +519,14 @@ def create_gbp_report(request):
         return render(request, "create_gbp_report.html", {'form': form})
 
 
-# a function to view the gbp report
+#  a function to view the gbp report
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists())
 def view_gbp_report(request, number):
     report = gbp_report.objects.get(pk=number)
     blanks420 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["420"])
     blanks444 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["444"])
     rates = currency.objects.filter(date__range=[report.date_from, report.date_to])
-    # for each rate in database calculate the count and sets them
+    #  for each rate in database calculate the count and sets them
     for r in rates:
         count420 = 0
         count444 = 0
@@ -542,4 +545,3 @@ def view_gbp_report(request, number):
         r.save()
     rates = currency.objects.filter(date__range=[report.date_from, report.date_to])
     return render(request, "view_gbp_report.html", {'rates': rates, 'report': report})
-
