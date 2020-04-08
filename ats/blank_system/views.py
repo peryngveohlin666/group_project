@@ -290,9 +290,12 @@ def reports(request):
     stock_turnover_reports = stock_turnover_report.objects.all()
     individual_sales_reports = individual_sales_report.objects.all()
     global_sales_reports = global_sales_report.objects.all()
+    gbp_reports = gbp_report.objects.all()
     return render(request, "reports.html", {'stock_turnover_reports': stock_turnover_reports,
                                             'individual_sales_reports': individual_sales_reports,
-                                            'global_sales_reports': global_sales_reports})
+                                            'global_sales_reports': global_sales_reports,
+                                            'gbp_reports': gbp_reports}
+                  )
 
 
 # a function that serves the create reports page

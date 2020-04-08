@@ -46,6 +46,14 @@ Stock Turnover Reports
         Report Type: {{ g.type }}
         <a href="view_global_sales_report/{{ g.id }}">Go</a>
     {% endfor %}
+<br>
+    GBP Reports:
+    {% for g in gbp_reports %}
+        <br>
+        Report No:
+        {{ g.id }}
+        <a href="view_gbp_report/{{ g.id }}">Go</a>
+    {% endfor %}
 
 
 
