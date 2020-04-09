@@ -16,12 +16,12 @@
         <div id="slogan">
             <h1>AIR TICKET SALES</h1>             <!-- Page Title; is present on all pages including login and logout pages -->
         </div>
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated %}             <!-- only when a user is logged in will the nav be displayed -->
         <nav>
             <br>
             <ul>
-                <a class="card-body" href=/homepage> Home</a>
-                <a class="card-body" href=/logout> Logout</a>
+                <a class="card-body" href=/homepage> Home</a>       <!-- returns user to home page -->
+                <a class="card-body" href=/logout> Logout</a>       <!-- logs user out -->
             </ul>
         </nav>
         {% endif %}
@@ -32,14 +32,14 @@
 <div class="card-header d-flex justify-content-left">                           <!-- Block displays user's name and what type of user they are logged in as, if the login is successful -->
 {% if user.is_authenticated %}
   Welcome to the ATS System {{ user.username }}, you are logged in as&nbsp;
-    {% if request.user|has_group:"system_administrator" %}
+    {% if request.user|has_group:"system_administrator" %}                      <!-- SA message -->
     <p>a System Administrator!&nbsp;</p>
 {% endif %}
-{% if request.user|has_group:"travel_advisor" %}
+{% if request.user|has_group:"travel_advisor" %}                                <!-- TA message -->
     <p>a Travel Advisor!&nbsp;</p>
 {% endif %}
-{% if request.user|has_group:"manager" %}
-    <p>a Manager!&nbsp;</p>
+{% if request.user|has_group:"manager" %}                                       <!-- OM message -->
+    <p>an Office Manager!&nbsp;</p>
 {% endif %}
 
 {% else %}
