@@ -361,7 +361,7 @@ def view_individual_sales_report(request, number):
     return render(request, "view_individual_sales_report.html",
                   {'blanks_report': blanks_report, 'total_price': total_price, 'num': num,
                    'total_price_local': total_price_local, 'total_commission': total_commission,
-                   'total_paid': total_paid})
+                   'total_paid': total_paid, 'date_from': report.date_from, 'date_to': report.date_to})
 
 
 # a function to render the page for creating the global sales reports
@@ -412,7 +412,7 @@ def view_global_sales_report(request, number):
     return render(request, "view_global_sales_report.html",
                   {'blanks_report': blanks_report, 'total_price': total_price, 'num': num,
                    'total_price_local': total_price_local, 'total_commission': total_commission,
-                   'total_paid': total_paid})
+                   'total_paid': total_paid, 'date_from': report.date_from, 'date_to': report.date_to})
 
 
 # a function to refund blanks

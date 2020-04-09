@@ -4,6 +4,7 @@
 
     <div class="card">
     <div class="card-body">
+        Period: {{ date_from }} - {{ date_to }}
 </div>
     <div class="card">
     {% for b in blanks_report  %}
@@ -14,6 +15,7 @@
             This blank has been refunded
         </div>
         {% endif %}
+    <br>
         Agent Username:
        - {{ b.advisor }}
             <br>

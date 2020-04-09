@@ -9,6 +9,8 @@
             This blank has been refunded
         </div>
         {% endif %}
+    Period: {{ date_from }} - {{ date_to }}
+    <br>
     {% for b in blanks_report|slice:":1" %}
         Agent:
         {{ b.advisor }}
