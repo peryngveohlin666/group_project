@@ -1,9 +1,13 @@
+
+<!-- base.html: contains style sheet link, header, nav bar & user welcome messages -->
+<!--  -->
+
 <!DOCTYPE html>
 {% load auth_extras %}
 <html lang="en">
 <head>
 {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">                    <!-- lines 10-11: CSS style sheet connection -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta charset="utf-8">
     <title>AIR TICKET SALES</title>
@@ -12,7 +16,7 @@
 <body>
 <header>
 
-    <div class="container">                                <!-- Block is responsible for ATS header including the nav bar -->
+    <div class="container">                         <!-- Block is responsible for ATS header including the nav bar -->
         <div id="slogan">
             <h1>AIR TICKET SALES</h1>             <!-- Page Title; is present on all pages including login and logout pages -->
         </div>
