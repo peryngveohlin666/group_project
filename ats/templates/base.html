@@ -12,9 +12,9 @@
 <body>
 <header>
 
-    <div class="container">
+    <div class="container">                                <!-- Block is responsible for ATS header including the nav bar -->
         <div id="slogan">
-            <h1>AIR TICKET SALES</h1>
+            <h1>AIR TICKET SALES</h1>             <!-- Page Title; is present on all pages including login and logout pages -->
         </div>
         {% if user.is_authenticated %}
         <nav>
@@ -29,7 +29,7 @@
 
 </header>
 
-<div class="card-header d-flex justify-content-left">
+<div class="card-header d-flex justify-content-left">                           <!-- Block displays user's name and what type of user they are logged in as, if the login is successful -->
 {% if user.is_authenticated %}
   Welcome to the ATS System {{ user.username }}, you are logged in as&nbsp;
     {% if request.user|has_group:"system_administrator" %}
