@@ -1,16 +1,17 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
 {% block content %}
-    {% if errors %}
+    {% if errors %}     <!-- catches errors when creating the Global Sales Report by USD -->
         {{ errors }}
     {% endif %}
     <form class="card bg-light" method = "post">
         {% csrf_token %}
         <h1>Global Sales Report by USD</h1>
-        Date format '2020-03-06'
-        
-        {{ form }}
-
-        <input type="submit" name="" value="Generate GBP Report">
-
+        <br>
+        <br>
+        Enter the report period in the format '2020-03-06'
+        {{ form }}      <!-- pulls created form from backend -->
+        <br>
+        <br>
+        <input type="submit" name="" value="Generate Report">
     </form>
 {% endblock %}

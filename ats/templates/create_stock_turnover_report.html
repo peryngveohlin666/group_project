@@ -6,11 +6,13 @@
     <form class="card bg-light" method = "post">    <!-- Ticket Stock Turnover Form -->
         {% csrf_token %}
         <h1>Ticket Stock Turnover Report</h1>
-        Date format '2020-03-06'
-
+        <br>
+        <br>
+        Enter the report period in the format '2020-03-06'
         {{ form }}      <!-- pulls created form from backend -->
-
-        <input type="submit" name="" value="Generate Stock Turnover Report">
+        <br>
+        <br>
+        <input type="submit" name="" value="Generate Report">
 
     </form>     <!-- end of form -->
 {% endblock %}
