@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 
 # a table of types
 type_choices = (
-    ('444', 'international up to four coupons'),
-    ('440', 'manual - international'),
-    ('420', 'international with two coupons'),
-    ('201', 'domestic with two coupons'),
-    ('101', 'domestic with one coupon'),
+    ('444', 'International up to four coupons - 444'),
+    ('440', 'Manual International - 440'),
+    ('420', 'International up to two coupons - 420'),
+    ('201', 'Domestic with two coupons - 201'),
+    ('101', 'Domestic with one coupon - 101'),
     ('451', 'MCO - 451'),
     ('452', 'MCO - 452'),
 )
