@@ -1,33 +1,33 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
 
-{% block content %}
+{% block content %}     <!-- start of block -->
     {% for blank in blanket %}
-    <div class="card-body">     <!-- Viewing all individual blanks in a table -->
+    <div class="card-body">     <!-- Viewing all individual blanks in a table with each blank's relevant data -->
     Blank Type:
     {{ blank.type }}
         <br>
-    Number:
+    | Number:
     {{ blank.number }}
         <br>
-    Date Created:
+    | Date Created:
     {{ blank.date }}
         <br>
-    Assigned to:
+    | Assigned to:
     {{ blank.advisor }}
         <br>
-    Commission Rate:
+    | Commission Rate:
     {{ blank.commission_rate }}
         <br>
-    Purchased:
+    | Purchased:
     {{ blank.is_sold }}
         <br>
-    Price:
+    | Price:
     {{ blank.price }}
         <br>
-    Payment Received:
+    | Payment Received:
     {{ blank.is_paid }}
         <br>
-    Refunded:
+    | Refunded:
     {{ blank.is_refunded }}
         <br>
     </div>
