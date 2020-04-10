@@ -169,6 +169,7 @@ def blanku_by_card(request, number):
             current_customer.card_info.add(card_customer)
             blanket.blank_card = card_customer
             blanket.paid_by_card = True
+            blanket.date_sale = date.today()
             blanket.save()
             return render(request, 'success.html',
                           {'sell_form': _sell_form, 'blank': blanket, 'card_form': _create_card_form})
@@ -196,6 +197,7 @@ def blanku_by_cash(request, number):
             blanket.is_sold = True
             if form.instance.payment_due is None:
                 blanket.payment_due = date.today() + timedelta(days=30)
+            blanket.date_sale = date.today()
             blanket.save()
             form.save()
             return render(request, 'success.html', {'form': form, 'blank': blanket})
@@ -338,10 +340,10 @@ def create_individual_sales_report(request):
 def view_individual_sales_report(request, number):
     report = individual_sales_report.objects.get(pk=number)
     if report.type == "Interline":
-        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True,
+        blanks_report = blank.objects.filter(date_sale__range=[report.date_from, report.date_to], is_sold=True,
                                              type__in=["440", "444", "420"])
     if report.type == "Domestic":
-        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True,
+        blanks_report = blank.objects.filter(date_sale__range=[report.date_from, report.date_to], is_sold=True,
                                              type__in=["201", "101"])
     total_price = 0
     total_price_local = 0
@@ -389,10 +391,10 @@ def create_global_sales_report(request):
 def view_global_sales_report(request, number):
     report = global_sales_report.objects.get(pk=number)
     if report.type == "Interline":
-        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True,
+        blanks_report = blank.objects.filter(date_sale__range=[report.date_from, report.date_to], is_sold=True,
                                              type__in=["440", "444", "420"])
     if report.type == "Domestic":
-        blanks_report = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True,
+        blanks_report = blank.objects.filter(date_sale__range=[report.date_from, report.date_to], is_sold=True,
                                              type__in=["201", "101"])
     total_price = 0
     total_price_local = 0
@@ -526,9 +528,9 @@ def create_gbp_report(request):
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists())
 def view_gbp_report(request, number):
     report = gbp_report.objects.get(pk=number)
-    blanks420 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["420"])
-    blanks444 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["444"])
-    rates = currency.objects.filter(date__range=[report.date_from, report.date_to])
+    blanks420 = blank.objects.filter(date_sale__range=[report.date_from, report.date_to], is_sold=True, type__in=["420"])
+    blanks444 = blank.objects.filter(date_sale__range=[report.date_from, report.date_to], is_sold=True, type__in=["444"])
+    rates = currency.objects.filter(date_sale__range=[report.date_from, report.date_to])
     #  for each rate in database calculate the count and sets them
     for r in rates:
         count420 = 0

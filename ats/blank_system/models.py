@@ -59,6 +59,7 @@ class blank(models.Model):
     price = models.IntegerField()
     discount = models.IntegerField(blank=True, null=True)
     date = models.DateField(auto_now_add=True)
+    date_sale = models.DateField(blank=True, null=True)
     payment_due = models.DateField(auto_now_add=False, blank=True, null=True)
     commission_rate = models.IntegerField(blank=True, null=True)
     paid_by_card = models.BooleanField(default=False)
