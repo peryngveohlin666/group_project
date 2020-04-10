@@ -16,12 +16,14 @@
     {% endif %}
     <form class="card-body" method = "post">    <!-- start of login form -->
         {% csrf_token %}
+
         <h1>Login</h1>
         </br>
         <p>Please enter your login details</p>
         </br>
 
         {{ form }}
+
       <input type="submit" name="" value="Login">     <!-- login button and submit -->
 
     </form>     <!-- end of login form -->
