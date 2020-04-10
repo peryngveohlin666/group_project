@@ -209,7 +209,7 @@ def blanku_by_cash(request, number):
 
 
 # a function to add a currency object to the system
-@user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
+@user_passes_test(lambda u: u.groups.filter(name='travel_advisor').exists() or u.groups.filter(name='manager').exists())
 def add_currency(request):
     if request.method == 'POST':
         form = add_currency_form(data=request.POST)
