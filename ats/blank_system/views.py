@@ -68,7 +68,7 @@ def blanks(request):
 
 # a function to assign blanks to a travel advisor, iterates through a from and a to value and sets their advisor to the selected one
 @user_passes_test(
-    lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
+    lambda u: u.groups.filter(name='manager').exists())
 def assign_blanks(request):
     if request.method == 'POST':
         form = assign_blank_form(data=request.POST)
@@ -102,7 +102,7 @@ def assign_blanks(request):
 
 # a function to register a new customer returns a form object to the front end
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
-    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
+    name='travel_advisor').exists())
 def register_customer(request):
     if request.method == 'POST':
         # initializes the data from the form to the value form
@@ -132,7 +132,7 @@ def my_blanks(request):
 
 #  a function to register a card (doesn't have any use in the system anymore but why delete it)
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
-    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
+    name='travel_advisor').exists())
 def register_card(request):
     if request.method == 'POST':
         form = register_card_form(data=request.POST)
@@ -366,7 +366,7 @@ def view_individual_sales_report(request, number):
 
 # a function to render the page for creating the global sales reports
 @user_passes_test(
-    lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
+    lambda u: u.groups.filter(name='manager').exists())
 def create_global_sales_report(request):
     report = global_sales_report()
     form = global_sales_form(data=request.POST)
@@ -385,7 +385,7 @@ def create_global_sales_report(request):
 
 # a function to view the global sales report with
 @user_passes_test(
-    lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(name='system_administrator').exists())
+    lambda u: u.groups.filter(name='manager').exists())
 def view_global_sales_report(request, number):
     report = global_sales_report.objects.get(pk=number)
     if report.type == "Interline":
@@ -486,7 +486,7 @@ def create_blanks_with_range(request):
         return render(request, 'create_blanks_with_range.html', {'form': form})
 
 
-# a function to search for an individual blank
+# a function to search through all blanks
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
     name='travel_advisor').exists())
 def search_for_a_blank(request):
