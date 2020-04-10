@@ -7,27 +7,27 @@
     {% if blank.advisor == current_user %}
 <div class="bg-light">
         Blank Type:
-    {{ blank.type }}
-        Number:
+    {{ blank.type }}       <!--  -->
+        | Number:
     {{ blank.number }}
-        Purchased:
+        | Purchased:
     {{ blank.is_sold }}
-        Price:
+        | Price:
     {{ blank.price }} GBP
-        VAT:
+        | VAT:
     {{ blank.price|mul:20|div:100 }}
-        Total Price (including VAT):
+        | Total Price (including VAT):
     {{ blank.price|mul:20|div:100|add:blank.price }}
-        Date Created:
+        | Date Created:
     {{ blank.date }}
-        Assigned to:
+        | Assigned to:
     {{ blank.advisor }}
-        Commission Rate
+        | Commission Rate
     {{ blank.commission_rate }}
 {% if blank.is_sold %}
-        Purchased by:
+        | Purchased by:
     {{ blank.blank_customer.name }}
-        Refunded:
+        | Refunded:
     {{ blank.is_refunded }}
 {% endif %}
 
