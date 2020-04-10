@@ -5,22 +5,22 @@
 <br />
 {% for blank in blanks %}
     <div class="card bg-light">
-    price:
-        {{ blank.price }}
-type:
+        Blank Type:
     {{ blank.type }}
-        number:
+        Number:
     {{ blank.number }}
-    sold?
-    {{ blank.is_sold }}
-    refunded?
-    {{ blank.is_refunded }}
-    date created:
-    {{ blank.date }}
-    assigned advisor:
+        Assigned to:
     {{ blank.advisor }}
-    commission rate
+        Date Created:
+    {{ blank.date }}
+        Commission Rate:
     {{ blank.commission_rate }}
+        Price:
+    {{ blank.price }}
+        Purchased:
+    {{ blank.is_sold }}
+        Refunded:
+    {{ blank.is_refunded }}
     </div>
 <br />
 {% endfor %}

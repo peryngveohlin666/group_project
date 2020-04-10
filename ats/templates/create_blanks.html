@@ -1,13 +1,15 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
 {% block content %}
-    {% if errors %}
+    {% if errors %}     <!-- catches errors when registering new blanks -->
         {{ errors }}
     {% endif %}
     <form class="card bg-light" method = "post">
         {% csrf_token %}
         <h1>Register New Blanks</h1>
+
         {{ form }}
-        batch size:
+
+        Batch Size:
         <input type="number" name="batch" value="{{ batch }}">
       <input type="submit" name="" value="Create Blank">
 

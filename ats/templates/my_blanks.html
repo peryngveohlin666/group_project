@@ -6,31 +6,31 @@
 {% for blank in blanks %}
     {% if blank.advisor == current_user %}
 <div class="bg-light">
-type:
+        Blank Type:
     {{ blank.type }}
-number:
+        Number:
     {{ blank.number }}
-    sold?
+        Purchased:
     {{ blank.is_sold }}
-price:
-    {{ blank.price }}
-GBP
-VAT:
-{{ blank.price|mul:20|div:100 }}
-price + vat in GBP:
-{{ blank.price|mul:20|div:100|add:blank.price }}
-    refunded?
-    {{ blank.is_refunded }}
-    date created:
+        Price:
+    {{ blank.price }} GBP
+        VAT:
+    {{ blank.price|mul:20|div:100 }}
+        Total Price (including VAT):
+    {{ blank.price|mul:20|div:100|add:blank.price }}
+        Date Created:
     {{ blank.date }}
-    assigned advisor:
+        Assigned to:
     {{ blank.advisor }}
-        commission_rate
-        {{ blank.commission_rate }}
+        Commission Rate
+    {{ blank.commission_rate }}
 {% if blank.is_sold %}
-        baught by:
-        {{ blank.blank_customer.name }}
+        Purchased by:
+    {{ blank.blank_customer.name }}
+        Refunded:
+    {{ blank.is_refunded }}
 {% endif %}
+
 <br>
 {% if blank.is_sold %}
     {% if not blank.is_refunded %}

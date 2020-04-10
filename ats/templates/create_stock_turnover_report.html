@@ -1,9 +1,9 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
 {% block content %}
-    {% if errors %}
+    {% if errors %}     <!-- catches errors when creating the Ticket Stock Turnover reports -->
         {{ errors }}
     {% endif %}
-    <form class="card bg-light" method = "post">
+    <form class="card bg-light" method = "post">    <!-- Ticket Stock Turnover Form -->
         {% csrf_token %}
         <h1>Ticket Stock Turnover Report</h1>
         Date format '2020-03-06'

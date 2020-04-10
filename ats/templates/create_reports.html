@@ -2,7 +2,7 @@
 {% block content %}
     {% load auth_extras %}
 
-
+<!-- displays what reports are available to generate by which users -->
 
     {% if request.user|has_group:"manager" %}
         <div class="card" style="width: 100%;">
@@ -34,8 +34,6 @@
 </div>
     </div>
     {% endif %}
-
-
 
 
     {% if request.user|has_group:"system_administrator" %}
