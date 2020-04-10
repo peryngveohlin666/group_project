@@ -78,13 +78,56 @@ nav{
   cursor: pointer;
 }
 
+.bg-light input[type=submit] {
+  width: 100%;
+  background-color: #026BDE;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.bg-light h1 {
+    font-family: 'Arial Black';
+    text-align: center;
+    background: white;
+}
+
 .box input[type = "submit"]:hover {
   background: #026BDE;
 }
 
-.card-body{
-    font-family: 'Arial';
+
+/* Login form CSS */
+.card-body h1{
+    font-family: 'Arial Black';
+    text-align: center;
     background: white;
+}
+
+.card-body input[type=submit] {
+    background-color: #026BDE;
+  display: block;
+  margin: 4% auto;
+  text-align:center;
+    font-family: "Arial";
+    font-width: bold;
+  border: 3px solid #026BDE;
+  padding: 5px 10px;
+  width:100px;
+  outline: #026BDE;
+  color: white;
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+/**/
+.card-body input[type=submit]:hover {
+    background-color: lightskyblue;
+    font-weight: bold;
+    border: 3px solid lightskyblue;
 }
 
 .card{
@@ -143,6 +186,7 @@ header li{
 
 header nav {
     margin-top: 10px;
+    font-family: "Arial Black";
 }
 
 header .highlight, header .current a{
