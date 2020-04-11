@@ -13,7 +13,7 @@
     {% if errors %}      <!-- if login details are incorrect error message is displayed and login for is refreshed -->
         {{ errors }}
     {% endif %}
-    <div class="card" style="width: 60%; margin: auto;">
+    <div class="card" style="width: 40%; margin: auto;">        <!-- formatting form width and margins -->
     <div class="card-body bg-light">
     <form class="card" method = "post">    <!-- start of login form -->
         {% csrf_token %}

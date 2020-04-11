@@ -2,10 +2,10 @@
 /* All Styling used in the ATS System is featured below */
 
 body{
-    overflow-x: hidden;
+  overflow-x: hidden;
   margin: 0;
   padding:0;
-    font-family: 'Arial', monospace;
+  font-family: 'Arial', monospace;
   background: white;
 }
 
@@ -24,8 +24,8 @@ body{
   display: block;
   margin: 4% auto;
   text-align:center;
-    font-family: "Arial";
-    font-width: bold;
+  font-family: "Arial";
+  font-width: bold;
   border: 3px solid #026BDE;
   padding: 5px 10px;
   width: auto;
@@ -58,7 +58,7 @@ body{
   justify-content: center;
   justify-content: space-evenly;
   justify-content: space-between;
-    background: white;
+  background: white;
 }
 
 .card-body h1{
@@ -73,8 +73,7 @@ body{
   display: block;
   margin: 4% auto;
   text-align:center;
-    font-family: "Arial";
-    font-width: bold;
+  font-family: "Arial";
   border: 3px solid #026BDE;
   padding: 5px 10px;
   width: auto;
@@ -94,15 +93,13 @@ body{
 /* input forms: submit form button */
 .card input[type=submit] {
     background-color: #026BDE;
-    font-weight: bold;
-      border: 3px solid #026BDE;
+    border: 3px solid #026BDE;
     width: auto;
 }
 
 .bg-light input[type=submit] {
     background-color: #026BDE;
-    font-weight: bold;
-      border: 3px solid #026BDE;
+    border: 3px solid #026BDE;
     width: auto;
 }
 

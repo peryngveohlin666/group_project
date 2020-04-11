@@ -3,8 +3,9 @@
     {% if errors %}     <!-- catches errors when adding or updating an exchange rate -->
         {{ errors }}
     {% endif %}
-    <div class="card" style="width: 60%; margin: auto;">
-    <form class="card-body bg-light" method = "post">
+    <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
+    <div class="card-body bg-light">
+    <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
         <h1>Update Exchange Rate or Add a New Currency</h1>
         <br>
@@ -15,6 +16,7 @@
         <br>
         <br>
       <input type="submit" name="" value="Update">      <!-- submit completed form -->
-    </form>
+    </form>     <--! end of form -->
+    </div>
     </div>
 {% endblock %}
