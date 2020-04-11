@@ -3,7 +3,7 @@
     {% if errors %}     <!-- catches errors when adding or updating an exchange rate -->
         {{ errors }}
     {% endif %}
-    <form class="bg-light card-body" method = "post">
+    <form class="card-body bg-light" method = "post">
         {% csrf_token %}
         <h1>Update Exchange Rate or Add a New Currency</h1>
         <br>

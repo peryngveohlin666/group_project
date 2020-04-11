@@ -2,6 +2,7 @@
 {% load mathfilters %}
 {% block content %}
     <div class="card-body">
+    <h1>Your Assigned Blanks</h1>
 <br />
 {% for blank in blanks %}
     {% if blank.advisor == current_user %}

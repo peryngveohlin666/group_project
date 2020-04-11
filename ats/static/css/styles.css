@@ -28,9 +28,6 @@ body{
   border-color: #0603C2;
 }
 
-nav{
-    float: right;
-}
 
 .bottom{
   margin-bottom: auto;
@@ -202,7 +199,7 @@ a.btn-primary:hover {               /* formatting hovering over the 'Go' button 
     text-decoration: none;
     background-color: lightskyblue;
     border: lightskyblue;
-    font-style: italic;
+    font-weight: bold;
     outline: none;
 }
 
@@ -227,7 +224,11 @@ header a{
 header li{
 }
 
+/* navigation bar CSS */
+
+
 header nav {
+    float: right;
     margin-top: 10px;
     font-family: "Arial Black";
 }
@@ -241,5 +242,4 @@ header a:hover {
     color: lightskyblue;
     text-decoration: none;
     font-style: italic;
-    font-weight: bold;
 }
