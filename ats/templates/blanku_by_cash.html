@@ -1,19 +1,19 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
-        {% block content %}
 
-            <div class="bg-secondary card">
-            type:
-            {{ blank.type }}
-                number:
+{% block content %}
+    <div class="bg-secondary card">
+        Blank Type:
+    {{ blank.type }}<br>
+        | Number:
     {{ blank.number }}
-    sold?
-    {{ blank.is_sold }}
-    refunded?
-    {{ blank.is_refunded }}
-    date created:
-    {{ blank.date }}
-    assigned advisor:
+        | Assigned to:
     {{ blank.advisor }}
+        | Available:
+    {{ blank.is_sold }}
+        | Refunded:
+    {{ blank.is_refunded }}
+        | Date Created:
+    {{ blank.date }}
 
     <form class="border-secondary card bg-light" method = "post">
         {% csrf_token %}

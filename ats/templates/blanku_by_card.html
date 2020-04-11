@@ -3,8 +3,8 @@
 {% block content %}
     <div class="bg-secondary card">
         Blank Type:
-    {{ blank.type }}
-        | Blank Number:
+    {{ blank.type }}<br>
+        | Number:
     {{ blank.number }}
         | Assigned to:
     {{ blank.advisor }}
@@ -21,8 +21,11 @@
         {% csrf_token %}
         <br>
         <h1>Create Ticket</h1>
+        <br>
+        <br>
         {{ sell_form }}
-        Enter the date in the format 'YYYY-MM-DD'
+        <br>
+        <p style="color: #8f8f8f">Enter the date in the format 'YYYY-MM-DD'</p>
         {{ card_form }}
          <br>
       <input type="submit" name="" value="Confirm">

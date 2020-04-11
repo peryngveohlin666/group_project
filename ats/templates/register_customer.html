@@ -1,14 +1,22 @@
-{%  extends "base.html" %}
+{%  extends "base.html" %}   <!-- extends base.html to render the header and nav bar for this page -->
 {% block content %}
-    {% if errors %}
+    {% if errors %}     <!-- catches errors when registering new customers -->
         {{ errors }}
     {% endif %}
+    <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
     <div class="card-body bg-light">
-    <form class="card bg-light" method = "post">
+    <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
+        <br>
         <h1>Register a New Customer</h1>
         {{ form }}
+        <br>
+        <br>
       <input type="submit" name="" value="Register Customer">
-    </form>
+        <br>
+    </form>  <!-- end of form -->
     </div>
+    </div>
+    <br>
+    <br>
 {% endblock %}

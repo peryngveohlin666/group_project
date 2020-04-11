@@ -1,5 +1,6 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
 
+<!-- Displays all blanks currently in the system -->
 {% block content %}
     <div class="card-body bg-secondary">
     <h1>System Stock</h1>
@@ -7,8 +8,8 @@
 {% for blank in blanks %}
     <div class="card bg-light">
         Blank Type:
-    {{ blank.type }}
-        | Number:
+    {{ blank.type }}<br>
+        Number:
     {{ blank.number }}
         | Assigned to:
     {{ blank.advisor }}
