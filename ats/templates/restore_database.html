@@ -3,10 +3,21 @@
 {% if errors %}
         {{ errors }}
     {% endif %}
-    <form class="card bg-light" enctype="multipart/form-data" method = "post">
+    <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
+    <div class="card-body bg-light">
+    <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
-        <h1 >Air Ticket Sales</h1>
+        <br>
+        <h1 >Restore Database</h1>
+        <br>
         <input type="file" name="file">
+        <br>
+        <br>
       <input type="submit" name="" value="Restore Database From File">
-    </form>
+        <br>
+    </form>     <!-- end of form -->
+    </div>
+    </div>
+    <br>
+    <br>
 {% endblock %}
