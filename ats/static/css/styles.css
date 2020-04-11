@@ -60,7 +60,7 @@ nav{
 }
 
 .box input[type = "text"]:focus,.box input[type = "password"]:focus {
-  width: 280px;
+  width: 200px;
   border-color: #026BDE;
 }
 
@@ -78,17 +78,6 @@ nav{
   cursor: pointer;
 }
 
-.bg-light input[type=submit] {
-  width: 100%;
-  background-color: #026BDE;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 .bg-light h1 {
     font-family: 'Arial Black';
     text-align: center;
@@ -101,14 +90,45 @@ nav{
 
 
 /* Login form CSS */
+.bg-secondary h1{
+    font-family: 'Arial Black';
+    text-align: center;
+    background: white;
+}
 .card-body h1{
     font-family: 'Arial Black';
     text-align: center;
     background: white;
 }
 
+/* Login Button Formatting */
 .card-body input[type=submit] {
     background-color: #026BDE;
+  display: block;
+  margin: 4% auto;
+  text-align:center;
+    font-family: "Arial";
+    font-width: bold;
+  border: 3px solid #026BDE;
+  padding: 5px 10px;
+  width:150px;
+  outline: #026BDE;
+  color: white;
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+/*Formatting hovering over login button*/
+.card-body input[type=submit]:hover {
+    background-color: lightskyblue;
+    font-weight: bold;
+    border: 3px solid lightskyblue;
+}
+
+/* input forms: submit form button */
+.card input[type=submit] {
+    background-color: #026BDE;
+    text-decoration: none;
   display: block;
   margin: 4% auto;
   text-align:center;
@@ -123,8 +143,8 @@ nav{
   transition: 0.25s;
 }
 
-/**/
-.card-body input[type=submit]:hover {
+/* input forms: submit form button (hovering) */
+.bg-light input[type=submit]:hover {
     background-color: lightskyblue;
     font-weight: bold;
     border: 3px solid lightskyblue;
@@ -160,7 +180,6 @@ a.btn-primary:hover {               /* formatting hovering over the 'Go' button 
     border: lightskyblue;
     font-style: italic;
     outline: none;
-
 }
 
 

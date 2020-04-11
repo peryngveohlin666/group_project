@@ -10,18 +10,18 @@ head>
 
 <!-- SYSTEM ADMINISTRATOR ACTIONS -->
     {% if request.user|has_group:"system_administrator" %}
+    <div class="card" style="width: 40%; margin: auto;">
+  <div class="card-body">
+    <h5 class="card-title">Register Blanks by Range</h5>
+    <p class="card-text">Click here to create a batch of blanks using a from to range</p>
+    <a href="create_blanks_with_range" class="btn btn-primary">GO</a>
+  </div>
+        </div>
      <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Blanks</h5>
     <p class="card-text">Click here to create a batch of blanks</p>
     <a href="create_blanks" class="btn btn-primary">GO</a>
-  </div>
-        </div>
-        <div class="card" style="width: 40%; margin: auto;">
-  <div class="card-body">
-    <h5 class="card-title">Register Blanks by Range</h5>
-    <p class="card-text">Click here to create a batch of blanks using a from to range</p>
-    <a href="create_blanks_with_range" class="btn btn-primary">GO</a>
   </div>
         </div>
         <div class="card" style="width: 40%; margin: auto;">
