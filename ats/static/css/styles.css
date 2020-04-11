@@ -60,7 +60,7 @@ nav{
 }
 
 .box input[type = "text"]:focus,.box input[type = "password"]:focus {
-  width: 280px;
+  width: 200px;
   border-color: #026BDE;
 }
 
@@ -78,13 +78,76 @@ nav{
   cursor: pointer;
 }
 
+.bg-light h1 {
+    font-family: 'Arial Black';
+    text-align: center;
+    background: white;
+}
+
 .box input[type = "submit"]:hover {
   background: #026BDE;
 }
 
-.card-body{
-    font-family: 'Arial';
+
+/* Login form CSS */
+.bg-secondary h1{
+    font-family: 'Arial Black';
+    text-align: center;
     background: white;
+}
+.card-body h1{
+    font-family: 'Arial Black';
+    text-align: center;
+    background: white;
+}
+
+/* Login Button Formatting */
+.card-body input[type=submit] {
+    background-color: #026BDE;
+  display: block;
+  margin: 4% auto;
+  text-align:center;
+    font-family: "Arial";
+    font-width: bold;
+  border: 3px solid #026BDE;
+  padding: 5px 10px;
+  width:150px;
+  outline: #026BDE;
+  color: white;
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+/*Formatting hovering over login button*/
+.card-body input[type=submit]:hover {
+    background-color: lightskyblue;
+    font-weight: bold;
+    border: 3px solid lightskyblue;
+}
+
+/* input forms: submit form button */
+.card input[type=submit] {
+    background-color: #026BDE;
+    text-decoration: none;
+  display: block;
+  margin: 4% auto;
+  text-align:center;
+    font-family: "Arial";
+    font-width: bold;
+  border: 3px solid #026BDE;
+  padding: 5px 10px;
+  width:100px;
+  outline: #026BDE;
+  color: white;
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+/* input forms: submit form button (hovering) */
+.bg-light input[type=submit]:hover {
+    background-color: lightskyblue;
+    font-weight: bold;
+    border: 3px solid lightskyblue;
 }
 
 .card{
@@ -117,7 +180,6 @@ a.btn-primary:hover {               /* formatting hovering over the 'Go' button 
     border: lightskyblue;
     font-style: italic;
     outline: none;
-
 }
 
 
@@ -143,6 +205,7 @@ header li{
 
 header nav {
     margin-top: 10px;
+    font-family: "Arial Black";
 }
 
 header .highlight, header .current a{
