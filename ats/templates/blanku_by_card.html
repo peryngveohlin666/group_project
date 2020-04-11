@@ -1,29 +1,35 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
-        {% block content %}
 
-            <div class="bg-secondary card">
-            type:
-            {{ blank.type }}
-                number:
+{% block content %}
+    <div class="bg-secondary card">
+        Blank Type:
+    {{ blank.type }}
+        | Blank Number:
     {{ blank.number }}
-    sold?
-    {{ blank.is_sold }}
-    refunded?
-    {{ blank.is_refunded }}
-    date created:
-    {{ blank.date }}
-    assigned advisor:
+        | Assigned to:
     {{ blank.advisor }}
+        | Available:
+    {{ blank.is_sold }}
+        | Refunded:
+    {{ blank.is_refunded }}
+        | Date Created:
+    {{ blank.date }}
 
-    <form class="border-secondary card bg-light" method = "post">
+    <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
+    <div class="card-body bg-light">
+    <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
-        <h1 >Air Ticket Sales</h1>
+        <br>
+        <h1>Create Ticket</h1>
         {{ sell_form }}
-        Date format '2020-03-06' (Most of the time the due date is 30 days from today but you can make exceptions after asking your manager) If not entered it will be assumed that the payment is due 30 days
+        Enter the date in the format 'YYYY-MM-DD'
         {{ card_form }}
          <br>
-      <input type="submit" name="" value="Sell">
-    </form>
-
+      <input type="submit" name="" value="Confirm">
+        <br>
+    </form>  <!-- end of form -->
     </div>
+    </div>
+    <br>
+    <br>
 {% endblock %}

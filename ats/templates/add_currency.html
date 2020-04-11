@@ -7,16 +7,21 @@
     <div class="card-body bg-light">
     <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
-        <h1>Update Exchange Rate or Add a New Currency</h1>
+        <br>
+        <h1>Update Exchange Rate<br>OR<br>Add a New Currency</h1>
         <br>
         <br>
-        Please enter the currency type in the format "currency_date", and then enter the rate <br><br>
-
+        <p style="color: #8f8f8f">Please enter the currency type in the format "currency_YYYY-MM-DD",<br>e.g. Euros_2020-04-11, and then enter the rate.</p>
+        <br>
+        <br>
         {{ form }}      <!-- imports form from backend to take the currency type and rate -->
         <br>
         <br>
       <input type="submit" name="" value="Update">      <!-- submit completed form -->
-    </form>     <--! end of form -->
+        <br>
+    </form>  <!-- end of form -->
     </div>
     </div>
+    <br>
+    <br>
 {% endblock %}
