@@ -3,7 +3,8 @@
     {% if errors %}     <!-- catches errors when registering new blanks -->
         {{ errors }}
     {% endif %}
-    <form class="card-body" method = "post">
+    <div class="card-body bg-light">
+    <form class="card bg-light" method = "post">
         {% csrf_token %}
         <h1>Register New Blanks</h1>
         <br>
@@ -20,4 +21,5 @@
       <input type="submit" name="" value="Register Blanks">
 
     </form>
+    </div>
 {% endblock %}

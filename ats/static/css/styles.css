@@ -84,10 +84,36 @@ nav{
     background: white;
 }
 
+.bg-light {
+    background: white;
+}
+
+.bg-light input[type=submit] {
+    background-color: #026BDE;
+  display: block;
+  margin: 4% auto;
+  text-align:center;
+    font-family: "Arial";
+    font-width: bold;
+  border: 3px solid #026BDE;
+  padding: 5px 10px;
+  width: auto;
+  outline: #026BDE;
+  color: white;
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+/*Formatting hovering over login button*/
+.bg-light input[type=submit]:hover {
+    background-color: lightskyblue;
+    font-weight: bold;
+    border: 3px solid lightskyblue;
+}
+
 .box input[type = "submit"]:hover {
   background: #026BDE;
 }
-
 
 /* Login form CSS */
 .bg-secondary h1{
@@ -111,7 +137,7 @@ nav{
     font-width: bold;
   border: 3px solid #026BDE;
   padding: 5px 10px;
-  width:150px;
+  width: auto;
   outline: #026BDE;
   color: white;
   border-radius: 10px;
@@ -128,19 +154,16 @@ nav{
 /* input forms: submit form button */
 .card input[type=submit] {
     background-color: #026BDE;
-    text-decoration: none;
-  display: block;
-  margin: 4% auto;
-  text-align:center;
-    font-family: "Arial";
-    font-width: bold;
-  border: 3px solid #026BDE;
-  padding: 5px 10px;
-  width:100px;
-  outline: #026BDE;
-  color: white;
-  border-radius: 10px;
-  transition: 0.25s;
+    font-weight: bold;
+      border: 3px solid #026BDE;
+    width: auto;
+}
+
+.bg-light input[type=submit] {
+    background-color: #026BDE;
+    font-weight: bold;
+      border: 3px solid #026BDE;
+    width: auto;
 }
 
 /* input forms: submit form button (hovering) */
@@ -148,6 +171,7 @@ nav{
     background-color: lightskyblue;
     font-weight: bold;
     border: 3px solid lightskyblue;
+    width: auto;
 }
 
 .card{

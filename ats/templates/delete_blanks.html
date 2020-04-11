@@ -3,6 +3,7 @@
     {% if errors %}     <!-- catches errors when deleting blanks -->
         {{ errors }}
     {% endif %}
+    <div class="card-body bg-light">
     <form class="card-body" method = "post">
         {% csrf_token %}
         <h1>Delete Blanks</h1>
@@ -17,6 +18,6 @@
         <br>
         <br>
         <input type="submit" name="" value="Delete">
-
     </form>
+    </div>
 {% endblock %}
