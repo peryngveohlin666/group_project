@@ -3,16 +3,17 @@
     {% if errors %}     <!-- catches errors when registering a new user -->
         {{ errors }}
     {% endif %}
+    <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
     <div class="card-body bg-light">
-    <form class="card bg-light" method = "post">
+    <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
         <h1>Create a New User</h1>
         <br>
         <br>
         {{ form }}
         <br>
-        <br>
-      <input type="submit" name="" value="Register User">
-    </form>
+      <input type="submit" name="" value="Register User">       <!-- submit completed form -->
+    </form>     <!-- end of form -->
+    </div>
     </div>
 {% endblock %}

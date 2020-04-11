@@ -1,6 +1,5 @@
 
 <!-- Login Page for the ATS System -->
-<!--  -->
 
 {%  extends "base.html" %}      <!-- extends base.html rendering only the header as the user is yet to login -->
 
@@ -14,18 +13,22 @@
     {% if errors %}      <!-- if login details are incorrect error message is displayed and login for is refreshed -->
         {{ errors }}
     {% endif %}
-    <form class="card-body" method = "post">    <!-- start of login form -->
+    <div class="card" style="width: 60%; margin: auto;">
+    <div class="card-body bg-light">
+    <form class="card" method = "post">    <!-- start of login form -->
         {% csrf_token %}
 
         <h1>Login</h1>
-        </br>
-        <p>Please enter your login details</p>
-        </br>
-
+        <br>
+        <p>Please enter your login details</p><p2>*Your username is your allocated Employee ID*</p2>
+        <br>
+        <br>
         {{ form }}
         <br>
         <br>
       <input type="submit" name="" value="Login">     <!-- login button and submit -->
 
     </form>     <!-- end of login form -->
+    </div>
+    </div>
 {% endblock %}

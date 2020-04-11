@@ -9,7 +9,7 @@ head>
 
 
 <!-- SYSTEM ADMINISTRATOR ACTIONS -->
-    {% if request.user|has_group:"system_administrator" %}
+    {% if request.user|has_group:"system_administrator" %}  <!-- if logged in as a System Admin the following menu will be shown -->
     <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Blanks by Range</h5>
@@ -39,6 +39,7 @@ head>
   </div>
     </div>
 
+        <!-- html menu item to create a new report -->
         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
@@ -46,6 +47,7 @@ head>
     <a href="create_reports" class="btn btn-primary">GO</a>
   </div>
         </div>
+        <!-- html menu item to view all the reports created by that user in the system -->
         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">View Reports</h5>
@@ -86,7 +88,9 @@ head>
 
 
 <!-- TRAVEL ADVISOR ACTIONS -->
-{% if request.user|has_group:"travel_advisor" %}
+{% if request.user|has_group:"travel_advisor" %}  <!-- if logged in as a Travel Advisor the following menu will be shown -->
+
+    <!-- html menu item to register a new customer -->
     <div class="card" style="width: 40%; margin: auto;">
 <div class="card-body">
     <h5 class="card-title">Register Customer</h5>
@@ -94,6 +98,7 @@ head>
     <a href="register_customer" class="btn btn-primary">GO</a>
 </div>
     </div>
+    <!-- html menu item to view all blanks available to user -->
     <div class="card" style="width: 40%; margin: auto;">
     <div class="card-body">
     <h5 class="card-title">My Blanks</h5>
@@ -101,6 +106,7 @@ head>
     <a href="my_blanks" class="btn btn-primary">GO</a>
 </div>
     </div>
+    <!-- html menu item to search the system stock for an individual blank -->
         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Search for a Blank</h5>
@@ -108,7 +114,7 @@ head>
     <a href="search_for_a_blank" class="btn btn-primary">GO</a>
         </div>
     </div>
-
+    <!-- html menu item to create a new report -->
     <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
@@ -116,6 +122,7 @@ head>
     <a href="create_reports" class="btn btn-primary">GO</a>
         </div>
     </div>
+   <!-- html menu item to view all the reports created by that user in the system -->
     <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">View Reports</h5>
@@ -123,10 +130,10 @@ head>
     <a href="reports" class="btn btn-primary">GO</a>
   </div>
     </div>
-
+    <!-- html menu item to update or add a new currency -->
          <div class="card" style="width: 40%; margin: auto">
   <div class="card-body">
-    <h5 class="card-title">Update/Add Currency</h5>
+    <h5 class="card-title">Update or Add Currency</h5>
     <p class="card-text">Click here to add a new currency with a rate</p>
     <a href="add_currency" class="btn btn-primary">GO</a>
   </div>
@@ -138,10 +145,12 @@ head>
 
 
 <!-- MANAGER ACTIONS -->
-{% if request.user|has_group:"manager" %}
-    {% for blank in blanks %}
+{% if request.user|has_group:"manager" %}   <!-- if logged in as an Office Manager the following menu will be shown -->
+
+    {% for blank in blanks %}       <!-- runs through blank stock checking for any payments outside of 30 days -->
         <div class="card bg-light" style="width: 40%; margin: auto;">
         LATE PAYMENT!!
+            <!-- alert displays customer name and blank which is yet to be paid for -->
         Customer {{ blank.blank_customer.name }} has not paid for {{ blank.type }}{{ blank.number }}
             <a href="set_paid/{{ blank.number }}/" class="btn-primary">Dismiss</a>
         </div>
@@ -171,7 +180,7 @@ head>
     <a href="search_for_a_blank" class="btn btn-primary">GO</a>
         </div>
     </div>
-
+    <!-- html menu item to create a new report -->
     <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
@@ -179,6 +188,7 @@ head>
     <a href="create_reports" class="btn btn-primary">GO</a>
   </div>
     </div>
+    <!-- html menu item to view all the reports created by that user in the system -->
         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">View Reports</h5>
@@ -186,7 +196,7 @@ head>
     <a href="reports" class="btn btn-primary">GO</a>
   </div>
 </div>
-
+    <!-- html menu item to update or add a new currency -->
          <div class="card" style="width: 40%; margin: auto">
   <div class="card-body">
     <h5 class="card-title">Update/Add Currency</h5>
@@ -194,7 +204,7 @@ head>
     <a href="add_currency" class="btn btn-primary">GO</a>
   </div>
      </div>
-
+    <!-- html menu item to register a new customer -->
     <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Customer</h5>
@@ -202,6 +212,7 @@ head>
     <a href="register_customer" class="btn btn-primary">GO</a>
 </div>
     </div>
+    <!-- html menu item to view all blanks available to user -->
     <div class="card" style="width: 40%; margin: auto;">
     <div class="card-body">
     <h5 class="card-title">My Blanks</h5>
