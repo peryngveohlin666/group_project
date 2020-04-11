@@ -148,12 +148,14 @@ head>
 {% if request.user|has_group:"manager" %}   <!-- if logged in as an Office Manager the following menu will be shown -->
 
     {% for blank in blanks %}       <!-- runs through blank stock checking for any payments outside of 30 days -->
-        <div class="card bg-light" style="width: 40%; margin: auto;">
-        LATE PAYMENT!!
+        <div class="card bg-light" style="width:45%; margin: auto;">
+            <p style="color:red;text-align:center;font-weight:bold">! LATE PAYMENT ALERT !</p>
             <!-- alert displays customer name and blank which is yet to be paid for -->
-        Customer {{ blank.blank_customer.name }} has not paid for {{ blank.type }}{{ blank.number }}
-            <a href="set_paid/{{ blank.number }}/" class="btn-primary">Dismiss</a>
+            <p style="text-align: center">Customer {{ blank.blank_customer.name }} has an outstanding payment for {{ blank.number }}</p>
+            <!-- Dismiss alert button, marks blank as paid for -->
+            <a href="set_paid/{{ blank.number }}/" class="btn-primary" style="text-align: center">Dismiss</a>
         </div>
+        <br>
     {% endfor %}
     <br>
     <!-- html menu item to assign blanks to a Travel Advisor -->

@@ -1,6 +1,9 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
+
+<!-- page displayed after successfully performing a DB backup
+and provides the user with a link to download the backup file -->
 {% block content %}
     {% load static %}
-     <p> The backup file has been generated, you can download it here: </p>
-    <a  href="{% static '/database.json' %}" class="button btn-primary" download> Download </a>
-{% endblock %}
+     <p>The backup file has been generated, you can download it here: </p>
+    <a  href="{% static '/database.json' %}" class="button btn-primary" download>Download</a>
+{% endblock %}  <!-- imports the generated file and displays the link to download as button -->

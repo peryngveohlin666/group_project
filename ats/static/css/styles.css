@@ -67,9 +67,9 @@ body{
     background: white;
 }
 
-/* Login Button Formatting */
+/* Form Button Formatting */
 .card-body input[type=submit] {
-    background-color: #026BDE;
+  background-color: #026BDE;
   display: block;
   margin: 4% auto;
   text-align:center;

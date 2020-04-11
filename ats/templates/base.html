@@ -18,11 +18,11 @@
 
     <div class="container">      <!-- Block is responsible for ATS header including the nav bar -->
         <div id="slogan">
+            <br>
             <h1>AIR TICKET SALES</h1>     <!-- Page Title; is present on all pages including login and logout pages -->
         </div>
         {% if user.is_authenticated %}      <!-- only when a user is logged in will the nav be displayed -->
         <nav>
-            <br>
             <ul>
                 <a class="card-body" href=/homepage> Home</a>       <!-- returns user to home page -->
                 <a class="card-body" href=/logout> Logout</a>       <!-- logs user out -->
