@@ -130,6 +130,7 @@ header .container h1{                     /* formatting 'Air Ticket Sales'  */
 
 a.btn-primary {                     /* formatting the 'Go' button */
     color: white;
+    text-align: center;
     text-decoration: none;
     background-color: #026BDE;
     outline: #026BDE;

@@ -1,15 +1,17 @@
-{%  extends "base.html" %}         <!-- extends base.html rendering the header and nav bar for all users -->
+{%  extends "base.html" %}         <!-- extends base.rendering the header and nav bar for all users -->
 head>
 {% load static %}
 {% load auth_extras %}
 {% block content %}
     <br>
 
-<!-- Home Page for the ATS System, displays different functionalities depending on which 'group' the user belongs to -->
+<!-- Homepage for the ATS System, displays the correct functionality corresponding to which 'group' the user belongs to -->
 
 
-<!-- SYSTEM ADMINISTRATOR ACTIONS -->
-    {% if request.user|has_group:"system_administrator" %}  <!-- if logged in as a System Admin the following menu will be shown -->
+<!-- SYSTEM ADMINISTRATOR HOMEPAGE ACTIONS -->
+{% if request.user|has_group:"system_administrator" %}  <!-- if logged in as a System Admin the following menu will be shown -->
+
+    <!-- menu item: take the user to the page displaying the form to register new blanks -->
     <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Blanks by Range</h5>
@@ -17,6 +19,8 @@ head>
     <a href="create_blanks_with_range" class="btn btn-primary">GO</a>
   </div>
         </div>
+        <br>
+        <!-- menu item: takes the user to the page displaying the form to register new blanks -->
      <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Blanks</h5>
@@ -24,6 +28,8 @@ head>
     <a href="create_blanks" class="btn btn-primary">GO</a>
   </div>
         </div>
+        <br>
+        <!-- menu item: takes the user to the page displaying the all blanks present in the system (system stock)  -->
         <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">System Stock</h5>
@@ -31,6 +37,8 @@ head>
     <a href="blanks" class="btn btn-primary">GO</a>
   </div>
     </div>
+        <br>
+        <!-- menu item: takes the user to the form to delete a blank from the system -->
      <div class="card" style="width: 40%; margin: auto;">
      <div class="card-body">
     <h5 class="card-title">Delete Blanks</h5>
@@ -38,8 +46,8 @@ head>
     <a href="delete_blanks" class="btn btn-primary">GO</a>
   </div>
     </div>
-
-        <!-- html menu item to create a new report -->
+        <br>
+        <!-- menu item: to create a new report -->
         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
@@ -47,7 +55,8 @@ head>
     <a href="create_reports" class="btn btn-primary">GO</a>
   </div>
         </div>
-        <!-- html menu item to view all the reports created by that user in the system -->
+        <br>
+        <!-- menu item: to view all the reports created by that user in the system -->
         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">View Reports</h5>
@@ -56,8 +65,8 @@ head>
   </div>
         </div>
          </div>
-
-        <!-- html menu item for creating a new user account -->
+        <br>
+        <!-- menu item: for creating a new user account -->
     <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Users</h5>
@@ -65,8 +74,8 @@ head>
     <a href="register_user" class="btn btn-primary">GO</a>
   </div>
     </div>
-
-        <!-- html menu item to perform a database backup -->
+    <br>
+        <!-- menu item: to perform a database backup -->
     <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Back Up Database</h5>
@@ -74,7 +83,8 @@ head>
     <a href="backup_database" class="btn btn-primary">GO</a>
   </div>
         </div>
-        <!-- html menu item to restore the database from a backup -->
+        <br>
+        <!-- menu item: to restore the database from a backup -->
         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Restore Database</h5>
@@ -82,15 +92,14 @@ head>
     <a href="restore_database" class="btn btn-primary">GO</a>
   </div>
         </div>
+        <br>
 {% endif %}
-<br>
 
 
-
-<!-- TRAVEL ADVISOR ACTIONS -->
+<!-- TRAVEL ADVISOR HOMEPAGE ACTIONS -->
 {% if request.user|has_group:"travel_advisor" %}  <!-- if logged in as a Travel Advisor the following menu will be shown -->
 
-    <!-- html menu item to register a new customer -->
+    <!-- menu item: to register a new customer -->
     <div class="card" style="width: 40%; margin: auto;">
 <div class="card-body">
     <h5 class="card-title">Register Customer</h5>
@@ -98,7 +107,8 @@ head>
     <a href="register_customer" class="btn btn-primary">GO</a>
 </div>
     </div>
-    <!-- html menu item to view all blanks available to user -->
+    <br>
+    <!-- menu item: to view all blanks available to user -->
     <div class="card" style="width: 40%; margin: auto;">
     <div class="card-body">
     <h5 class="card-title">My Blanks</h5>
@@ -106,7 +116,8 @@ head>
     <a href="my_blanks" class="btn btn-primary">GO</a>
 </div>
     </div>
-    <!-- html menu item to search the system stock for an individual blank -->
+    <br>
+    <!-- menu item: to search the system stock for an individual blank -->
         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Search for a Blank</h5>
@@ -114,7 +125,8 @@ head>
     <a href="search_for_a_blank" class="btn btn-primary">GO</a>
         </div>
     </div>
-    <!-- html menu item to create a new report -->
+    <br>
+    <!-- menu item: to create a new report -->
     <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
@@ -122,7 +134,8 @@ head>
     <a href="create_reports" class="btn btn-primary">GO</a>
         </div>
     </div>
-   <!-- html menu item to view all the reports created by that user in the system -->
+    <br>
+   <!-- menu item: to view all the reports created by that user in the system -->
     <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">View Reports</h5>
@@ -130,7 +143,8 @@ head>
     <a href="reports" class="btn btn-primary">GO</a>
   </div>
     </div>
-    <!-- html menu item to update or add a new currency -->
+    <br>
+    <!-- menu item: to update or add a new currency -->
          <div class="card" style="width: 40%; margin: auto">
   <div class="card-body">
     <h5 class="card-title">Update or Add Currency</h5>
@@ -138,13 +152,12 @@ head>
     <a href="add_currency" class="btn btn-primary">GO</a>
   </div>
      </div>
-
+    <br>
 {% endif %}
-<br>
 
 
 
-<!-- MANAGER ACTIONS -->
+<!-- MANAGER HOMEPAGE ACTIONS -->
 {% if request.user|has_group:"manager" %}   <!-- if logged in as an Office Manager the following menu will be shown -->
 
     {% for blank in blanks %}       <!-- runs through blank stock checking for any payments outside of 30 days -->
@@ -153,12 +166,12 @@ head>
             <!-- alert displays customer name and blank which is yet to be paid for -->
             <p style="text-align: center">Customer {{ blank.blank_customer.name }} has an outstanding payment for {{ blank.number }}</p>
             <!-- Dismiss alert button, marks blank as paid for -->
-            <a href="set_paid/{{ blank.number }}/" class="btn-primary" style="text-align: center">Dismiss</a>
+            <a href="set_paid/{{ blank.number }}/" class="btn btn-primary" >Dismiss</a>
         </div>
         <br>
     {% endfor %}
     <br>
-    <!-- html menu item to assign blanks to a Travel Advisor -->
+    <!-- menu item: takes user to the form to assign blanks to a Travel Advisor -->
     <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Assign Blanks</h5>
@@ -166,7 +179,8 @@ head>
     <a href="assign_blanks" class="btn btn-primary">GO</a>
   </div>
     </div>
-    <!-- html menu item to view all blanks currently in the system -->
+    <br>
+    <!-- menu item: to view all blanks currently in the system -->
         <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">View Blanks</h5>
@@ -174,7 +188,8 @@ head>
     <a href="blanks" class="btn btn-primary">GO</a>
   </div>
 </div>
-    <!-- html menu item to search the system stock for an individual blank -->
+    <br>
+    <!-- menu item: to search the system stock for an individual blank -->
       <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Search for a blank</h5>
@@ -182,7 +197,8 @@ head>
     <a href="search_for_a_blank" class="btn btn-primary">GO</a>
         </div>
     </div>
-    <!-- html menu item to create a new report -->
+    <br>
+    <!-- menu item: to create a new report -->
     <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">Create Report</h5>
@@ -190,7 +206,8 @@ head>
     <a href="create_reports" class="btn btn-primary">GO</a>
   </div>
     </div>
-    <!-- html menu item to view all the reports created by that user in the system -->
+    <br>
+    <!-- menu item: to view all the reports created by that user in the system -->
         <div class="card" style="width: 40%; margin: auto;">
         <div class="card-body">
     <h5 class="card-title">View Reports</h5>
@@ -198,7 +215,8 @@ head>
     <a href="reports" class="btn btn-primary">GO</a>
   </div>
 </div>
-    <!-- html menu item to update or add a new currency -->
+    <br>
+    <!-- menu item: to update or add a new currency -->
          <div class="card" style="width: 40%; margin: auto">
   <div class="card-body">
     <h5 class="card-title">Update/Add Currency</h5>
@@ -206,7 +224,8 @@ head>
     <a href="add_currency" class="btn btn-primary">GO</a>
   </div>
      </div>
-    <!-- html menu item to register a new customer -->
+    <br>
+    <!-- menu item: to register a new customer -->
     <div class="card" style="width: 40%; margin: auto;">
   <div class="card-body">
     <h5 class="card-title">Register Customer</h5>
@@ -214,7 +233,8 @@ head>
     <a href="register_customer" class="btn btn-primary">GO</a>
 </div>
     </div>
-    <!-- html menu item to view all blanks available to user -->
+    <br>
+    <!-- menu item: to view all blanks available to user -->
     <div class="card" style="width: 40%; margin: auto;">
     <div class="card-body">
     <h5 class="card-title">My Blanks</h5>
@@ -222,9 +242,7 @@ head>
     <a href="my_blanks" class="btn btn-primary">GO</a>
 </div>
     </div>
+    <br>
 {% endif %}
-<br>
-
-
 
 {% endblock %}
