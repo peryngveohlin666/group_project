@@ -4,6 +4,6 @@
 and provides the user with a link to download the backup file -->
 {% block content %}
     {% load static %}
-     <p>The backup file has been generated, you can download it here: </p>
-    <a  href="{% static '/database.json' %}" class="button btn-primary" download>Download</a>
+     <p>The database has been backed up and your file has been generated, you can download it here: </p>
+    <a  href="{% static '/database.json' %}" class="button btn-primary" download>Download Backup</a>
 {% endblock %}  <!-- imports the generated file and displays the link to download as button -->

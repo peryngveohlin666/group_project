@@ -3,15 +3,29 @@
     {% if errors %}     <!-- catches errors when assigning blanks to Travel Advisors -->
         {{ errors }}
     {% endif %}
-    <form class="card" method = "post">
+    <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
+    <div class="card-body bg-light">
+    <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
-        <h1>Air Ticket Sales</h1>
+        <br>
+        <h1>Assign Blanks</h1>
+        <br>
+        <p style="color: #8f8f8f">Select an advisor from the drop down menu and enter the commission rate.</p>
         {{ form }}
-        assign from:
+        <br>
+        <br>
+        <p style="color: #8f8f8f">Enter the range of blanks to assign in the format '44412345678',
+            <br>where '444' is the blank type and '12345678' is the blank number.</p>
+        Assign From:
         <input type="number" name="from_value" value="{{ from_value }}">
-        assign to:
+        Assign To:
         <input type="number" name="to_value" value="{{ to_value }}">
+        <br>
         <input type="submit" name="" value="Assign blanks">
-
-    </form>
+        <br>
+    </form>     <!-- end of form -->
+    </div>
+    </div>
+    <br>
+    <br>
 {% endblock %}

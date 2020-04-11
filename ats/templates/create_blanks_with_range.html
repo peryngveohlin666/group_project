@@ -7,22 +7,28 @@
     <div class="card-body bg-light">
     <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
+        <br>
         <h1>Register New Blanks</h1>
         <br>
         <br>
-        Select the 'Type' of Blank from the drop down menu and then enter the 'Price'.<br> <br>
+        <p style="color: #8f8f8f">Select the 'Type' of Blank from the drop down menu and then enter the 'Price'.</p>
+        <br>
+        <br>
         {{ form }}      <!-- pulls form created in back end to select the blank type and enter the price -->
         <br>
         <br>
-        Enter the 6-8 digit blank number of the first and last blanks in the range you want to register.<br>
+        <p style="color: #8f8f8f">Enter the 6-8 digit blank number of the first and last blanks in the range you want to register.</p>
+        <br>
         First:
         <input type="number" name="from_value" value="{{ from_value }}">
         Last:
         <input type="number" name="to_value" value="{{ to_value }}">
         <br>
         <input type="submit" name="" value="Register Blanks">
-
-    </form>     <!-- end of form -->
+        <br>
+    </form>  <!-- end of form -->
     </div>
     </div>
+    <br>
+    <br>
 {% endblock %}
