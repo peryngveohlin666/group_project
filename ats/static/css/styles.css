@@ -42,9 +42,9 @@ body{
     border: 3px solid lightskyblue;
 }
 
-.box input[type = "submit"]:hover {
+/*.box input[type = "submit"]:hover {
   background: #026BDE;
-}
+}*/
 
 /* Login form CSS */
 .bg-secondary h1{
@@ -97,6 +97,10 @@ body{
     width: auto;
 }
 
+.card{
+    background: #026BDE;
+}
+
 .bg-light input[type=submit] {
     background-color: #026BDE;
     border: 3px solid #026BDE;
@@ -111,24 +115,8 @@ body{
     width: auto;
 }
 
-.card{
-    background: #026BDE;
-}
-
-/*Global such as container*/
-.container {
-    overflow: hidden;
-}
-
-header .container h1{                     /* formatting 'Air Ticket Sales'  */
-    color: black;
-    font-style: italic;
-    font-weight: bolder;
-    font-family: 'Arial Black';
-    font-size: 70px;
-}
-
-a.btn-primary {                     /* formatting the 'Go' button */
+/* formatting the 'Go' button */
+a.btn-primary {
     color: white;
     text-align: center;
     font-family: Arial;
@@ -137,7 +125,8 @@ a.btn-primary {                     /* formatting the 'Go' button */
     outline: #026BDE;
 }
 
-a.btn-primary:hover {               /* formatting hovering over the 'Go' button */
+/* formatting hovering over the 'Go' button */
+a.btn-primary:hover {
     text-decoration: none;
     font-family: 'Arial';
     background-color: lightskyblue;
@@ -146,6 +135,22 @@ a.btn-primary:hover {               /* formatting hovering over the 'Go' button 
     outline: none;
 }
 
+header li{
+}
+
+/* main page header and navigation bar CSS */
+.container {
+    overflow: hidden;
+}
+
+/* formatting 'Air Ticket Sales'  */
+header .container h1{
+    color: black;
+    font-style: italic;
+    font-weight: bolder;
+    font-family: 'Arial Black';
+    font-size: 70px;
+}
 
 ul a.card-body{
     color: #000d1a;
@@ -163,13 +168,6 @@ header a{
     font-size: 18px;
 }
 
-
-header li{
-}
-
-/* navigation bar CSS */
-
-
 header nav {
     float: right;
     margin-top: 10px;
@@ -183,9 +181,11 @@ header .highlight, header .current a{
 
 header a:hover {
     color: lightskyblue;
+    text-decoration-color: lightskyblue;
     text-decoration: none;
     font-style: italic;
 }
+
 
 
 /*

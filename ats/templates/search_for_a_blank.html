@@ -3,11 +3,26 @@
     {% if errors %}
         {{ errors }}
     {% endif %}
-    <form class="card" method = "post">
+    <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
+    <div class="card-body bg-light">
+    <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
-        <h1>Air Ticket Sales</h1>
-        blank no:
+        <br>
+        <h1>Search Blanks</h1>
+        <br>
+        <br>
+        <p style="color: #8f8f8f">Enter the Number of the Blank you want to search for in the format '44412345678',<br>
+            where '444' is the blank type and '12345678' is the blank number.</p>
+        <br>
+        Blank Number:
         <input type="number" name="blank_no" value="{{ blank_no }}">
+        <br>
+        <br>
         <input type="submit" name="" value="Search">
-    </form>
+        <br>
+    </form>  <!-- end of form -->
+    </div>
+    </div>
+    <br>
+    <br>
 {% endblock %}

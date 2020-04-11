@@ -9,7 +9,11 @@
         {% csrf_token %}
         <br>
         <h1>Register a New Customer</h1>
-        {{ form }}
+        <br>
+        <br>
+        <p style="color: #8f8f8f">Enter the customer's full name and address.</p>
+        <br>
+        {{ form }}   <!-- pulls form created in back end to select the blank type and enter the price -->
         <br>
         <br>
       <input type="submit" name="" value="Register Customer">

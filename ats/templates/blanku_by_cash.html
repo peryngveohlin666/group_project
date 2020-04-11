@@ -15,14 +15,24 @@
         | Date Created:
     {{ blank.date }}
 
-    <form class="border-secondary card bg-light" method = "post">
+ <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
+    <div class="card-body bg-light">
+    <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
-        <h1 >Air Ticket Sales</h1>
+        <br>
+        <h1>Create Ticket</h1>
+        <br>
+        <br>
+        <p style="color: #8f8f8f">Enter the date in the format 'YYYY-MM-DD'</p>
+        <br>
         {{ form }}
-        Date format '2020-03-06' (Most of the time the due date is 30 days from today but you can make exceptions after asking your manager) If not entered it will be assumed that the payment is due 30 days
-         <br>
-      <input type="submit" name="" value="Sell">
-    </form>
-
+        <br>
+        <br>
+      <input type="submit" name="" value="Confirm">
+        <br>
+    </form>  <!-- end of form -->
     </div>
+    </div>
+    <br>
+    <br>
 {% endblock %}
