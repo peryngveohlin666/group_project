@@ -1,5 +1,5 @@
 {%  extends "base.html" %}         <!-- extends base.rendering the header and nav bar for all users -->
-head>
+
 {% load static %}
 {% load auth_extras %}
 {% block content %}
@@ -155,7 +155,6 @@ head>
 {% endif %}
 
 
-
 <!-- MANAGER HOMEPAGE ACTIONS -->
 {% if request.user|has_group:"manager" %}   <!-- if logged in as an Office Manager the following menu will be shown -->
 
@@ -218,7 +217,7 @@ head>
     <!-- menu item: to update or add a new currency -->
     <div class="card" style="width: 40%; margin: auto">
         <div class="card-body">
-        <h5 class="card-title">Update/Add Currency</h5>
+        <h5 class="card-title">Update or Add Currency</h5>
         <p class="card-text">Click here to add a new currency with a rate</p>
         <a href="add_currency" class="btn btn-primary">GO</a>
         </div>

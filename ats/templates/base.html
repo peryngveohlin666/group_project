@@ -34,8 +34,9 @@
 </header>
 
 <!-- Block displays user's name and what type of user they are logged in as, if the login is successful -->
-<div class="card-header d-flex justify-content-left">
+
 {% if user.is_authenticated %}
+    <div class="card-header d-flex justify-content-left">
   Welcome to the ATS System User {{ user.username }}, you are logged in as&nbsp;
     {% if request.user|has_group:"system_administrator" %}           <!-- SA message -->
     <p>a System Administrator!&nbsp;</p>
@@ -46,12 +47,9 @@
 {% if request.user|has_group:"manager" %}           <!-- OM message -->
     <p>an Office Manager!&nbsp;</p>
 {% endif %}
-
-{% else %}
-  <p>Please <a href=/> Login</a> to continue</p>
+</div>
 {% endif %}
 
-</div>
 {% block title %}
 {% endblock %}
 <br>

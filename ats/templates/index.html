@@ -7,27 +7,28 @@
 <head>
     <title>LOGIN</title>    <!-- tab title -->
 </head>
-{% block title %}
-{% endblock %}
+
 {% block content %}
     {% if errors %}      <!-- if login details are incorrect error message is displayed and login for is refreshed -->
         {{ errors }}
     {% endif %}
+    <br>
+    <br>
     <div class="card" style="width: 40%; margin: auto;">        <!-- formatting form width and margins -->
     <div class="card-body bg-light">
     <form class="card" method = "post">    <!-- start of login form -->
         {% csrf_token %}
-
+        <br>
         <h1>Login</h1>
         <br>
-        <p style="color:lightgray;font-style: italic;">Please enter your login details
-            *Your username is your allocated Employee ID*</p>
+        <p style="color:lightgray;font-style: italic;">Please enter your login details<br>*Your username is your allocated Employee ID*</p>
         <br>
         <br>
         {{ form }}
         <br>
         <br>
       <input type="submit" name="" value="Login">     <!-- login button and submit -->
+        <br>
 
     </form>     <!-- end of login form -->
     </div>

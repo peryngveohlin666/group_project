@@ -1,6 +1,6 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
 {% block content %}
-    {% if errors %}
+    {% if errors %}     <!-- catches errors when assigning blanks to Travel Advisors -->
         {{ errors }}
     {% endif %}
     <form class="card" method = "post">

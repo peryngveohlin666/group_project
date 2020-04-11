@@ -131,6 +131,7 @@ header .container h1{                     /* formatting 'Air Ticket Sales'  */
 a.btn-primary {                     /* formatting the 'Go' button */
     color: white;
     text-align: center;
+    font-family: Arial;
     text-decoration: none;
     background-color: #026BDE;
     outline: #026BDE;
@@ -138,6 +139,7 @@ a.btn-primary {                     /* formatting the 'Go' button */
 
 a.btn-primary:hover {               /* formatting hovering over the 'Go' button */
     text-decoration: none;
+    font-family: 'Arial';
     background-color: lightskyblue;
     border: lightskyblue;
     font-weight: bold;
