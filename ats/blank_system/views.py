@@ -490,7 +490,7 @@ def create_blanks_with_range(request):
 
 # a function to search through all blanks
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
-    name='travel_advisor').exists())
+    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def search_for_a_blank(request):
     if request.method == 'POST':
         from_value = request.POST.get("blank_no", "")
