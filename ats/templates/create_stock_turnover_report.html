@@ -3,16 +3,24 @@
     {% if errors %}     <!-- catches errors when creating the Ticket Stock Turnover reports -->
         {{ errors }}
     {% endif %}
-    <form class="card bg-light" method = "post">    <!-- Ticket Stock Turnover Form -->
+    <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
+    <div class="card-body bg-light">
+    <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
+        <br>
         <h1>Ticket Stock Turnover Report</h1>
         <br>
         <br>
-        Enter the report period in the format '2020-03-06'
+        <p style="color: #8f8f8f">Enter the report period in the format 'YYYY-MM-DD'</p>
+        <br>
         {{ form }}      <!-- pulls created form from backend -->
         <br>
         <br>
         <input type="submit" name="" value="Generate Report">
-
-    </form>     <!-- end of form -->
+        <br>
+    </form>  <!-- end of form -->
+    </div>
+    </div>
+    <br>
+    <br>
 {% endblock %}

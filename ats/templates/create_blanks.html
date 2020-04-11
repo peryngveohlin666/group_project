@@ -10,11 +10,13 @@
         <h1>Register New Blanks</h1>
         <br>
         <br>
-        Select the 'Type' of Blank from the drop down menu and then enter the 'Price'.
-        {{ form }}
+        <p style="color: #8f8f8f">Select the 'Type' of Blank from the drop down menu and then enter the 'Price'.</p>
+        <br>
+        {{ form }}      <!-- pulls form created in back end to select the blank type and enter the price -->
         <br>
         <br>
-        Enter the number of blanks you want to create in this batch.
+        <p style="color: #8f8f8f">Enter the number of blanks you want to create in this batch.</p>
+        <br>
         Batch Size:
         <input type="number" name="batch" value="{{ batch }}">
         <br>
