@@ -501,7 +501,7 @@ def search_for_a_blank(request):
 
 # a page to serve the individual blank
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists() or u.groups.filter(
-    name='travel_advisor').exists())
+    name='travel_advisor').exists() or u.groups.filter(name='system_administrator').exists())
 def individual_blank(request, number):
     blanket = blank.objects.filter(number=number)
     if blanket is not None:
