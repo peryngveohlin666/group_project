@@ -7,11 +7,13 @@
     <div class="card-body bg-light">
     <form class="card" method = "post">        <!-- form start -->
         {% csrf_token %}
+        <br>
         <h1>Delete Blanks</h1>
         <br>
         <br>
-        Enter the range of blanks you want to delete in the following format '44412345678',
-        where '444' is the blank type and '12345678' is the blank number.
+         <p style="color: #8f8f8f">Enter the range of blanks you want to delete in the following format '44412345678',<br>
+             where '444' is the blank type and '12345678' is the blank number.</p>
+        <br>
         From:
         <input type="number" name="from_value" value="{{ from_value }}">
         To:
@@ -19,6 +21,7 @@
         <br>
         <br>
         <input type="submit" name="" value="Delete">
+        <br>
     </form>     <!-- end of form -->
     </div>
     </div>
