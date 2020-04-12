@@ -9,22 +9,25 @@ Stock Turnover Reports
         <a href="view_stock_turnover_report/{{ s.id }}">Go</a>
     {% endfor %}
     <br>
-    {% if request.user|has_group:"manager" %}
+    {% if request.user|has_group:"manager" %} <!-- If the user requests the reports page
+                                               Only allow permissions for report if the user belongs to the manager group.-->
         <br>
         Individual sales reports:
-    {% for i in individual_sales_reports %}
+    {% for i in individual_sales_reports %} <!-- Data and heading for individual sales report fetched from database.-->
         <br>
         Report No:
-        {{ i.id }}
-        Advisor:
+        {{ i.id }} <!-- Report number fetched -->
+        Advisor:                <!--The advisor is displayed  as well as the report type -->
         {{ i.agent }}
         Report Type: {{ i.type }}
         <a href="view_individual_sales_report/{{ i.id }}">Go</a>
     {% endfor %}
     {% endif %}
-    {% if request.user|has_group:"travel_advisor" %}
+    {% if request.user|has_group:"travel_advisor" %}        <!-- If the user belongs to the travel advisor group show the
+                                                                Reports as listed below-->
         Individual sales reports:
-        {% for i in individual_sales_reports %}
+        {% for i in individual_sales_reports %}     <!-- For each individual sales report, if the report belongs to the requested user, show
+                                                         teh correct information, such as report number -->
         {% if i.agent == request.user %}
             Report No:
         {{ i.id }}
@@ -37,7 +40,7 @@ Stock Turnover Reports
 <br>
     <br>
     Global Sales Reports:
-    {% for g in global_sales_reports %}
+    {% for g in global_sales_reports %} <!-- Show reports for data in Global Sales Reports -->
         <br>
         Report No:
         {{ g.id }}
@@ -46,7 +49,7 @@ Stock Turnover Reports
     {% endfor %}
 <br>
     <br>
-    GBP Reports:
+    GBP Reports: <!-- Show reports for data in Domestic currency -->
     {% for g in gbp_reports %}
         <br>
         Report No:

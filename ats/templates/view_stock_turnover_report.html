@@ -3,7 +3,7 @@
 
 {% block content %}
     Range from:
-    {{ range_from }}
+    {{ range_from }}            <!--The dates that the user wants to see the reports are stored in these variables-->
     <br>
     Range to:
     {{ range_to }}
@@ -12,12 +12,13 @@
 
 <div class="col-xl- card bg-secondary">
     Created:from/to/total
-    {% for a in created_ranges %}
+    {% for a in created_ranges %}       <!--For each report within the ranges specified above for created_ranges
+                                            The relevant information is displayed from the type to the total-->
         <div class="bg-light">
         Created
         from:
             type:
-            {{ a.type }}
+            {{ a.type }}            <!--The type, number, and total are displayed in all forms below as well as the range -->
             number:
         {{a.range_from}}
         to:
@@ -33,7 +34,8 @@
 
 <div class="col-xl- card bg-secondary">
 Assigned:from/to/advisor/total
-{% for a in assigned_ranges  %}
+{% for a in assigned_ranges  %}         <!--Within the ranges mentioned above, for each report display the correct information
+                                            similiar to before, but with assigned ranges-->
     <div class="bg-light">
     Assigned
     from:
@@ -74,7 +76,7 @@ Used:from/to/total
         type:
         {{ a.type }}
         number:
-    {{ a.range_from|add:a.sold_blank_count  }}
+    {{ a.range_from|add:a.sold_blank_count  }} <!--Similiar to before except ots the sold blanks range -->
     sold by
     {{ a.agent }}
         total sold
@@ -102,7 +104,7 @@ Left:from/to/total
     assigned to:
     {{ a.agent }}
         total left:
-    {{ a.range_to|sub:a.range_from|sub:a.sold_blank_count }}
+    {{ a.range_to|sub:a.range_from|sub:a.sold_blank_count }}  <!--Calculates and Displays how many blanks left in the database -->
     </div>
 {% endfor %}
 </div>

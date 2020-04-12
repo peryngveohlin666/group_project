@@ -6,7 +6,8 @@
     </div>
 <br />
 {% for blank in blanks %}
-    {% if blank.advisor == current_user %}
+    {% if blank.advisor == current_user %}      <!-- For each blank within all the blanks, if the current advisor is the current user
+                                                     then display the correct information as seen on the left-->
 <div class="bg-light">
 <!-- lines blank type from DB -->
         Blank Type:
@@ -16,17 +17,17 @@
         | Purchased:
     {{ blank.is_sold }}
         | Price:
-    {{ blank.price }} GBP
+    {{ blank.price }} GBP                       <!--The type, number, purchased and price is shown -->
         | VAT:
     {{ blank.price|mul:20|div:100 }}
         | Total Price (including VAT):
-    {{ blank.price|mul:20|div:100|add:blank.price }}
+    {{ blank.price|mul:20|div:100|add:blank.price }}    <!--The VAT and total price including VAT is calculated and shown -->
         | Date Created:
     {{ blank.date }}
         | Assigned to:
     {{ blank.advisor }}
         | Commission Rate
-    {{ blank.commission_rate }}
+    {{ blank.commission_rate }}             <!--All other information is shown. -->
 {% if blank.is_sold %}
         | Purchased by:
     {{ blank.blank_customer.name }}
@@ -38,12 +39,12 @@
 {% if blank.is_sold %}
     {% if not blank.is_refunded %}
         <a href="refund/{{ blank.number }}/" class="btn btn-secondary ">Refund Blank</a>
-        {% endif %}
+        {% endif %} <!-- If the blank is sold and the not refunded then display the  option to refund the blank -->
 {% endif %}
         {% if not blank.is_sold %}
         <a href="blanku_by_cash/{{ blank.number }}/" class="btn btn-primary ">Sell by cash</a>
     <a href="blanku_by_card/{{ blank.number }}/" class="btn btn-primary">Sell by card</a>
-            {% endif %}
+            {% endif %} <!-- If the blank is not sold then give the option to sell by card and cash -->
         </div>
 <br />
 

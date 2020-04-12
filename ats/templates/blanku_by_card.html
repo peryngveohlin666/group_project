@@ -1,5 +1,5 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
-
+<!-- This page is for when the blank is sold/refunded via card -->
 {% block content %}
     <div class="bg-secondary card">
         Blank Type:
@@ -7,7 +7,7 @@
         | Number:
     {{ blank.number }}
         | Assigned to:
-    {{ blank.advisor }}
+    {{ blank.advisor }}                 <!--The relevant information is entered from advisor to type to date -->
         | Available:
     {{ blank.is_sold }}
         | Refunded:
@@ -23,12 +23,12 @@
         <h1>Create Ticket</h1>
         <br>
         <br>
-        {{ sell_form }}
+        {{ sell_form }}                     <!-- Sells tickets by displaying the correct selling form -->
         <br>
         <p style="color: #8f8f8f">Enter the date in the format 'YYYY-MM-DD'</p>
         {{ card_form }}
          <br>
-      <input type="submit" name="" value="Confirm">
+      <input type="submit" name="" value="Confirm">  <!--Confirms by submitting -->
         <br>
     </form>  <!-- end of form -->
     </div>

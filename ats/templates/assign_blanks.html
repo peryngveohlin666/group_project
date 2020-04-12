@@ -15,13 +15,15 @@
         <br>
         <br>
         <p style="color: #8f8f8f">Enter the range of blanks to assign in the format '44412345678',
-            <br>where '444' is the blank type and '12345678' is the blank number.</p>
+            <br>where '444' is the blank type and '12345678' is the blank number.</p>  <!-- Simple HTML asking the user to enter the relevant information
+                                                                                             self-explanatory.-->
         Assign From:
         <input type="number" name="from_value" value="{{ from_value }}">
         Assign To:
-        <input type="number" name="to_value" value="{{ to_value }}">
+        <input type="number" name="to_value" value="{{ to_value }}">                <!-- The user then inputs the correct range if blanks which is stored in the from_value and to_value
+                                                                                           as well as using other information such as the number so it can generate the right blanks-->
         <br>
-        <input type="submit" name="" value="Assign Blanks">
+        <input type="submit" name="" value="Assign Blanks">                         <!-- The submit button, so the blanks are assigned and saved to the database -->
         <br>
     </form>     <!-- end of form -->
     </div>

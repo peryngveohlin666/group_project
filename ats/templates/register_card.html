@@ -1,12 +1,12 @@
 {%  extends "base.html" %}      <!-- extends base.html to render the header and nav bar for this page -->
 {% block content %}
-    {% if errors %}
+    {% if errors %}  <!-- If there are any errors show the error page-->
         {{ errors }}
     {% endif %}
-    <form class="card bg-light" method = "post">
+    <form class="card bg-light" method = "post">    <!-- The data is POSTED from the website in the correct form. -->
         {% csrf_token %}
         <h1 >Air Ticket Sales</h1>
         {{ form }}
-      <input type="submit" name="" value="Register Card">
+      <input type="submit" name="" value="Register Card"> <!-- Submit buttom is called Regioster card which confirms data is sent to the database.-->
     </form>
 {% endblock %}							

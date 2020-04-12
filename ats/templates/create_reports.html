@@ -2,7 +2,7 @@
 {% block content %}
     {% load auth_extras %}
 
-<!-- displays what reports are available to generate by which users -->
+<!-- displays what reports are available to generate by which users with a short description of each report -->
 
     {% if request.user|has_group:"manager" %}
         <div class="card" style="width: 40%; margin: auto;">
