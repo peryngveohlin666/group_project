@@ -40,11 +40,13 @@ def index(request):
             return render(request, "index.html", {'form': form})
 
 
+# a function to render the home page
 def homepage(request):
     blanks = blank.objects.filter(date_sale__range=["1700-01-01", date.today() - timedelta(days=30)], is_sold=True, is_paid=False)
     return render(request, "homepage.html", {'blanks': blanks})
 
 
+# a function to serve the page for registering users (also handles post requests)
 @user_passes_test(lambda u: u.groups.filter(name='system_administrator').exists())
 def register_user(request):
     if request.method == 'POST':
@@ -60,6 +62,7 @@ def register_user(request):
     return render(request, 'register_user.html', {'form': form})
 
 
+# a function to log you out and render a page that shows the fact that you logged out
 def logout_view(request):
     logout(request)
     return render(request, 'logout.html')
