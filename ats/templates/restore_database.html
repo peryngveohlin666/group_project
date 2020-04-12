@@ -1,23 +1,12 @@
 {%  extends "base.html" %}      <!-- extends base.html to render the header and nav bar for this page -->
 {% block content %}
-{% if errors %}
+{% if errors %} <!-- If there are any errors show the error page-->
         {{ errors }}
     {% endif %}
-    <div class="card" style="width: 60%; margin: auto;">        <!-- formatting form width and margin -->
-    <div class="card-body bg-light">
-    <form class="card" method = "post">        <!-- form start -->
+    <form class="card bg-light" enctype="multipart/form-data" method = "post">
         {% csrf_token %}
-        <br>
-        <h1 >Restore Database</h1>
-        <br>
+        <h1 >Air Ticket Sales</h1>
         <input type="file" name="file">
-        <br>
-        <br>
       <input type="submit" name="" value="Restore Database From File">
-        <br>
-    </form>     <!-- end of form -->
-    </div>
-    </div>
-    <br>
-    <br>
+    </form>
 {% endblock %}

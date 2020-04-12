@@ -1,24 +1,26 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
 {% load mathfilters %}
 {% block content %}
-    Period: {{ report.date_from }} - {{ report.date_to }}
+    Period: {{ report.date_from }} - {{ report.date_to }}  <!-- The users requested dates are captured in the reported.date_to and _from and they are displayed
+                                                                in the period-->
 {% for r in rates %}
     <div class="card-body">
     <div class="bg-light card">
     date created:
-    {{ r.date }}
+    {{ r.date }}                                         <!-- The date is captured and formatted and then displayed -->
     </div>
     <div class="bg-light card">
     currency:
-    {{ r.type }}
+    {{ r.type }}                                        <!-- The currency is captured and formatted and then displayed -->
     </div>
         <div class="bg-light card">
     rate:
-    {{ r.rate }}
+    {{ r.rate }}                                        <!-- The exchange rate is captured and formatted and then displayed -->
     </div>
     <div class="bg-light card">
     number of 444 sold:
-    {{ r.count_444 }}
+    {{ r.count_444 }}                                   <!-- The number of 444 and 420 and other coupons are shown and formatted
+                                                             is captured and then displayed -->
     </div>
     <div class="bg-light card">
     number of 420 sold:
@@ -26,11 +28,11 @@
     </div>
     <div class="bg-light card">
     total sold:
-    {{ r.count_420|add:r.count_444 }}
+    {{ r.count_420|add:r.count_444 }}          <!-- The total sold is displayed by adding the number of different coupons together.  -->
     </div>
     <div class="bg-light card">
     total price (in GBP):
-    {{ r.total }}
+    {{ r.total }}                           <!-- Total price displayed in domestic currency which is GBP -->
     </div>
     </div>
 {% endfor %}

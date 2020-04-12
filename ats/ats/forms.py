@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
+# a form to register a user
 class register_form(UserCreationForm):
     group = forms.ModelChoiceField(queryset=Group.objects.all(),
                                    required=True)
@@ -12,11 +13,13 @@ class register_form(UserCreationForm):
         fields = ['username', 'first_name', 'last_name', 'email', 'group']
 
 
+# a class to authenticate the user
 class AuthenticationForm(AuthenticationForm):
     class Meta:
         model = User
         fields = '__all__'
 
+    #  constructor for the class that changes the error messages
     def __init__(self, *args, **kwargs):
         super(AuthenticationForm, self).__init__(*args, **kwargs)
         self.error_messages = {

@@ -1,5 +1,5 @@
 {%  extends "base.html" %}       <!-- extends base.html to render the header and nav bar for this page -->
-
+<!--This page is for when the advisor sell/refunds a blank via cash -->
 {% block content %}
     <div class="bg-secondary card">
         Blank Type:
@@ -7,7 +7,7 @@
         | Number:
     {{ blank.number }}
         | Assigned to:
-    {{ blank.advisor }}
+    {{ blank.advisor }}             <!--The relevant information is added similiar to the card one -->
         | Available:
     {{ blank.is_sold }}
         | Refunded:
@@ -25,7 +25,7 @@
         <br>
         <p style="color: #8f8f8f">Enter the date in the format 'YYYY-MM-DD'</p>
         <br>
-        {{ form }}
+        {{ form }}      <!--The form is created for the blank to be sold with all the relevant information -->
         <br>
         <br>
       <input type="submit" name="" value="Confirm">

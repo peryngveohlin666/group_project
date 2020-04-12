@@ -4,28 +4,28 @@
 
     <div class="card">
     <div class="card-body">
-        Period: {{ date_from }} - {{ date_to }}
+        Period: {{ date_from }} - {{ date_to }} <!-- The requested dates are captured in the date_from and date_to and these are displayed to the user  -->
 </div>
     <div class="card">
     {% for b in blanks_report  %}
         <div class="card">
         <div class="card-body">
-        {% if b.is_refunded %}
+        {% if b.is_refunded %}              <!-- Within one card, we iterate over the blanks report, and if the report (B) is refunded, then a message is displayed-->
             <div class="card-body bg-primary">
             This blank has been refunded
         </div>
         {% endif %}
     <br>
         Agent Username:
-       - {{ b.advisor }}
+       - {{ b.advisor }}        <!-- The agents username is displayed by iterating over all blank_reports-->
             <br>
             Agent Name:
- {{ b.advisor.first_name }}
+ {{ b.advisor.first_name }}    <!-- The agents first name, last name is also displayed-->
             <br>
         Agent Surname:
  {{ b.advisor.last_name }}
         </div>
-        <div class="card-body">
+        <div class="card-body">  <!-- The type is also displayed as well as the number-->
         Assigned:
             type:
        - {{ b.type }}
@@ -34,7 +34,7 @@
         </div>
 <div class="card-body">
         Price-With Discount-(in GBP)
-        {{ b.price }}
+        {{ b.price }}  <!--The relevant data is displayed for each section of the report -->
         </div>
         <div class="card-body">
         Discount Applied (in GBP):
@@ -43,23 +43,23 @@
          {% if b.blank_currency.rate is not None %}
              <div class="card-body">
              Local Currency(if paid in)
-             rate:
+             rate:                                  <!--If the user has paid the currency rate and type are displayed-->
              {{ b.blank_currency.rate }}
              {{ b.blank_currency.type }}
-        {{ b.price|mul:b.blank_currency.rate|div:100 }}</div>
+        {{ b.price|mul:b.blank_currency.rate|div:100 }}</div>   <!-- The correct currency rate is calculated and displayed -->
         {% endif %}
        <div class="card-body">
         VAT:
         {{ b.price|mul:0.2  }}
         </div>
-        <div class="card-body">
+        <div class="card-body">     <!--The correct prices are displayed from price after VAT, VAT and if it paid or not -->
         Price after VAT:
         {{ b.price|mul:0.2|add:b.price }}
         </div>
         <div class="card-body">
         Is paid? {{ b.is_paid }}
         </div>
-        {% if b.is_paid is True %}
+        {% if b.is_paid is True %} <!--If the customer has paid, the car number is stored -->
             <div class="card-body">
         Paid by card? {{ b.paid_by_card }}
             {% if b.paid_by_card is True %}
@@ -67,7 +67,8 @@
             {% endif %}
         </div>
         {% endif %}
-        {% if b.is_paid is not True %}
+        {% if b.is_paid is not True %} <!--IF the customer has not paid a payment due notification is stored and
+                                            The commission rate is calculated -->
             <div class="card-body">
         Payment Due {{ b.payment_due }}
         </div>
@@ -82,17 +83,17 @@
         <br>
 {% endfor %}
     </div>
-    Number Of Tickets: {{ num }}
+    Number Of Tickets: {{ num }} <!--Number of tickets is displayed -->
     <br>
-    Total Price (in GBP): {{ total_price }}
+    Total Price (in GBP): {{ total_price }} <!--The total price is displayed in the requested currencies -->
     <br>
     Total Price (in Local Currencies (these are already converted to gbp and added to the total price)): {{ total_price_local }}
     <br>
-    Total Price after the Taxes: {{ total_price|mul:0.2|add:total_price  }}
+    Total Price after the Taxes: {{ total_price|mul:0.2|add:total_price  }} <!--The price after taxes are created -->
     <br>
     Total Commissions: {{ total_commission }}
     <br>
-    Total Paid: {{ total_paid }}
+    Total Paid: {{ total_paid }}    <!--Commissions, total paid, and net amount are calculated and displayed -->
     <br>
     Net Amount: {{ total_paid|sub:total_commission }}
     </div>
