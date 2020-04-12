@@ -528,8 +528,8 @@ def create_gbp_report(request):
 @user_passes_test(lambda u: u.groups.filter(name='manager').exists())
 def view_gbp_report(request, number):
     report = gbp_report.objects.get(pk=number)
-    blanks420 = blank.objects.filter(date_sale__range=[report.date_from, report.date_to], is_sold=True, type__in=["420"])
-    blanks444 = blank.objects.filter(date_sale__range=[report.date_from, report.date_to], is_sold=True, type__in=["444"])
+    blanks420 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["420"])
+    blanks444 = blank.objects.filter(date__range=[report.date_from, report.date_to], is_sold=True, type__in=["444"])
     rates = currency.objects.filter(date__range=[report.date_from, report.date_to])
     #  for each rate in database calculate the count and sets them
     for r in rates:
