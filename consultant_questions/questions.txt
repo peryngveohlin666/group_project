@@ -1,8 +1,0 @@
-1. What does it mean by "Compacted version of waterfall process"?-Page 4
-2. What does it mean by "Each team must keep a file of minutes of all their meetings"?-Page 5
-3. What goes in our Individual Diary?
-4. What goes in the project binder, and how should it be organised?
-5. How does the testing report work? can we use scripting languages to generate data and input them to the system and expect an output etc.?
-6. There was a question about database technologies we are able to use in the lecture regarding mongodb is it clear if we are allowed to use mongodb?
-7. Should the layout/ structure of our deliverables follow the assessment criteria?
-8. Should the layout of our individual report be consistent across all team members?
